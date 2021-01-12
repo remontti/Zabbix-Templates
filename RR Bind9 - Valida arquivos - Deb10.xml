@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2021-01-12T19:59:03Z</date>
+    <groups>
+        <group>
+            <name>Templates RR</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>RR Bind9 - Valida arquivos - Deb10</template>
+            <name>RR Bind9 - Valida arquivos - Deb10</name>
+            <description>Debian 10</description>
+            <groups>
+                <group>
+                    <name>Templates RR</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Segurança</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>named.conf.local  $1</name>
+                    <key>vfs.file.cksum[/etc/bind/named.conf.local]</key>
+                    <delay>60s</delay>
+                    <history>1d</history>
+                    <trends>7d</trends>
+                    <applications>
+                        <application>
+                            <name>Segurança</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{diff(0)}&gt;0</expression>
+                            <name>named.conf.local foi alterado  em {HOST.NAME}</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>named.conf.options  $1</name>
+                    <key>vfs.file.cksum[/etc/bind/named.conf.options]</key>
+                    <delay>60s</delay>
+                    <history>1d</history>
+                    <trends>7d</trends>
+                    <applications>
+                        <application>
+                            <name>Segurança</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{diff(0)}&gt;0</expression>
+                            <name>named.conf.options foi alterado  em {HOST.NAME}</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>named.conf  $1</name>
+                    <key>vfs.file.cksum[/etc/bind/named.conf]</key>
+                    <delay>60s</delay>
+                    <history>1d</history>
+                    <trends>7d</trends>
+                    <applications>
+                        <application>
+                            <name>Segurança</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{diff(0)}&gt;0</expression>
+                            <name>named.conf foi alterado  em {HOST.NAME}</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>db.root  $1</name>
+                    <key>vfs.file.cksum[/usr/share/dns/root.hints]</key>
+                    <delay>60s</delay>
+                    <history>1d</history>
+                    <trends>7d</trends>
+                    <applications>
+                        <application>
+                            <name>Segurança</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{diff(0)}&gt;0</expression>
+                            <name>db.root foi alterado  em {HOST.NAME}</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>root.key  $1</name>
+                    <key>vfs.file.cksum[/usr/share/dns/root.key]</key>
+                    <delay>60s</delay>
+                    <history>1d</history>
+                    <trends>7d</trends>
+                    <applications>
+                        <application>
+                            <name>Segurança</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{diff(0)}&gt;0</expression>
+                            <name>root.key foi alterado  em {HOST.NAME}</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+            </items>
+        </template>
+    </templates>
+</zabbix_export>
