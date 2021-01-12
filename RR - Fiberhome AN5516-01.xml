@@ -1,0 +1,1317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2021-01-12T20:14:46Z</date>
+    <groups>
+        <group>
+            <name>Templates RR</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>RR - Fiberhome AN5516-01 - HSWA</template>
+            <name>RR - Fiberhome AN5516-01 - HSWA</name>
+            <groups>
+                <group>
+                    <name>Templates RR</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>HSWA Infos</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>CPU</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.5875.800.3.9.8.1.1.5.9</snmp_oid>
+                    <key>hswa.cpu</key>
+                    <history>15d</history>
+                    <trends>90d</trends>
+                    <value_type>FLOAT</value_type>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>HSWA Infos</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <params>0.01</params>
+                        </step>
+                    </preprocessing>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(5m)}&gt;60</expression>
+                            <name>CPU elevada</name>
+                            <priority>AVERAGE</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Versão do Hardware</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.4.1.5875.800.3.9.4.4.0</snmp_oid>
+                    <key>hswa.had.versao</key>
+                    <delay>1d</delay>
+                    <history>15d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>HSWA Infos</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{diff(0)}&gt;0</expression>
+                            <name>Versão de hardware modificado</name>
+                            <priority>AVERAGE</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Memoria</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.5875.800.3.9.8.1.1.6.9</snmp_oid>
+                    <key>hswa.mem</key>
+                    <history>15d</history>
+                    <trends>90d</trends>
+                    <value_type>FLOAT</value_type>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>HSWA Infos</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <params>0.01</params>
+                        </step>
+                    </preprocessing>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(5m)}&gt;75</expression>
+                            <name>Memoria elevada</name>
+                            <priority>AVERAGE</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Versao do Software</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.4.1.5875.800.3.9.4.3.0</snmp_oid>
+                    <key>hswa.soft.versao</key>
+                    <delay>1d</delay>
+                    <history>15d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>HSWA Infos</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{diff(0)}&gt;0</expression>
+                            <name>Versão de software modificado</name>
+                            <priority>AVERAGE</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Temperatura</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.4.1.5875.800.3.9.4.5.0</snmp_oid>
+                    <key>hswa.temperatura</key>
+                    <history>15d</history>
+                    <trends>90d</trends>
+                    <units>°C</units>
+                    <applications>
+                        <application>
+                            <name>HSWA Infos</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(5m)}&gt;55</expression>
+                            <name>Temperatura elevada</name>
+                            <priority>AVERAGE</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Uptime</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.1.3.0</snmp_oid>
+                    <key>hswa.uptime</key>
+                    <delay>30m</delay>
+                    <history>15d</history>
+                    <trends>90d</trends>
+                    <units>uptime</units>
+                    <applications>
+                        <application>
+                            <name>HSWA Infos</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <params>0.01</params>
+                        </step>
+                    </preprocessing>
+                    <triggers>
+                        <trigger>
+                            <expression>{change(0)}&lt;0</expression>
+                            <name>Reiniciou</name>
+                            <priority>AVERAGE</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+            </items>
+        </template>
+        <template>
+            <template>RR - Fiberhome AN5516-01 - HU1A</template>
+            <name>RR - Fiberhome AN5516-01 - HU1A</name>
+            <groups>
+                <group>
+                    <name>Templates RR</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Interfaces Slot19</name>
+                </application>
+                <application>
+                    <name>Interfaces Slot20</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>XFP 19/1 In</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.31.1.1.1.6.524288</snmp_oid>
+                    <key>in.19.1</key>
+                    <history>7d</history>
+                    <trends>120d</trends>
+                    <value_type>FLOAT</value_type>
+                    <units>bps</units>
+                    <applications>
+                        <application>
+                            <name>Interfaces Slot19</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>CHANGE_PER_SECOND</type>
+                            <params/>
+                        </step>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <params>8</params>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>SFP 19/2 In</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.31.1.1.1.6.1048576</snmp_oid>
+                    <key>in.19.2</key>
+                    <history>7d</history>
+                    <trends>120d</trends>
+                    <value_type>FLOAT</value_type>
+                    <units>bps</units>
+                    <applications>
+                        <application>
+                            <name>Interfaces Slot19</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>CHANGE_PER_SECOND</type>
+                            <params/>
+                        </step>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <params>8</params>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>SFP 19/3 In</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.31.1.1.1.6.1572864</snmp_oid>
+                    <key>in.19.3</key>
+                    <history>7d</history>
+                    <trends>120d</trends>
+                    <value_type>FLOAT</value_type>
+                    <units>bps</units>
+                    <applications>
+                        <application>
+                            <name>Interfaces Slot19</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>CHANGE_PER_SECOND</type>
+                            <params/>
+                        </step>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <params>8</params>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>SFP 19/4 In</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.31.1.1.1.6.2097152</snmp_oid>
+                    <key>in.19.4</key>
+                    <history>7d</history>
+                    <trends>120d</trends>
+                    <value_type>FLOAT</value_type>
+                    <units>bps</units>
+                    <applications>
+                        <application>
+                            <name>Interfaces Slot19</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>CHANGE_PER_SECOND</type>
+                            <params/>
+                        </step>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <params>8</params>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>SFP 19/5 In</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.31.1.1.1.6.2621440</snmp_oid>
+                    <key>in.19.5</key>
+                    <history>7d</history>
+                    <trends>120d</trends>
+                    <value_type>FLOAT</value_type>
+                    <units>bps</units>
+                    <applications>
+                        <application>
+                            <name>Interfaces Slot19</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>CHANGE_PER_SECOND</type>
+                            <params/>
+                        </step>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <params>8</params>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>XFP 20/1 In</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.31.1.1.1.6.5767168</snmp_oid>
+                    <key>in.20.1</key>
+                    <history>7d</history>
+                    <trends>120d</trends>
+                    <value_type>FLOAT</value_type>
+                    <units>bps</units>
+                    <applications>
+                        <application>
+                            <name>Interfaces Slot20</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>CHANGE_PER_SECOND</type>
+                            <params/>
+                        </step>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <params>8</params>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>SFP 20/2 In</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.31.1.1.1.6.6291456</snmp_oid>
+                    <key>in.20.2</key>
+                    <history>7d</history>
+                    <trends>120d</trends>
+                    <value_type>FLOAT</value_type>
+                    <units>bps</units>
+                    <applications>
+                        <application>
+                            <name>Interfaces Slot20</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>CHANGE_PER_SECOND</type>
+                            <params/>
+                        </step>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <params>8</params>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>SFP 20/3 In</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.31.1.1.1.6.6815744</snmp_oid>
+                    <key>in.20.3</key>
+                    <history>7d</history>
+                    <trends>120d</trends>
+                    <value_type>FLOAT</value_type>
+                    <units>bps</units>
+                    <applications>
+                        <application>
+                            <name>Interfaces Slot20</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>CHANGE_PER_SECOND</type>
+                            <params/>
+                        </step>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <params>8</params>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>SFP 20/4 In</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.31.1.1.1.6.7340032</snmp_oid>
+                    <key>in.20.4</key>
+                    <history>7d</history>
+                    <trends>120d</trends>
+                    <value_type>FLOAT</value_type>
+                    <units>bps</units>
+                    <applications>
+                        <application>
+                            <name>Interfaces Slot20</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>CHANGE_PER_SECOND</type>
+                            <params/>
+                        </step>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <params>8</params>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>SFP 20/5 In</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.31.1.1.1.6.7864320</snmp_oid>
+                    <key>in.20.5</key>
+                    <history>7d</history>
+                    <trends>120d</trends>
+                    <value_type>FLOAT</value_type>
+                    <units>bps</units>
+                    <applications>
+                        <application>
+                            <name>Interfaces Slot20</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>CHANGE_PER_SECOND</type>
+                            <params/>
+                        </step>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <params>8</params>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>XFP 19/1 Out</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.31.1.1.1.10.524288</snmp_oid>
+                    <key>out.19.1</key>
+                    <history>7d</history>
+                    <trends>120d</trends>
+                    <value_type>FLOAT</value_type>
+                    <units>bps</units>
+                    <applications>
+                        <application>
+                            <name>Interfaces Slot19</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>CHANGE_PER_SECOND</type>
+                            <params/>
+                        </step>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <params>8</params>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>SFP 19/2 Out</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.31.1.1.1.10.1048576</snmp_oid>
+                    <key>out.19.2</key>
+                    <history>7d</history>
+                    <trends>120d</trends>
+                    <value_type>FLOAT</value_type>
+                    <units>bps</units>
+                    <applications>
+                        <application>
+                            <name>Interfaces Slot19</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>CHANGE_PER_SECOND</type>
+                            <params/>
+                        </step>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <params>8</params>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>SFP 19/3 Out</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.31.1.1.1.10.1572864</snmp_oid>
+                    <key>out.19.3</key>
+                    <history>7d</history>
+                    <trends>120d</trends>
+                    <value_type>FLOAT</value_type>
+                    <units>bps</units>
+                    <applications>
+                        <application>
+                            <name>Interfaces Slot19</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>CHANGE_PER_SECOND</type>
+                            <params/>
+                        </step>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <params>8</params>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>SFP 19/4 Out</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.31.1.1.1.10.2097152</snmp_oid>
+                    <key>out.19.4</key>
+                    <history>7d</history>
+                    <trends>120d</trends>
+                    <value_type>FLOAT</value_type>
+                    <units>bps</units>
+                    <applications>
+                        <application>
+                            <name>Interfaces Slot19</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>CHANGE_PER_SECOND</type>
+                            <params/>
+                        </step>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <params>8</params>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>SFP 19/5 Out</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.31.1.1.1.10.2621440</snmp_oid>
+                    <key>out.19.5</key>
+                    <history>7d</history>
+                    <trends>120d</trends>
+                    <value_type>FLOAT</value_type>
+                    <units>bps</units>
+                    <applications>
+                        <application>
+                            <name>Interfaces Slot19</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>CHANGE_PER_SECOND</type>
+                            <params/>
+                        </step>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <params>8</params>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>XFP 20/1 Out</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.31.1.1.1.10.5767168</snmp_oid>
+                    <key>out.20.1</key>
+                    <history>7d</history>
+                    <trends>120d</trends>
+                    <value_type>FLOAT</value_type>
+                    <units>bps</units>
+                    <applications>
+                        <application>
+                            <name>Interfaces Slot20</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>CHANGE_PER_SECOND</type>
+                            <params/>
+                        </step>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <params>8</params>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>SFP 20/2 Out</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.31.1.1.1.10.6291456</snmp_oid>
+                    <key>out.20.2</key>
+                    <history>7d</history>
+                    <trends>120d</trends>
+                    <value_type>FLOAT</value_type>
+                    <units>bps</units>
+                    <applications>
+                        <application>
+                            <name>Interfaces Slot20</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>CHANGE_PER_SECOND</type>
+                            <params/>
+                        </step>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <params>8</params>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>SFP 20/3 Out</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.31.1.1.1.10.6815744</snmp_oid>
+                    <key>out.20.3</key>
+                    <history>7d</history>
+                    <trends>120d</trends>
+                    <value_type>FLOAT</value_type>
+                    <units>bps</units>
+                    <applications>
+                        <application>
+                            <name>Interfaces Slot20</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>CHANGE_PER_SECOND</type>
+                            <params/>
+                        </step>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <params>8</params>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>SFP 20/4 Out</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.31.1.1.1.10.7340032</snmp_oid>
+                    <key>out.20.4</key>
+                    <history>7d</history>
+                    <trends>120d</trends>
+                    <value_type>FLOAT</value_type>
+                    <units>bps</units>
+                    <applications>
+                        <application>
+                            <name>Interfaces Slot20</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>CHANGE_PER_SECOND</type>
+                            <params/>
+                        </step>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <params>8</params>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>SFP 20/5 Out</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.31.1.1.1.10.7864320</snmp_oid>
+                    <key>out.20.5</key>
+                    <history>7d</history>
+                    <trends>120d</trends>
+                    <value_type>FLOAT</value_type>
+                    <units>bps</units>
+                    <applications>
+                        <application>
+                            <name>Interfaces Slot20</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>CHANGE_PER_SECOND</type>
+                            <params/>
+                        </step>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <params>8</params>
+                        </step>
+                    </preprocessing>
+                </item>
+            </items>
+        </template>
+        <template>
+            <template>RR - Fiberhome AN5516-01 - Info ONUs por PON</template>
+            <name>RR - Fiberhome AN5516-01 - Info ONUs por PON</name>
+            <description>Acesse por telnet&#13;
+# cd device&#13;
+# set mib performance switch enable</description>
+            <groups>
+                <group>
+                    <name>Templates RR</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>ONU PON</name>
+                </application>
+            </applications>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>Tabela de ONUs por PON</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#SNMPVALUE},.1.3.6.1.4.1.5875.800.3.9.3.3.1.2]</snmp_oid>
+                    <key>tabela.onus.pon</key>
+                    <delay>10m;1m/1-7,12:00-12:01</delay>
+                    <lifetime>1h</lifetime>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>ONU RX Power {#SNMPVALUE}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.5875.800.3.9.3.3.1.6.{#SNMPINDEX}</snmp_oid>
+                            <key>pon.rx.onu[{#SNMPINDEX}]</key>
+                            <delay>10m</delay>
+                            <history>1w</history>
+                            <trends>60d</trends>
+                            <value_type>FLOAT</value_type>
+                            <units>dBm</units>
+                            <applications>
+                                <application>
+                                    <name>ONU PON</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>0.01</params>
+                                </step>
+                            </preprocessing>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>({TRIGGER.VALUE}=0 and {avg(10m)}&lt;-29) or&#13;
+({TRIGGER.VALUE}=1 and {avg(10m)}&lt;-29)</expression>
+                                    <name>ONU {#SNMPVALUE}  pouca potencia</name>
+                                    <status>DISABLED</status>
+                                    <discover>NO_DISCOVER</discover>
+                                    <priority>INFO</priority>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <expression>({TRIGGER.VALUE}=0 and {avg(10m)}&lt;-29) or&#13;
+({TRIGGER.VALUE}=1 and {avg(10m)}&lt;-30)</expression>
+                                    <name>ONU {#SNMPVALUE}  pouca potencia</name>
+                                    <priority>INFO</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>ONU TX Power {#SNMPVALUE}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.5875.800.3.9.3.3.1.7.{#SNMPINDEX}</snmp_oid>
+                            <key>pon.tx.onu[{#SNMPINDEX}]</key>
+                            <delay>10m</delay>
+                            <history>1w</history>
+                            <trends>60d</trends>
+                            <status>DISABLED</status>
+                            <discover>NO_DISCOVER</discover>
+                            <value_type>FLOAT</value_type>
+                            <units>dBm</units>
+                            <applications>
+                                <application>
+                                    <name>ONU PON</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>0.01</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                    </item_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <name>Sinal ONU {#SNMPVALUE}</name>
+                            <graph_items>
+                                <graph_item>
+                                    <color>005500</color>
+                                    <item>
+                                        <host>RR - Fiberhome AN5516-01 - Info ONUs por PON</host>
+                                        <key>pon.tx.onu[{#SNMPINDEX}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <color>DD0000</color>
+                                    <item>
+                                        <host>RR - Fiberhome AN5516-01 - Info ONUs por PON</host>
+                                        <key>pon.rx.onu[{#SNMPINDEX}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+        </template>
+        <template>
+            <template>RR - Fiberhome AN5516-01 - Info Placas</template>
+            <name>RR - Fiberhome AN5516-01 - Info Placas</name>
+            <groups>
+                <group>
+                    <name>Templates RR</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>CPU</name>
+                </application>
+                <application>
+                    <name>Info Placa</name>
+                </application>
+                <application>
+                    <name>Memoria</name>
+                </application>
+                <application>
+                    <name>PONs Clientes</name>
+                </application>
+                <application>
+                    <name>PONs Info</name>
+                </application>
+                <application>
+                    <name>Status Placa</name>
+                </application>
+            </applications>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>Tabela de Placas</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#SNMPVALUE},.1.3.6.1.4.1.5875.800.3.9.2.1.1.2]</snmp_oid>
+                    <key>card.info.discovery</key>
+                    <delay>10m</delay>
+                    <lifetime>60m</lifetime>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Slot {#SNMPINDEX} CPU</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.5875.800.3.9.2.1.1.8.{#SNMPINDEX}</snmp_oid>
+                            <key>cpu.util.[{#SNMPINDEX}]</key>
+                            <history>15d</history>
+                            <trends>90d</trends>
+                            <value_type>FLOAT</value_type>
+                            <units>%</units>
+                            <applications>
+                                <application>
+                                    <name>CPU</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>0.01</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Slot {#SNMPINDEX} Mem</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.5875.800.3.9.2.1.1.9.{#SNMPINDEX}</snmp_oid>
+                            <key>memoria.util.[{#SNMPINDEX}]</key>
+                            <history>15d</history>
+                            <trends>90d</trends>
+                            <value_type>FLOAT</value_type>
+                            <units>%</units>
+                            <applications>
+                                <application>
+                                    <name>Memoria</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>0.01</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Slot {#SNMPINDEX} Modelo da placa</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.5875.800.3.9.2.1.1.3.{#SNMPINDEX}</snmp_oid>
+                            <key>modelo.placa.[{#SNMPINDEX}]</key>
+                            <delay>1d</delay>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <applications>
+                                <application>
+                                    <name>Info Placa</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Slot {#SNMPINDEX} N. de portas</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.5875.800.3.9.2.1.1.6.{#SNMPINDEX}</snmp_oid>
+                            <key>num.portas.[{#SNMPINDEX}]</key>
+                            <delay>1d</delay>
+                            <history>15d</history>
+                            <trends>90d</trends>
+                            <applications>
+                                <application>
+                                    <name>Info Placa</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Slot {#SNMPINDEX} Versao do software da placa</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.5875.800.3.9.2.1.1.4.{#SNMPINDEX}</snmp_oid>
+                            <key>placa.soft.v.[{#SNMPINDEX}]</key>
+                            <delay>1d</delay>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <applications>
+                                <application>
+                                    <name>Info Placa</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Slot {#SNMPINDEX} Status</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.5875.800.3.9.2.1.1.5.{#SNMPINDEX}</snmp_oid>
+                            <key>status.placa.[{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
+                            <history>15d</history>
+                            <trends>90d</trends>
+                            <description>1: Conectada&#13;
+2: Desconectada</description>
+                            <applications>
+                                <application>
+                                    <name>Status Placa</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Slot {#SNMPINDEX} Tipo de placa</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.5875.800.3.9.2.1.1.2.{#SNMPINDEX}</snmp_oid>
+                            <key>tipo.placa.[{#SNMPINDEX}]</key>
+                            <delay>1d</delay>
+                            <history>15d</history>
+                            <trends>90d</trends>
+                            <applications>
+                                <application>
+                                    <name>Info Placa</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                    </item_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <name>Slot {#SNMPINDEX}: CPU Utilizada</name>
+                            <graph_items>
+                                <graph_item>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>673AB7</color>
+                                    <yaxisside>RIGHT</yaxisside>
+                                    <item>
+                                        <host>RR - Fiberhome AN5516-01 - Info Placas</host>
+                                        <key>cpu.util.[{#SNMPINDEX}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                        <graph_prototype>
+                            <name>Slot {#SNMPINDEX}: Memoria Utilizada</name>
+                            <graph_items>
+                                <graph_item>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>FF8A65</color>
+                                    <yaxisside>RIGHT</yaxisside>
+                                    <item>
+                                        <host>RR - Fiberhome AN5516-01 - Info Placas</host>
+                                        <key>memoria.util.[{#SNMPINDEX}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Tabela de PONs</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#SNMPVALUE},.1.3.6.1.4.1.5875.800.3.9.3.4.1.3]</snmp_oid>
+                    <key>pons.info.discovery</key>
+                    <delay>10m</delay>
+                    <lifetime>60m</lifetime>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Clientes {#SNMPVALUE}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>iso.3.6.1.4.1.5875.800.3.9.3.4.1.12.{#SNMPINDEX}</snmp_oid>
+                            <key>pon.clientes.[{#SNMPINDEX}]</key>
+                            <delay>10m</delay>
+                            <history>7d</history>
+                            <trends>90d</trends>
+                            <applications>
+                                <application>
+                                    <name>PONs Clientes</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Status {#SNMPVALUE}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>iso.3.6.1.2.1.2.2.1.8.{#SNMPINDEX}</snmp_oid>
+                            <key>pon.status.[{#SNMPINDEX}]</key>
+                            <delay>10m</delay>
+                            <history>7d</history>
+                            <trends>90d</trends>
+                            <description>1 = up&#13;
+2 = down</description>
+                            <applications>
+                                <application>
+                                    <name>PONs Info</name>
+                                </application>
+                            </applications>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last()}=2</expression>
+                                    <name>{#SNMPVALUE} Down</name>
+                                    <priority>INFO</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                    </item_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <name>Clientes {#SNMPVALUE}</name>
+                            <graph_items>
+                                <graph_item>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>199C0D</color>
+                                    <item>
+                                        <host>RR - Fiberhome AN5516-01 - Info Placas</host>
+                                        <key>pon.clientes.[{#SNMPINDEX}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+        </template>
+    </templates>
+    <graphs>
+        <graph>
+            <name>CPU / Memoria</name>
+            <graph_items>
+                <graph_item>
+                    <drawtype>BOLD_LINE</drawtype>
+                    <color>0040FF</color>
+                    <item>
+                        <host>RR - Fiberhome AN5516-01 - HSWA</host>
+                        <key>hswa.cpu</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>BOLD_LINE</drawtype>
+                    <color>8F2809</color>
+                    <yaxisside>RIGHT</yaxisside>
+                    <item>
+                        <host>RR - Fiberhome AN5516-01 - HSWA</host>
+                        <key>hswa.mem</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>SFP 19/2</name>
+            <show_work_period>NO</show_work_period>
+            <graph_items>
+                <graph_item>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>00CC00</color>
+                    <item>
+                        <host>RR - Fiberhome AN5516-01 - HU1A</host>
+                        <key>in.19.2</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>0000CC</color>
+                    <item>
+                        <host>RR - Fiberhome AN5516-01 - HU1A</host>
+                        <key>out.19.2</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>SFP 19/3</name>
+            <graph_items>
+                <graph_item>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>00CC00</color>
+                    <item>
+                        <host>RR - Fiberhome AN5516-01 - HU1A</host>
+                        <key>in.19.3</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>0000CC</color>
+                    <item>
+                        <host>RR - Fiberhome AN5516-01 - HU1A</host>
+                        <key>out.19.3</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>SFP 19/4</name>
+            <graph_items>
+                <graph_item>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>009900</color>
+                    <item>
+                        <host>RR - Fiberhome AN5516-01 - HU1A</host>
+                        <key>in.19.4</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>000099</color>
+                    <item>
+                        <host>RR - Fiberhome AN5516-01 - HU1A</host>
+                        <key>out.19.4</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>SFP 19/5</name>
+            <graph_items>
+                <graph_item>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>00BB00</color>
+                    <item>
+                        <host>RR - Fiberhome AN5516-01 - HU1A</host>
+                        <key>in.19.5</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>0000AA</color>
+                    <item>
+                        <host>RR - Fiberhome AN5516-01 - HU1A</host>
+                        <key>out.19.5</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>SFP 20/2</name>
+            <graph_items>
+                <graph_item>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>00BB00</color>
+                    <item>
+                        <host>RR - Fiberhome AN5516-01 - HU1A</host>
+                        <key>in.20.2</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>0000BB</color>
+                    <item>
+                        <host>RR - Fiberhome AN5516-01 - HU1A</host>
+                        <key>out.20.2</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>SFP 20/3</name>
+            <graph_items>
+                <graph_item>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>00C800</color>
+                    <item>
+                        <host>RR - Fiberhome AN5516-01 - HU1A</host>
+                        <key>in.20.3</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>0000CC</color>
+                    <item>
+                        <host>RR - Fiberhome AN5516-01 - HU1A</host>
+                        <key>out.20.3</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>SFP 20/4</name>
+            <graph_items>
+                <graph_item>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>00C800</color>
+                    <item>
+                        <host>RR - Fiberhome AN5516-01 - HU1A</host>
+                        <key>in.20.4</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>0000AA</color>
+                    <item>
+                        <host>RR - Fiberhome AN5516-01 - HU1A</host>
+                        <key>out.20.4</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>SFP 20/5</name>
+            <graph_items>
+                <graph_item>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>00BB00</color>
+                    <item>
+                        <host>RR - Fiberhome AN5516-01 - HU1A</host>
+                        <key>in.20.5</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>0000CC</color>
+                    <item>
+                        <host>RR - Fiberhome AN5516-01 - HU1A</host>
+                        <key>out.20.5</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>Temperatura HSWA</name>
+            <graph_items>
+                <graph_item>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>039BE5</color>
+                    <yaxisside>RIGHT</yaxisside>
+                    <item>
+                        <host>RR - Fiberhome AN5516-01 - HSWA</host>
+                        <key>hswa.temperatura</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>XFP 19/1</name>
+            <show_work_period>NO</show_work_period>
+            <graph_items>
+                <graph_item>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>00DD00</color>
+                    <item>
+                        <host>RR - Fiberhome AN5516-01 - HU1A</host>
+                        <key>in.19.1</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>0000DD</color>
+                    <item>
+                        <host>RR - Fiberhome AN5516-01 - HU1A</host>
+                        <key>out.19.1</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>XFP 20/1</name>
+            <graph_items>
+                <graph_item>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>00AA00</color>
+                    <item>
+                        <host>RR - Fiberhome AN5516-01 - HU1A</host>
+                        <key>in.20.1</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>0000CC</color>
+                    <item>
+                        <host>RR - Fiberhome AN5516-01 - HU1A</host>
+                        <key>out.20.1</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+    </graphs>
+</zabbix_export>
