@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2021-01-12T20:15:34Z</date>
+    <groups>
+        <group>
+            <name>Templates RR</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>RR Bind9 - Servico</template>
+            <name>RR Bind9 - Servico</name>
+            <groups>
+                <group>
+                    <name>Templates RR</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Serviço de DNS</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>Status</name>
+                    <key>net.udp.listen[53]</key>
+                    <history>1w</history>
+                    <applications>
+                        <application>
+                            <name>Serviço de DNS</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>Service state</name>
+                    </valuemap>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{sum(60)}=0</expression>
+                            <name>DNS está PARADO</name>
+                            <priority>DISASTER</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+            </items>
+        </template>
+        <template>
+            <template>RR FreeRadius Servico</template>
+            <name>RR FreeRadius Servico</name>
+            <groups>
+                <group>
+                    <name>Templates RR</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Serviço FreeRadius</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>Status</name>
+                    <key>net.udp.listen[1812]</key>
+                    <history>1w</history>
+                    <applications>
+                        <application>
+                            <name>Serviço FreeRadius</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>Service state</name>
+                    </valuemap>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{sum(60)}=0</expression>
+                            <name>FreeRadius está PARADO</name>
+                            <priority>DISASTER</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+            </items>
+        </template>
+        <template>
+            <template>RR HTTP Servico</template>
+            <name>RR HTTP Servico</name>
+            <groups>
+                <group>
+                    <name>Templates RR</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Serviço HTTP</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>Status</name>
+                    <type>SIMPLE</type>
+                    <key>net.tcp.service[http]</key>
+                    <delay>30s</delay>
+                    <history>1w</history>
+                    <applications>
+                        <application>
+                            <name>Serviço HTTP</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>Service state</name>
+                    </valuemap>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{max(#3)}=0</expression>
+                            <name>HTTP está PARADO</name>
+                            <priority>DISASTER</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+            </items>
+        </template>
+        <template>
+            <template>RR Krill - Servico</template>
+            <name>RR Krill - Servico</name>
+            <groups>
+                <group>
+                    <name>Templates RR</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>RPKI</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>Status</name>
+                    <key>net.tcp.listen[3000]</key>
+                    <history>1w</history>
+                    <applications>
+                        <application>
+                            <name>RPKI</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>Service state</name>
+                    </valuemap>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{sum(60)}=0</expression>
+                            <name>Krill está parado</name>
+                            <priority>DISASTER</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+            </items>
+        </template>
+        <template>
+            <template>RR SMTP Servico</template>
+            <name>RR SMTP Servico</name>
+            <groups>
+                <group>
+                    <name>Templates RR</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Serviço SMTP</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>Status</name>
+                    <key>net.tcp.listen[25]</key>
+                    <history>3d</history>
+                    <trends>30d</trends>
+                    <applications>
+                        <application>
+                            <name>Serviço SMTP</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>Service state</name>
+                    </valuemap>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{max(#3)}=0</expression>
+                            <name>SMTP está PARADO</name>
+                            <priority>DISASTER</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+            </items>
+        </template>
+        <template>
+            <template>RR SpeedTest Servico</template>
+            <name>RR SpeedTest Servico</name>
+            <groups>
+                <group>
+                    <name>Templates RR</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Serviço SpeedTest</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>Status</name>
+                    <key>net.tcp.listen[8080]</key>
+                    <history>1w</history>
+                    <applications>
+                        <application>
+                            <name>Serviço SpeedTest</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>Service state</name>
+                    </valuemap>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{sum(60)}=0</expression>
+                            <name>SpeedTest está PARADO</name>
+                            <priority>DISASTER</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+            </items>
+        </template>
+    </templates>
+    <value_maps>
+        <value_map>
+            <name>Service state</name>
+            <mappings>
+                <mapping>
+                    <value>0</value>
+                    <newvalue>Down</newvalue>
+                </mapping>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>Up</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+    </value_maps>
+</zabbix_export>
