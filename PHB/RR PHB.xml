@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2021-05-12T20:01:58Z</date>
+    <groups>
+        <group>
+            <name>Templates RR</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>RR Phb USCC SNMP</template>
+            <name>RR Phb USCC SNMP</name>
+            <description>http://www.phb.com.br</description>
+            <groups>
+                <group>
+                    <name>Templates RR</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Infos</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>Temperatura Externa</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.4.1.28636.2.7</snmp_oid>
+                    <key>phb.temp.ext</key>
+                    <history>1w</history>
+                    <trends>90d</trends>
+                    <units>ºC</units>
+                    <applications>
+                        <application>
+                            <name>Infos</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>Tensão de Entrada</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.4.1.28636.2.2</snmp_oid>
+                    <key>phb.tensao.entrada</key>
+                    <history>1w</history>
+                    <trends>90d</trends>
+                    <value_type>FLOAT</value_type>
+                    <units>V</units>
+                    <applications>
+                        <application>
+                            <name>Infos</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>Tensão de Saída</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.4.1.28636.2.1</snmp_oid>
+                    <key>phb.tensao.saida</key>
+                    <history>1w</history>
+                    <trends>90d</trends>
+                    <value_type>FLOAT</value_type>
+                    <units>V</units>
+                    <applications>
+                        <application>
+                            <name>Infos</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                </item>
+            </items>
+        </template>
+    </templates>
+    <graphs>
+        <graph>
+            <name>Temperatura Externa</name>
+            <graph_items>
+                <graph_item>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>00E676</color>
+                    <item>
+                        <host>RR Phb USCC SNMP</host>
+                        <key>phb.temp.ext</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>Tensão de Entrada</name>
+            <graph_items>
+                <graph_item>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>3949AB</color>
+                    <item>
+                        <host>RR Phb USCC SNMP</host>
+                        <key>phb.tensao.entrada</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>Tensão de Saída</name>
+            <graph_items>
+                <graph_item>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>C62828</color>
+                    <item>
+                        <host>RR Phb USCC SNMP</host>
+                        <key>phb.tensao.saida</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+    </graphs>
+</zabbix_export>

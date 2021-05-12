@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2021-05-12T19:50:30Z</date>
+    <groups>
+        <group>
+            <name>Templates RR</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>RR ICMP Conectividade</template>
+            <name>RR ICMP Conectividade</name>
+            <groups>
+                <group>
+                    <name>Templates RR</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Conectividade</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>Perda de Pacotes</name>
+                    <type>SIMPLE</type>
+                    <key>icmppingloss[,{$PINGL},,,]</key>
+                    <history>1w</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>Conectividade</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{last(#1)}&gt;{$PERDA.PACOTES} and {min(120)}&gt;{$PERDA.PACOTES}</expression>
+                            <name>Perda de {ITEM.LASTVALUE} de pacotes em {HOSTNAME}</name>
+                            <priority>AVERAGE</priority>
+                            <dependencies>
+                                <dependency>
+                                    <name>{HOSTNAME} Inacessivel</name>
+                                    <expression>{RR ICMP Conectividade:icmpping[,{$PING},,,].last(#1)}=0 and {RR ICMP Conectividade:icmpping[,{$PING},,,].sum(#2)}=0</expression>
+                                </dependency>
+                            </dependencies>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Tempo de resposta</name>
+                    <type>SIMPLE</type>
+                    <key>icmppingsec[,{$PINGS},,,]</key>
+                    <history>1w</history>
+                    <trends>90d</trends>
+                    <value_type>FLOAT</value_type>
+                    <units>ms</units>
+                    <applications>
+                        <application>
+                            <name>Conectividade</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <params>1000</params>
+                        </step>
+                    </preprocessing>
+                    <triggers>
+                        <trigger>
+                            <expression>{last(0)}&gt;{$TEMPO.RESP} and {min(120)}&gt;{$TEMPO.RESP}</expression>
+                            <name>Tempo de Resposta alto em {HOSTNAME} : {ITEM.LASTVALUE}</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Ping Simples</name>
+                    <type>SIMPLE</type>
+                    <key>icmpping[,{$PING},,,]</key>
+                    <history>1w</history>
+                    <trends>90d</trends>
+                    <applications>
+                        <application>
+                            <name>Conectividade</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{last(#1)}=0 and {sum(#2)}=0</expression>
+                            <name>{HOSTNAME} Inacessivel</name>
+                            <priority>HIGH</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+            </items>
+            <macros>
+                <macro>
+                    <macro>{$PERDA.PACOTES}</macro>
+                    <value>30</value>
+                </macro>
+                <macro>
+                    <macro>{$PING}</macro>
+                    <value>10</value>
+                </macro>
+                <macro>
+                    <macro>{$PINGL}</macro>
+                    <value>3</value>
+                </macro>
+                <macro>
+                    <macro>{$PINGS}</macro>
+                    <value>3</value>
+                </macro>
+                <macro>
+                    <macro>{$TEMPO.RESP}</macro>
+                    <value>60</value>
+                </macro>
+            </macros>
+        </template>
+        <template>
+            <template>RR ICMP Ping</template>
+            <name>RR ICMP Ping</name>
+            <groups>
+                <group>
+                    <name>Templates RR</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>ICMP</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>Status</name>
+                    <type>SIMPLE</type>
+                    <key>icmpping</key>
+                    <history>1w</history>
+                    <trends>90d</trends>
+                    <applications>
+                        <application>
+                            <name>ICMP</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>Status ICMP</name>
+                    </valuemap>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{max(#3)}=0</expression>
+                            <name>ICMP Timeout</name>
+                            <priority>DISASTER</priority>
+                            <description>{HOST.NAME}: TIMEOUT</description>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Latência</name>
+                    <type>SIMPLE</type>
+                    <key>icmppingsec</key>
+                    <history>1w</history>
+                    <trends>90d</trends>
+                    <value_type>FLOAT</value_type>
+                    <units>s</units>
+                    <applications>
+                        <application>
+                            <name>ICMP</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(4m)}&gt;0.12</expression>
+                            <name>Latência acima de 120ms</name>
+                            <priority>AVERAGE</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+            </items>
+        </template>
+        <template>
+            <template>RR ICMP Ping 100ms</template>
+            <name>RR ICMP Ping 100ms</name>
+            <groups>
+                <group>
+                    <name>Templates RR</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>ICMP</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>Status</name>
+                    <type>SIMPLE</type>
+                    <key>icmpping</key>
+                    <history>1w</history>
+                    <trends>90d</trends>
+                    <applications>
+                        <application>
+                            <name>ICMP</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>Status ICMP</name>
+                    </valuemap>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{max(#3)}=0</expression>
+                            <name>ICMP Timeout</name>
+                            <priority>DISASTER</priority>
+                            <description>{HOST.NAME}: TIMEOUT</description>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Latência</name>
+                    <type>SIMPLE</type>
+                    <key>icmppingsec</key>
+                    <history>1w</history>
+                    <trends>90d</trends>
+                    <value_type>FLOAT</value_type>
+                    <units>s</units>
+                    <applications>
+                        <application>
+                            <name>ICMP</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(5m)}&gt;0.1</expression>
+                            <name>Latência +Q 100ms (5min)</name>
+                            <priority>AVERAGE</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+            </items>
+        </template>
+        <template>
+            <template>RR ICMP Ping Perda</template>
+            <name>RR ICMP Ping Perda</name>
+            <groups>
+                <group>
+                    <name>Templates RR</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>ICMP</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>Perda</name>
+                    <type>SIMPLE</type>
+                    <key>icmppingloss</key>
+                    <history>1w</history>
+                    <trends>90d</trends>
+                    <value_type>FLOAT</value_type>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>ICMP</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{min(5m)}&gt;20</expression>
+                            <name>Perda de pacotes muito alta</name>
+                            <priority>HIGH</priority>
+                            <description>{HOST.NAME}: TIMEOUT</description>
+                        </trigger>
+                    </triggers>
+                </item>
+            </items>
+        </template>
+        <template>
+            <template>RR ICMP Ping Perda 50 porc</template>
+            <name>RR ICMP Ping Perda 50 porc</name>
+            <groups>
+                <group>
+                    <name>Templates RR</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>ICMP</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>Perda</name>
+                    <type>SIMPLE</type>
+                    <key>icmppingloss</key>
+                    <history>1w</history>
+                    <trends>90d</trends>
+                    <value_type>FLOAT</value_type>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>ICMP</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{min(2m)}&gt;50</expression>
+                            <name>Perda de pacotes +Q 50%</name>
+                            <priority>HIGH</priority>
+                            <description>{HOST.NAME}: TIMEOUT</description>
+                        </trigger>
+                    </triggers>
+                </item>
+            </items>
+        </template>
+    </templates>
+    <graphs>
+        <graph>
+            <name>ICMP Latência</name>
+            <height>350</height>
+            <graph_items>
+                <graph_item>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>FFFF99</color>
+                    <calc_fnc>ALL</calc_fnc>
+                    <item>
+                        <host>RR ICMP Ping</host>
+                        <key>icmppingsec</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>ICMP Latência</name>
+            <height>350</height>
+            <graph_items>
+                <graph_item>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>FFFF99</color>
+                    <calc_fnc>ALL</calc_fnc>
+                    <item>
+                        <host>RR ICMP Ping 100ms</host>
+                        <key>icmppingsec</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>ICMP Perda</name>
+            <height>300</height>
+            <graph_items>
+                <graph_item>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>EE0000</color>
+                    <item>
+                        <host>RR ICMP Ping Perda</host>
+                        <key>icmppingloss</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>ICMP Perda</name>
+            <height>300</height>
+            <graph_items>
+                <graph_item>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>EE0000</color>
+                    <item>
+                        <host>RR ICMP Ping Perda 50 porc</host>
+                        <key>icmppingloss</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>Tempo de Resposta x Perda de Pacotes</name>
+            <graph_items>
+                <graph_item>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>D32F2F</color>
+                    <item>
+                        <host>RR ICMP Conectividade</host>
+                        <key>icmppingloss[,{$PINGL},,,]</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>B0BEC5</color>
+                    <yaxisside>RIGHT</yaxisside>
+                    <item>
+                        <host>RR ICMP Conectividade</host>
+                        <key>icmppingsec[,{$PINGS},,,]</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+    </graphs>
+    <value_maps>
+        <value_map>
+            <name>Status ICMP</name>
+            <mappings>
+                <mapping>
+                    <value>0</value>
+                    <newvalue>Offline</newvalue>
+                </mapping>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>Online</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+    </value_maps>
+</zabbix_export>

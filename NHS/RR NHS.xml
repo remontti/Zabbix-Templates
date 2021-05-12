@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2021-05-12T20:00:00Z</date>
+    <groups>
+        <group>
+            <name>Templates RR</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>RR UPS NHS</template>
+            <name>RR UPS NHS</name>
+            <groups>
+                <group>
+                    <name>Templates RR</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Informações</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>Carga das baterias</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.33.1.2.4.0</snmp_oid>
+                    <key>ups.charge.battery</key>
+                    <delay>5m</delay>
+                    <history>1w</history>
+                    <trends>26w</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>Informações</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(4m)}&lt;15</expression>
+                            <name>Carga das baterias inferior a 15%</name>
+                            <priority>DISASTER</priority>
+                        </trigger>
+                        <trigger>
+                            <expression>{avg(4m)}&lt;30</expression>
+                            <name>Carga das baterias inferior a 30%</name>
+                            <priority>HIGH</priority>
+                        </trigger>
+                        <trigger>
+                            <expression>{avg(4m)}&lt;50</expression>
+                            <name>Carga das baterias inferior a 50%</name>
+                            <priority>AVERAGE</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Tempo para descarga</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.33.1.7.5.0</snmp_oid>
+                    <key>ups.end.time.battery</key>
+                    <delay>5m</delay>
+                    <history>1w</history>
+                    <trends>26w</trends>
+                    <units>uptime</units>
+                    <applications>
+                        <application>
+                            <name>Informações</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <params>0.01</params>
+                        </step>
+                    </preprocessing>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(1m)}&gt;0</expression>
+                            <name>Tempo para descarga</name>
+                            <priority>HIGH</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Versão firmware</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.3.6.1.2.1.33.1.1.3.0</snmp_oid>
+                    <key>ups.firmware.version</key>
+                    <delay>5m</delay>
+                    <history>1w</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>Informações</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{diff(0)}&gt;0</expression>
+                            <name>Firmware modificado</name>
+                            <priority>INFO</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Potência máxima</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.33.1.9.6.0</snmp_oid>
+                    <key>ups.maximum.power</key>
+                    <delay>5m</delay>
+                    <history>1w</history>
+                    <trends>26w</trends>
+                    <value_type>FLOAT</value_type>
+                    <units>w</units>
+                    <applications>
+                        <application>
+                            <name>Informações</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Potência utilizada</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.33.1.4.4.1.4.1</snmp_oid>
+                    <key>ups.output.power</key>
+                    <delay>5m</delay>
+                    <history>1w</history>
+                    <trends>26w</trends>
+                    <value_type>FLOAT</value_type>
+                    <units>w</units>
+                    <applications>
+                        <application>
+                            <name>Informações</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Uso da potência</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.33.1.4.4.1.5.1</snmp_oid>
+                    <key>ups.potency.output</key>
+                    <delay>5m</delay>
+                    <history>1w</history>
+                    <trends>26w</trends>
+                    <value_type>FLOAT</value_type>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>Informações</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(4m)}&gt;70</expression>
+                            <name>Potência (em watts) acima de 70%</name>
+                            <priority>AVERAGE</priority>
+                        </trigger>
+                        <trigger>
+                            <expression>{avg(4m)}&gt;90</expression>
+                            <name>Potência (em watts) acima de 90%</name>
+                            <priority>HIGH</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Temperatura</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.33.1.2.7.0</snmp_oid>
+                    <key>ups.temperature</key>
+                    <delay>5m</delay>
+                    <history>1w</history>
+                    <trends>26w</trends>
+                    <units>ºC</units>
+                    <applications>
+                        <application>
+                            <name>Informações</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(5m)}&gt;40</expression>
+                            <name>Temperatura acima de 40ºc</name>
+                            <priority>AVERAGE</priority>
+                        </trigger>
+                        <trigger>
+                            <expression>{avg(5m)}&gt;50</expression>
+                            <name>Temperatura acima de 50ºc</name>
+                            <priority>HIGH</priority>
+                        </trigger>
+                        <trigger>
+                            <expression>{avg(5m)}&gt;55</expression>
+                            <name>Temperatura acima de 55ºc</name>
+                            <priority>DISASTER</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Tensão entrada</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.33.1.3.3.1.3.1</snmp_oid>
+                    <key>ups.tension.in</key>
+                    <delay>5m</delay>
+                    <history>1w</history>
+                    <trends>26w</trends>
+                    <units>V</units>
+                    <applications>
+                        <application>
+                            <name>Informações</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Tensão saída</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.33.1.4.4.1.2.1</snmp_oid>
+                    <key>ups.tension.out</key>
+                    <delay>5m</delay>
+                    <history>1w</history>
+                    <trends>26w</trends>
+                    <units>V</units>
+                    <applications>
+                        <application>
+                            <name>Informações</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(4m)}&lt;110</expression>
+                            <name>Tensão de saída inferior a 110V</name>
+                            <priority>HIGH</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Tensão saída baterias</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.33.1.2.5.0</snmp_oid>
+                    <key>ups.tension.out.battery</key>
+                    <delay>5m</delay>
+                    <history>1w</history>
+                    <trends>26w</trends>
+                    <units>V</units>
+                    <applications>
+                        <application>
+                            <name>Informações</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <params>0.100</params>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>Tempo em modo bateria</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.3.6.1.2.1.33.1.2.2.0</snmp_oid>
+                    <key>ups.time.battery</key>
+                    <delay>5m</delay>
+                    <history>1w</history>
+                    <trends>26w</trends>
+                    <units>uptime</units>
+                    <applications>
+                        <application>
+                            <name>Informações</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <params>0.01</params>
+                        </step>
+                    </preprocessing>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(1m)}&gt;0</expression>
+                            <name>Tempo em modo bateria</name>
+                            <priority>AVERAGE</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Uptime</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.1.3.0</snmp_oid>
+                    <key>ups.uptime</key>
+                    <delay>5m</delay>
+                    <history>1w</history>
+                    <trends>26w</trends>
+                    <units>uptime</units>
+                    <applications>
+                        <application>
+                            <name>Informações</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <params>0.01</params>
+                        </step>
+                    </preprocessing>
+                    <triggers>
+                        <trigger>
+                            <expression>{change(0)}&lt;0</expression>
+                            <name>Nobreak Reiniciou</name>
+                            <status>DISABLED</status>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+            </items>
+        </template>
+    </templates>
+    <graphs>
+        <graph>
+            <name>Carga das baterias</name>
+            <show_work_period>NO</show_work_period>
+            <show_triggers>NO</show_triggers>
+            <type>STACKED</type>
+            <graph_items>
+                <graph_item>
+                    <color>199C0D</color>
+                    <item>
+                        <host>RR UPS NHS</host>
+                        <key>ups.charge.battery</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>Potência</name>
+            <graph_items>
+                <graph_item>
+                    <color>00FF00</color>
+                    <item>
+                        <host>RR UPS NHS</host>
+                        <key>ups.maximum.power</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <color>F63100</color>
+                    <item>
+                        <host>RR UPS NHS</host>
+                        <key>ups.output.power</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>Temperatura</name>
+            <type>STACKED</type>
+            <graph_items>
+                <graph_item>
+                    <color>199C0D</color>
+                    <item>
+                        <host>RR UPS NHS</host>
+                        <key>ups.temperature</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>Tempo</name>
+            <graph_items>
+                <graph_item>
+                    <color>199C0D</color>
+                    <item>
+                        <host>RR UPS NHS</host>
+                        <key>ups.end.time.battery</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <color>F63100</color>
+                    <item>
+                        <host>RR UPS NHS</host>
+                        <key>ups.time.battery</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>Tensão</name>
+            <graph_items>
+                <graph_item>
+                    <color>199C0D</color>
+                    <item>
+                        <host>RR UPS NHS</host>
+                        <key>ups.tension.in</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <color>F63100</color>
+                    <item>
+                        <host>RR UPS NHS</host>
+                        <key>ups.tension.out</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>2</sortorder>
+                    <color>F7941D</color>
+                    <item>
+                        <host>RR UPS NHS</host>
+                        <key>ups.tension.out.battery</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>Uptime</name>
+            <type>STACKED</type>
+            <graph_items>
+                <graph_item>
+                    <color>199C0D</color>
+                    <item>
+                        <host>RR UPS NHS</host>
+                        <key>ups.uptime</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>Uso da potência</name>
+            <type>STACKED</type>
+            <graph_items>
+                <graph_item>
+                    <color>199C0D</color>
+                    <item>
+                        <host>RR UPS NHS</host>
+                        <key>ups.potency.output</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+    </graphs>
+</zabbix_export>
