@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>5.0</version>
-    <date>2021-06-21T20:24:15Z</date>
+    <date>2021-06-21T20:41:03Z</date>
     <groups>
         <group>
             <name>Templates RR</name>
@@ -93,6 +93,9 @@ Edite o arquivo /usr/lib/zabbix/externalscripts/ssl_cert_list&#13;
                                     <name>Valida SSL</name>
                                 </application>
                             </applications>
+                            <valuemap>
+                                <name>Service state</name>
+                            </valuemap>
                             <trigger_prototypes>
                                 <trigger_prototype>
                                     <expression>{last(3,5)}=0</expression>
@@ -124,4 +127,19 @@ Edite o arquivo /usr/lib/zabbix/externalscripts/ssl_cert_list&#13;
             </discovery_rules>
         </template>
     </templates>
+    <value_maps>
+        <value_map>
+            <name>Service state</name>
+            <mappings>
+                <mapping>
+                    <value>0</value>
+                    <newvalue>Down</newvalue>
+                </mapping>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>Up</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+    </value_maps>
 </zabbix_export>
