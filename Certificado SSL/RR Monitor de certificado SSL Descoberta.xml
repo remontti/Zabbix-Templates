@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2021-06-21T20:24:15Z</date>
+    <groups>
+        <group>
+            <name>Templates RR</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>RR Monitor de certificado SSL Descoberta</template>
+            <name>RR Monitor de certificado SSL Descoberta</name>
+            <description>cd /usr/lib/zabbix/externalscripts&#13;
+wget https://raw.githubusercontent.com/remontti/https-ssl-cert-check-zabbix/master/ssl_cert_check.sh&#13;
+wget https://raw.githubusercontent.com/remontti/https-ssl-cert-check-zabbix/master/ssl_cert_list&#13;
+chmod +x ssl_cert_check.sh&#13;
+cd /etc/zabbix/zabbix_agentd.d&#13;
+wget https://raw.githubusercontent.com/remontti/https-ssl-cert-check-zabbix/master/userparameters_ssl_cert_check.conf&#13;
+mkdir /var/lib/zabbix&#13;
+chown zabbix:zabbix /var/lib/zabbix&#13;
+chown zabbix. /usr/lib/zabbix/externalscripts/ -R&#13;
+systemctl restart zabbix-agent&#13;
+&#13;
+Edite o arquivo /usr/lib/zabbix/externalscripts/ssl_cert_list&#13;
+&#13;
+{ &quot;data&quot;: [&#13;
+        {&#13;
+                &quot;{#IPADDR}&quot;: &quot;google.com.br&quot;,&#13;
+                &quot;{#SSLPORT}&quot;: &quot;443&quot;,&#13;
+                &quot;{#SSLDOMAIN}&quot;: &quot;google.com.br&quot;,&#13;
+                &quot;{#TIMEOUT}&quot;: &quot;30&quot;&#13;
+        },&#13;
+        {&#13;
+                &quot;{#IPADDR}&quot;: &quot;45.45.45.45&quot;,&#13;
+                &quot;{#SSLPORT}&quot;: &quot;8080&quot;,&#13;
+                &quot;{#SSLDOMAIN}&quot;: &quot;speedtest.meudominio.com.br&quot;,&#13;
+                &quot;{#TIMEOUT}&quot;: &quot;30&quot;&#13;
+        },&#13;
+&#13;
+]}</description>
+            <groups>
+                <group>
+                    <name>Templates RR</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Expira SSL</name>
+                </application>
+                <application>
+                    <name>Valida SSL</name>
+                </application>
+            </applications>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>Certificados HTTPS Descoberto</name>
+                    <key>certificado.descoberta</key>
+                    <delay>1h</delay>
+                    <lifetime>1h</lifetime>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Dias para o certificado {#IPADDR}:{#SSLPORT} expirar</name>
+                            <key>certificado.expira[{#IPADDR},{#SSLPORT},{#SSLDOMAIN},{#TIMEOUT}]</key>
+                            <delay>1h</delay>
+                            <trends>180d</trends>
+                            <units>d</units>
+                            <applications>
+                                <application>
+                                    <name>Expira SSL</name>
+                                </application>
+                            </applications>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last(#3)}&lt;7</expression>
+                                    <name>Certificado para {#IPADDR}:{#SSLPORT} expira em 7 dias !</name>
+                                    <priority>HIGH</priority>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <expression>{last(#3)}&lt;15</expression>
+                                    <name>Certificado para {#IPADDR}:{#SSLPORT} expira em 15 dias !</name>
+                                    <priority>WARNING</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Status do certificado {#IPADDR}:{#SSLPORT}</name>
+                            <key>certificado.valida[{#IPADDR},{#SSLPORT},{#SSLDOMAIN},{#TIMEOUT}]</key>
+                            <delay>1h</delay>
+                            <trends>180d</trends>
+                            <applications>
+                                <application>
+                                    <name>Valida SSL</name>
+                                </application>
+                            </applications>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last(3,5)}=0</expression>
+                                    <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
+                                    <recovery_expression>{last(3,5)}=1</recovery_expression>
+                                    <name>Certificado inválido para {#IPADDR}:{#SSLPORT}</name>
+                                    <priority>AVERAGE</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                    </item_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <name>Dias para o certificado {#IPADDR}:{#SSLPORT} expirar</name>
+                            <graph_items>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>6A1B9A</color>
+                                    <item>
+                                        <host>RR Monitor de certificado SSL Descoberta</host>
+                                        <key>certificado.expira[{#IPADDR},{#SSLPORT},{#SSLDOMAIN},{#TIMEOUT}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+        </template>
+    </templates>
+</zabbix_export>

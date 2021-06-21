@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2021-06-21T20:28:47Z</date>
+    <groups>
+        <group>
+            <name>Servidores</name>
+        </group>
+    </groups>
+    <hosts>
+        <host>
+            <host>Monitoramento de Certificados</host>
+            <name>Monitoramento de Certificados</name>
+            <templates>
+                <template>
+                    <name>RR Monitor de certificado SSL Descoberta</name>
+                </template>
+            </templates>
+            <groups>
+                <group>
+                    <name>Servidores</name>
+                </group>
+            </groups>
+            <interfaces>
+                <interface>
+                    <interface_ref>if1</interface_ref>
+                </interface>
+            </interfaces>
+            <inventory_mode>DISABLED</inventory_mode>
+        </host>
+    </hosts>
+</zabbix_export>
