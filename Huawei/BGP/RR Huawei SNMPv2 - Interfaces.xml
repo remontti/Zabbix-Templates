@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2021-08-24T14:27:18Z</date>
+    <groups>
+        <group>
+            <name>Templates RR</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>RR Huawei  SNMPv2 - Interfaces</template>
+            <name>RR Huawei  SNMPv2 - Interfaces</name>
+            <groups>
+                <group>
+                    <name>Templates RR</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Interfaces</name>
+                </application>
+            </applications>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>Discovery interfaces</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#SNMPVALUE},.1.3.6.1.2.1.2.2.1.2, {#IFALIAS},.1.3.6.1.2.1.31.1.1.1.18]</snmp_oid>
+                    <key>ifDescr</key>
+                    <delay>30m</delay>
+                    <lifetime>1d</lifetime>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Status  admin $1 - {#IFALIAS}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.2.1.2.2.1.7.{#SNMPINDEX}</snmp_oid>
+                            <key>ifAdminStatus[{#SNMPVALUE}]</key>
+                            <delay>5m</delay>
+                            <history>1w</history>
+                            <trends>30d</trends>
+                            <description>The desired state of the interface.</description>
+                            <applications>
+                                <application>
+                                    <name>Interfaces</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>SNMP interface status (ifAdminStatus)</name>
+                            </valuemap>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Tráfego de entrada  $1 - {#IFALIAS}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.2.1.31.1.1.1.6.{#SNMPINDEX}</snmp_oid>
+                            <key>ifHCInOctets[{#SNMPVALUE}]</key>
+                            <units>bps</units>
+                            <description>The number of octets in valid MAC frames received on this interface, including the MAC header and FCS.</description>
+                            <applications>
+                                <application>
+                                    <name>Interfaces</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>8</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Tráfego de saída  $1 - {#IFALIAS}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.2.1.31.1.1.1.10.{#SNMPINDEX}</snmp_oid>
+                            <key>ifHCOutOctets[{#SNMPVALUE}]</key>
+                            <units>bps</units>
+                            <description>The number of octets transmitted in MAC frames on this interface, including the MAC header and FCS.</description>
+                            <applications>
+                                <application>
+                                    <name>Interfaces</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>8</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Erros de entrada $1 - {#IFALIAS}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.2.1.2.2.1.14.{#SNMPINDEX}</snmp_oid>
+                            <key>ifInErrors[{#SNMPVALUE}]</key>
+                            <delay>5m</delay>
+                            <history>1w</history>
+                            <trends>180d</trends>
+                            <description>For packet-oriented interfaces, the number of inbound packets that contained errors preventing them from being deliverable to a higher-layer protocol.  For character-oriented or fixed-length interfaces, the number of inbound transmission units that contained errors preventing them from being deliverable to a higher-layer protocol.</description>
+                            <applications>
+                                <application>
+                                    <name>Interfaces</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Status operacional  $1 - {#IFALIAS}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.2.1.2.2.1.8.{#SNMPINDEX}</snmp_oid>
+                            <key>ifOperStatus[{#SNMPVALUE}]</key>
+                            <delay>5m</delay>
+                            <history>1w</history>
+                            <trends>30d</trends>
+                            <description>The current operational state of the interface.</description>
+                            <applications>
+                                <application>
+                                    <name>Interfaces</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>SNMP interface status (ifOperStatus)</name>
+                            </valuemap>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{diff(0)}=1</expression>
+                                    <name>Status Operacional {HOST.NAME} interface {#SNMPVALUE} -  {#IFALIAS}</name>
+                                    <priority>HIGH</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Erros de saída $1 - {#IFALIAS}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.2.1.2.2.1.20.{#SNMPINDEX}</snmp_oid>
+                            <key>ifOutErrors[{#SNMPVALUE}]</key>
+                            <delay>5m</delay>
+                            <history>1w</history>
+                            <trends>180d</trends>
+                            <description>For packet-oriented interfaces, the number of outbound packets that could not be transmitted because of errors. For character-oriented or fixed-length interfaces, the number of outbound transmission units that could not be transmitted because of errors.</description>
+                            <applications>
+                                <application>
+                                    <name>Interfaces</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                    </item_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <name>Erros {#SNMPVALUE} ({#IFALIAS})</name>
+                            <graph_items>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <color>199C0D</color>
+                                    <item>
+                                        <host>RR Huawei  SNMPv2 - Interfaces</host>
+                                        <key>ifInErrors[{#SNMPVALUE}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>2</sortorder>
+                                    <color>F63100</color>
+                                    <item>
+                                        <host>RR Huawei  SNMPv2 - Interfaces</host>
+                                        <key>ifOutErrors[{#SNMPVALUE}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                        <graph_prototype>
+                            <name>Tráfego {#SNMPVALUE} ({#IFALIAS})</name>
+                            <graph_items>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>00AA00</color>
+                                    <item>
+                                        <host>RR Huawei  SNMPv2 - Interfaces</host>
+                                        <key>ifHCInOctets[{#SNMPVALUE}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>2</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>3333FF</color>
+                                    <item>
+                                        <host>RR Huawei  SNMPv2 - Interfaces</host>
+                                        <key>ifHCOutOctets[{#SNMPVALUE}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+        </template>
+    </templates>
+    <value_maps>
+        <value_map>
+            <name>SNMP interface status (ifAdminStatus)</name>
+            <mappings>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>up</newvalue>
+                </mapping>
+                <mapping>
+                    <value>2</value>
+                    <newvalue>down</newvalue>
+                </mapping>
+                <mapping>
+                    <value>3</value>
+                    <newvalue>testing</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+        <value_map>
+            <name>SNMP interface status (ifOperStatus)</name>
+            <mappings>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>up</newvalue>
+                </mapping>
+                <mapping>
+                    <value>2</value>
+                    <newvalue>down</newvalue>
+                </mapping>
+                <mapping>
+                    <value>3</value>
+                    <newvalue>testing</newvalue>
+                </mapping>
+                <mapping>
+                    <value>4</value>
+                    <newvalue>unknown</newvalue>
+                </mapping>
+                <mapping>
+                    <value>5</value>
+                    <newvalue>dormant</newvalue>
+                </mapping>
+                <mapping>
+                    <value>6</value>
+                    <newvalue>notPresent</newvalue>
+                </mapping>
+                <mapping>
+                    <value>7</value>
+                    <newvalue>lowerLayerDown</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+    </value_maps>
+</zabbix_export>
