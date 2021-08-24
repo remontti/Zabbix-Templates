@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2021-08-24T13:28:06Z</date>
+    <groups>
+        <group>
+            <name>Templates RR</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>RR Huawei  SNMPv2 - Inventario Extra</template>
+            <name>RR Huawei  SNMPv2 - Inventario Extra</name>
+            <description>Modelo para Huawei VRP - Itens extras para inventário&#13;
+Funciona bem na série de roteadores NE e parcialmente na série de switch S67xx</description>
+            <groups>
+                <group>
+                    <name>Templates RR</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Inventory</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>Device ESN</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.4.1.2011.5.25.188.1.1.0</snmp_oid>
+                    <key>hwDeviceEsn</key>
+                    <delay>1d</delay>
+                    <history>30d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <inventory_link>SERIALNO_A</inventory_link>
+                    <applications>
+                        <application>
+                            <name>Inventory</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Patch Version</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.2011.5.25.19.1.8.5.1.1.4.128.3</snmp_oid>
+                    <key>hwPatchVersion</key>
+                    <delay>1d</delay>
+                    <history>30d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <inventory_link>SOFTWARE_APP_A</inventory_link>
+                    <applications>
+                        <application>
+                            <name>Inventory</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Product Name</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.2011.6.3.11.4.0</snmp_oid>
+                    <key>hwProductName</key>
+                    <delay>1d</delay>
+                    <history>30d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <inventory_link>TYPE</inventory_link>
+                    <applications>
+                        <application>
+                            <name>Inventory</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Software Version</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.2011.5.25.19.1.8.5.1.1.6.128.3</snmp_oid>
+                    <key>hwProductVersion</key>
+                    <delay>1d</delay>
+                    <history>30d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <inventory_link>SOFTWARE</inventory_link>
+                    <applications>
+                        <application>
+                            <name>Inventory</name>
+                        </application>
+                    </applications>
+                </item>
+            </items>
+        </template>
+    </templates>
+</zabbix_export>

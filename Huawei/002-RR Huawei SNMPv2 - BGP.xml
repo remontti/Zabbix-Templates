@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2021-08-24T13:28:20Z</date>
+    <groups>
+        <group>
+            <name>Templates RR</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>RR Huawei SNMPv2 - BGP</template>
+            <name>RR Huawei SNMPv2 - BGP</name>
+            <description>Monitorar sessões BGP</description>
+            <groups>
+                <group>
+                    <name>Templates RR</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Informações da tabela de roteamento</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>Total de Routas IPv4 na FIB</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.4.24.3.0</snmp_oid>
+                    <key>hwIPv4FibRoutes</key>
+                    <delay>5m</delay>
+                    <history>7d</history>
+                    <trends>30d</trends>
+                    <units>Prefixes</units>
+                    <applications>
+                        <application>
+                            <name>Informações da tabela de roteamento</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Total de Routas IPv4 na RIB</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.4.1.2011.5.25.177.9.1.0</snmp_oid>
+                    <key>hwIPv4RibRoutes</key>
+                    <delay>5m</delay>
+                    <history>7d</history>
+                    <trends>30d</trends>
+                    <units>Prefixes</units>
+                    <applications>
+                        <application>
+                            <name>Informações da tabela de roteamento</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Total de Routas IPv6 na FIB</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.2.1.55.1.9.0</snmp_oid>
+                    <key>hwIPv6FibRoutes</key>
+                    <delay>5m</delay>
+                    <history>7d</history>
+                    <trends>30d</trends>
+                    <units>Prefixes</units>
+                    <applications>
+                        <application>
+                            <name>Informações da tabela de roteamento</name>
+                        </application>
+                    </applications>
+                </item>
+            </items>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>BGP4 Peer(s)</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#BGPPEER},.1.3.6.1.4.1.2011.5.25.177.1.1.2.1.4.0,{#ASNUM},.1.3.6.1.4.1.2011.5.25.177.1.1.2.1.2.0,{#ADMSTATUS},.1.3.6.1.4.1.2011.5.25.177.1.1.2.1.11.0]</snmp_oid>
+                    <key>BgpPeerRemoteAddr</key>
+                    <delay>1h</delay>
+                    <filter>
+                        <conditions>
+                            <condition>
+                                <macro>{#ADMSTATUS}</macro>
+                                <value>2</value>
+                                <formulaid>A</formulaid>
+                            </condition>
+                        </conditions>
+                    </filter>
+                    <lifetime>0</lifetime>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Nome AS peer {#BGPPEER} - AS{#ASNUM}</name>
+                            <type>EXTERNAL</type>
+                            <key>asname[{#BGPPEER},{HOST.IP},{#ASNUM}]</key>
+                            <delay>1d</delay>
+                            <history>30d</history>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <description>as_name[&quot;-p&quot;,{#ASNUM}]&#13;
+asname[{#BGPPEER},{HOST.IP},{#ASNUM}]</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>BGP Peer {#BGPPEER}  - AS{#ASNUM}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Tempo estabelecido do peer {#BGPPEER} - AS{#ASNUM}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.2011.5.25.177.1.1.2.1.7.0.{#SNMPINDEX}</snmp_oid>
+                            <key>BgpPeerFsmEstablishedTime[{#BGPPEER}]</key>
+                            <delay>2m</delay>
+                            <history>30d</history>
+                            <trends>90d</trends>
+                            <units>uptime</units>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>BGP Peer {#BGPPEER}  - AS{#ASNUM}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Total de rotas recebidas com peer {#BGPPEER} - AS{#ASNUM}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.2011.5.25.177.1.1.3.1.1.0.{#SNMPINDEX}</snmp_oid>
+                            <key>BgpPeerRoutes[{#BGPPEER}]</key>
+                            <delay>5m</delay>
+                            <history>30d</history>
+                            <trends>90d</trends>
+                            <units>prefixes</units>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>BGP Peer {#BGPPEER}  - AS{#ASNUM}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Status operacional para o peer {#BGPPEER} - AS{#ASNUM}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.2011.5.25.177.1.1.2.1.5.0.{#SNMPINDEX}</snmp_oid>
+                            <key>BgpPeerState[{#BGPPEER}]</key>
+                            <delay>2m</delay>
+                            <history>30d</history>
+                            <trends>90d</trends>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>BGP Peer {#BGPPEER}  - AS{#ASNUM}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <valuemap>
+                                <name>BgpPeerState</name>
+                            </valuemap>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last()}&lt;&gt;6</expression>
+                                    <name>Peer {#BGPPEER} - AS{#ASNUM} está DOWN !!!</name>
+                                    <priority>AVERAGE</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                    </item_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <name>Rotas recebidas  {#BGPPEER} - AS{#ASNUM}</name>
+                            <show_work_period>NO</show_work_period>
+                            <show_triggers>NO</show_triggers>
+                            <graph_items>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>6A1B9A</color>
+                                    <item>
+                                        <host>RR Huawei SNMPv2 - BGP</host>
+                                        <key>BgpPeerRoutes[{#BGPPEER}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+        </template>
+    </templates>
+    <graphs>
+        <graph>
+            <name>FIB - IPv4</name>
+            <graph_items>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>FILLED_REGION</drawtype>
+                    <color>00EE00</color>
+                    <item>
+                        <host>RR Huawei SNMPv2 - BGP</host>
+                        <key>hwIPv4FibRoutes</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>FIB - IPv6</name>
+            <graph_items>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <color>F63100</color>
+                    <item>
+                        <host>RR Huawei SNMPv2 - BGP</host>
+                        <key>hwIPv6FibRoutes</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>RIB - IPv4</name>
+            <graph_items>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>FILLED_REGION</drawtype>
+                    <color>EE0000</color>
+                    <item>
+                        <host>RR Huawei SNMPv2 - BGP</host>
+                        <key>hwIPv4RibRoutes</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>RIB x FIB - IPv4</name>
+            <graph_items>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>BOLD_LINE</drawtype>
+                    <color>00EE00</color>
+                    <item>
+                        <host>RR Huawei SNMPv2 - BGP</host>
+                        <key>hwIPv4FibRoutes</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>2</sortorder>
+                    <drawtype>BOLD_LINE</drawtype>
+                    <color>EE0000</color>
+                    <item>
+                        <host>RR Huawei SNMPv2 - BGP</host>
+                        <key>hwIPv4RibRoutes</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+    </graphs>
+    <value_maps>
+        <value_map>
+            <name>BgpPeerState</name>
+            <mappings>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>idle</newvalue>
+                </mapping>
+                <mapping>
+                    <value>2</value>
+                    <newvalue>connect</newvalue>
+                </mapping>
+                <mapping>
+                    <value>3</value>
+                    <newvalue>active</newvalue>
+                </mapping>
+                <mapping>
+                    <value>4</value>
+                    <newvalue>opensent</newvalue>
+                </mapping>
+                <mapping>
+                    <value>5</value>
+                    <newvalue>openconfirm</newvalue>
+                </mapping>
+                <mapping>
+                    <value>6</value>
+                    <newvalue>established</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+    </value_maps>
+</zabbix_export>
