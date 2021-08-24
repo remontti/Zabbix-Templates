@@ -4,6 +4,6 @@ Debian + Zabbix 5.x
 
 # apt install whois
 # cd /usr/lib/zabbix/externalscripts
-# wget https://raw.githubusercontent.com/remontti/Zabbix-Templates/main/Huawei/asname
+# wget https://raw.githubusercontent.com/remontti/Zabbix-Templates/main/Huawei/BGP/asname
 # chown zabbix. /usr/lib/zabbix/externalscripts/asname
 # chmod +x /usr/lib/zabbix/externalscripts/asname
