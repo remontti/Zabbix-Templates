@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2021-08-24T14:23:34Z</date>
+    <groups>
+        <group>
+            <name>Templates RR</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>RR Huawei SNMPv2 - Trafego das Interfaces apenas</template>
+            <name>RR Huawei SNMPv2 - Trafego das Interfaces apenas</name>
+            <groups>
+                <group>
+                    <name>Templates RR</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Interface Trafego</name>
+                </application>
+            </applications>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>Interfaces</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#SNMPVALUE}, .1.3.6.1.2.1.2.2.1.2]</snmp_oid>
+                    <key>hwNomeInterface</key>
+                    <delay>10m</delay>
+                    <lifetime>7d</lifetime>
+                    <description>Descobre nome da interface</description>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>In interface $1</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.2.1.31.1.1.1.6.{#SNMPINDEX}</snmp_oid>
+                            <key>hw.in[{#SNMPVALUE}]</key>
+                            <history>1w</history>
+                            <units>bps</units>
+                            <applications>
+                                <application>
+                                    <name>Interface Trafego</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>8</params>
+                                </step>
+                            </preprocessing>
+                            <request_method>POST</request_method>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Out interface $1</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.2.1.31.1.1.1.10.{#SNMPINDEX}</snmp_oid>
+                            <key>hw.out[{#SNMPVALUE}]</key>
+                            <history>1w</history>
+                            <units>bps</units>
+                            <applications>
+                                <application>
+                                    <name>Interface Trafego</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>8</params>
+                                </step>
+                            </preprocessing>
+                            <request_method>POST</request_method>
+                        </item_prototype>
+                    </item_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <name>Tráfego {#SNMPVALUE}</name>
+                            <graph_items>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>00C853</color>
+                                    <item>
+                                        <host>RR Huawei SNMPv2 - Trafego das Interfaces apenas</host>
+                                        <key>hw.in[{#SNMPVALUE}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>2</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>0091EA</color>
+                                    <item>
+                                        <host>RR Huawei SNMPv2 - Trafego das Interfaces apenas</host>
+                                        <key>hw.out[{#SNMPVALUE}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                    <request_method>POST</request_method>
+                </discovery_rule>
+            </discovery_rules>
+        </template>
+    </templates>
+</zabbix_export>
