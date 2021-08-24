@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>5.0</version>
-    <date>2021-08-24T13:28:20Z</date>
+    <date>2021-08-24T14:47:58Z</date>
     <groups>
         <group>
             <name>Templates RR</name>
@@ -99,6 +99,9 @@
 asname[{#BGPPEER},{HOST.IP},{#ASNUM}]</description>
                             <application_prototypes>
                                 <application_prototype>
+                                    <name>BGP Peer</name>
+                                </application_prototype>
+                                <application_prototype>
                                     <name>BGP Peer {#BGPPEER}  - AS{#ASNUM}</name>
                                 </application_prototype>
                             </application_prototypes>
@@ -113,6 +116,9 @@ asname[{#BGPPEER},{HOST.IP},{#ASNUM}]</description>
                             <trends>90d</trends>
                             <units>uptime</units>
                             <application_prototypes>
+                                <application_prototype>
+                                    <name>BGP Peer</name>
+                                </application_prototype>
                                 <application_prototype>
                                     <name>BGP Peer {#BGPPEER}  - AS{#ASNUM}</name>
                                 </application_prototype>
@@ -129,6 +135,9 @@ asname[{#BGPPEER},{HOST.IP},{#ASNUM}]</description>
                             <units>prefixes</units>
                             <application_prototypes>
                                 <application_prototype>
+                                    <name>BGP Peer</name>
+                                </application_prototype>
+                                <application_prototype>
                                     <name>BGP Peer {#BGPPEER}  - AS{#ASNUM}</name>
                                 </application_prototype>
                             </application_prototypes>
@@ -142,6 +151,9 @@ asname[{#BGPPEER},{HOST.IP},{#ASNUM}]</description>
                             <history>30d</history>
                             <trends>90d</trends>
                             <application_prototypes>
+                                <application_prototype>
+                                    <name>BGP Peer</name>
+                                </application_prototype>
                                 <application_prototype>
                                     <name>BGP Peer {#BGPPEER}  - AS{#ASNUM}</name>
                                 </application_prototype>
