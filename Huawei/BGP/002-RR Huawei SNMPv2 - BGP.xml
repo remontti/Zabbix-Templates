@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>5.0</version>
-    <date>2021-08-24T14:47:58Z</date>
+    <date>2021-09-04T21:19:32Z</date>
     <groups>
         <group>
             <name>Templates RR</name>
@@ -85,7 +85,7 @@
                             </condition>
                         </conditions>
                     </filter>
-                    <lifetime>0</lifetime>
+                    <lifetime>10d</lifetime>
                     <item_prototypes>
                         <item_prototype>
                             <name>Nome AS peer {#BGPPEER} - AS{#ASNUM}</name>
