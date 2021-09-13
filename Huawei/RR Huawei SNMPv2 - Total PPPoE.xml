@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2021-09-13T19:42:43Z</date>
+    <groups>
+        <group>
+            <name>Templates RR</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>RR Huawei SNMPv2 - Total PPPoE</template>
+            <name>RR Huawei SNMPv2 - Total PPPoE</name>
+            <groups>
+                <group>
+                    <name>Templates RR</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>BGP4 Peers</name>
+                </application>
+                <application>
+                    <name>Interfaces</name>
+                </application>
+                <application>
+                    <name>PPPoE Info</name>
+                </application>
+                <application>
+                    <name>Sistema</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>PPPoE Online</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.2011.5.2.1.14.1.2.0</snmp_oid>
+                    <key>hwPPPoeOn</key>
+                    <delay>2m</delay>
+                    <history>7d</history>
+                    <applications>
+                        <application>
+                            <name>PPPoE Info</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>PPPoE Online DualStack</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.2011.5.2.1.14.1.17.0</snmp_oid>
+                    <key>hwPPPoeOnDS</key>
+                    <delay>2m</delay>
+                    <history>7d</history>
+                    <applications>
+                        <application>
+                            <name>PPPoE Info</name>
+                        </application>
+                    </applications>
+                </item>
+            </items>
+        </template>
+    </templates>
+    <graphs>
+        <graph>
+            <name>PPPoE</name>
+            <graph_items>
+                <graph_item>
+                    <drawtype>BOLD_LINE</drawtype>
+                    <color>1A7C11</color>
+                    <item>
+                        <host>RR Huawei SNMPv2 - Total PPPoE</host>
+                        <key>hwPPPoeOn</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>BOLD_LINE</drawtype>
+                    <color>4000FF</color>
+                    <item>
+                        <host>RR Huawei SNMPv2 - Total PPPoE</host>
+                        <key>hwPPPoeOnDS</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+    </graphs>
+</zabbix_export>
