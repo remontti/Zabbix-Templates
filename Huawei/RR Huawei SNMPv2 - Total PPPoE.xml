@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>5.0</version>
-    <date>2021-09-13T19:42:43Z</date>
+    <date>2021-09-13T19:48:26Z</date>
     <groups>
         <group>
             <name>Templates RR</name>
@@ -43,6 +43,33 @@
                             <name>PPPoE Info</name>
                         </application>
                     </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{change()}&lt;(-25)</expression>
+                            <name>Queda de 25 PPPoE</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                        <trigger>
+                            <expression>{change()}&lt;(-50)</expression>
+                            <name>Queda de 50 PPPoE</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                        <trigger>
+                            <expression>{change()}&lt;(-100)</expression>
+                            <name>Queda de 100 PPPoE</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                        <trigger>
+                            <expression>{change()}&lt;(-200)</expression>
+                            <name>Queda de 200 PPPoE</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                        <trigger>
+                            <expression>{change()}&lt;(-1000)</expression>
+                            <name>Queda de 1000 PPPoE</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
                 </item>
                 <item>
                     <name>PPPoE Online DualStack</name>
