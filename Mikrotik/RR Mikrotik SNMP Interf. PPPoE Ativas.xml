@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2021-09-17T18:12:18Z</date>
+    <groups>
+        <group>
+            <name>Templates RR</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>RR Mikrotik SNMP Interf. PPPoE Ativas</template>
+            <name>RR Mikrotik SNMP Interf. PPPoE Ativas</name>
+            <description>By Rudimar Remontti</description>
+            <groups>
+                <group>
+                    <name>Templates RR</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>pppoes</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>Conexões PPPoE</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.4.1.9.9.150.1.1.1.0</snmp_oid>
+                    <key>ifPPPoEActives</key>
+                    <delay>60</delay>
+                    <history>30d</history>
+                    <trends>120d</trends>
+                    <applications>
+                        <application>
+                            <name>pppoes</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{change()}&lt;(-15)</expression>
+                            <name>Queda de 15 PPPoE</name>
+                            <status>DISABLED</status>
+                            <priority>INFO</priority>
+                        </trigger>
+                        <trigger>
+                            <expression>{change()}&lt;(-25)</expression>
+                            <name>Queda de 25 PPPoE</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                        <trigger>
+                            <expression>{change()}&lt;(-50)</expression>
+                            <name>Queda de 50 PPPoE</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                        <trigger>
+                            <expression>{change()}&lt;(-100)</expression>
+                            <name>Queda de 100 PPPoE</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+            </items>
+        </template>
+    </templates>
+    <graphs>
+        <graph>
+            <name>Info: PPPoEs Ativos</name>
+            <ymin_type_1>FIXED</ymin_type_1>
+            <graph_items>
+                <graph_item>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>00FFBF</color>
+                    <yaxisside>RIGHT</yaxisside>
+                    <item>
+                        <host>RR Mikrotik SNMP Interf. PPPoE Ativas</host>
+                        <key>ifPPPoEActives</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+    </graphs>
+</zabbix_export>

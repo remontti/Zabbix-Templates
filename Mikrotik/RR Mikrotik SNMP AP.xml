@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2021-09-17T18:10:04Z</date>
+    <groups>
+        <group>
+            <name>Templates RR</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>RR Mikrotik SNMP AP</template>
+            <name>RR Mikrotik SNMP AP</name>
+            <description>By Rudimar Remontti</description>
+            <groups>
+                <group>
+                    <name>Templates RR</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>AP Info</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>Conexões</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>iso.3.6.1.4.1.14988.1.1.1.4.0</snmp_oid>
+                    <key>mk.ap.conexoes</key>
+                    <delay>5m</delay>
+                    <history>1w</history>
+                    <trends>90d</trends>
+                    <applications>
+                        <application>
+                            <name>AP Info</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{last(0)}&gt;32</expression>
+                            <name>Numero elevado de clientes</name>
+                            <priority>INFO</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Frequencia</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>iso.3.6.1.4.1.14988.1.1.1.3.1.7.1</snmp_oid>
+                    <key>mk.ap.frequencia</key>
+                    <delay>10m</delay>
+                    <history>1w</history>
+                    <trends>90d</trends>
+                    <units>MHz</units>
+                    <applications>
+                        <application>
+                            <name>AP Info</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{diff(0)}&gt;0</expression>
+                            <name>Canal Modificado</name>
+                            <priority>INFO</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>SSID</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>iso.3.6.1.4.1.14988.1.1.1.3.1.4.1</snmp_oid>
+                    <key>mk.ap.ssid</key>
+                    <delay>10m</delay>
+                    <history>1w</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>AP Info</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{diff(0)}&gt;0</expression>
+                            <name>SSID Modificado</name>
+                            <priority>INFO</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+            </items>
+        </template>
+    </templates>
+    <graphs>
+        <graph>
+            <name>Conexões</name>
+            <graph_items>
+                <graph_item>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>D32F2F</color>
+                    <item>
+                        <host>RR Mikrotik SNMP AP</host>
+                        <key>mk.ap.conexoes</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>Frequencia</name>
+            <graph_items>
+                <graph_item>
+                    <color>199C0D</color>
+                    <item>
+                        <host>RR Mikrotik SNMP AP</host>
+                        <key>mk.ap.frequencia</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+    </graphs>
+</zabbix_export>

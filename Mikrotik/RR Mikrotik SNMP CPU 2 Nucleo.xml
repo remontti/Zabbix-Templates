@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2021-09-17T18:10:46Z</date>
+    <groups>
+        <group>
+            <name>Templates RR</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>RR Mikrotik SNMP CPU 2 Nucleo</template>
+            <name>RR Mikrotik SNMP CPU 2 Nucleo</name>
+            <description>By Rudimar Remontti</description>
+            <groups>
+                <group>
+                    <name>Templates RR</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>CPU</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>CPU 1</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.1</snmp_oid>
+                    <key>mk.2n.cpu1</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(4m)}&gt;75</expression>
+                            <name>CPU 1 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 2</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.2</snmp_oid>
+                    <key>mk.2n.cpu2</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(4m)}&gt;75</expression>
+                            <name>CPU 2 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU Geral</name>
+                    <type>CALCULATED</type>
+                    <key>mk.2n.cpugeral</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <params>(last(&quot;mk.2n.cpu1&quot;)+last(&quot;mk.2n.cpu2&quot;))/(2)</params>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(4m)}&gt;60</expression>
+                            <name>CPU Geral acima de 60%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+            </items>
+        </template>
+    </templates>
+    <graphs>
+        <graph>
+            <name>Info: CPU Geral</name>
+            <graph_items>
+                <graph_item>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>FF8A65</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 2 Nucleo</host>
+                        <key>mk.2n.cpugeral</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>Info: CPUs</name>
+            <graph_items>
+                <graph_item>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>FFFDE7</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 2 Nucleo</host>
+                        <key>mk.2n.cpugeral</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <color>C80000</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 2 Nucleo</host>
+                        <key>mk.2n.cpu1</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>2</sortorder>
+                    <color>00C800</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 2 Nucleo</host>
+                        <key>mk.2n.cpu2</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>Info: CPUs Individuais</name>
+            <graph_items>
+                <graph_item>
+                    <color>C80000</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 2 Nucleo</host>
+                        <key>mk.2n.cpu1</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <color>00C800</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 2 Nucleo</host>
+                        <key>mk.2n.cpu2</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+    </graphs>
+</zabbix_export>

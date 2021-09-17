@@ -1,0 +1,678 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2021-09-17T18:11:09Z</date>
+    <groups>
+        <group>
+            <name>Templates RR</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>RR Mikrotik SNMP CPU 16 Nucleo</template>
+            <name>RR Mikrotik SNMP CPU 16 Nucleo</name>
+            <description>By Rudimar Remontti</description>
+            <groups>
+                <group>
+                    <name>Templates RR</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>CPU</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>CPU 1</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.1</snmp_oid>
+                    <key>mk.16n.cpu1</key>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(4m)}&gt;75</expression>
+                            <name>CPU 1 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 2</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.2</snmp_oid>
+                    <key>mk.16n.cpu2</key>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(4m)}&gt;75</expression>
+                            <name>CPU 2 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 3</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.3</snmp_oid>
+                    <key>mk.16n.cpu3</key>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(4m)}&gt;75</expression>
+                            <name>CPU 3 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 4</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.4</snmp_oid>
+                    <key>mk.16n.cpu4</key>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(4m)}&gt;75</expression>
+                            <name>CPU 4 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 5</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.5</snmp_oid>
+                    <key>mk.16n.cpu5</key>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(4m)}&gt;75</expression>
+                            <name>CPU 5 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 6</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.6</snmp_oid>
+                    <key>mk.16n.cpu6</key>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(4m)}&gt;75</expression>
+                            <name>CPU 6 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 7</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.7</snmp_oid>
+                    <key>mk.16n.cpu7</key>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(4m)}&gt;75</expression>
+                            <name>CPU 7 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 8</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.8</snmp_oid>
+                    <key>mk.16n.cpu8</key>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(4m)}&gt;75</expression>
+                            <name>CPU 8 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 9</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.9</snmp_oid>
+                    <key>mk.16n.cpu9</key>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(4m)}&gt;75</expression>
+                            <name>CPU 9 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 10</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.10</snmp_oid>
+                    <key>mk.16n.cpu10</key>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(4m)}&gt;75</expression>
+                            <name>CPU 10 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 11</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.11</snmp_oid>
+                    <key>mk.16n.cpu11</key>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(4m)}&gt;75</expression>
+                            <name>CPU 11 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 12</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.12</snmp_oid>
+                    <key>mk.16n.cpu12</key>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(4m)}&gt;75</expression>
+                            <name>CPU 12 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 13</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.13</snmp_oid>
+                    <key>mk.16n.cpu13</key>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(4m)}&gt;75</expression>
+                            <name>CPU 13 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 14</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.14</snmp_oid>
+                    <key>mk.16n.cpu14</key>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(4m)}&gt;75</expression>
+                            <name>CPU 14 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 15</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.15</snmp_oid>
+                    <key>mk.16n.cpu15</key>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(4m)}&gt;75</expression>
+                            <name>CPU 15 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 16</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.16</snmp_oid>
+                    <key>mk.16n.cpu16</key>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(4m)}&gt;75</expression>
+                            <name>CPU 16 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU Geral</name>
+                    <type>CALCULATED</type>
+                    <key>mk.16n.cpugeral</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <params>(last(&quot;mk.16n.cpu1&quot;)+last(&quot;mk.16n.cpu2&quot;)+last(&quot;mk.16n.cpu3&quot;)+last(&quot;mk.16n.cpu4&quot;)+last(&quot;mk.16n.cpu5&quot;)+last(&quot;mk.16n.cpu6&quot;)+last(&quot;mk.16n.cpu7&quot;)+last(&quot;mk.16n.cpu8&quot;)+last(&quot;mk.16n.cpu9&quot;)+last(&quot;mk.16n.cpu10&quot;)+last(&quot;mk.16n.cpu11&quot;)+last(&quot;mk.16n.cpu12&quot;)+last(&quot;mk.16n.cpu13&quot;)+last(&quot;mk.16n.cpu14&quot;)+last(&quot;mk.16n.cpu15&quot;)+last(&quot;mk.16n.cpu16&quot;))/(16)</params>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <params>0.1</params>
+                        </step>
+                    </preprocessing>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(4m)}&gt;60</expression>
+                            <name>CPU Geral acima de 60%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+            </items>
+        </template>
+    </templates>
+    <graphs>
+        <graph>
+            <name>Info: CPU Geral</name>
+            <graph_items>
+                <graph_item>
+                    <color>FFAB91</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 16 Nucleo</host>
+                        <key>mk.16n.cpugeral</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>Info: CPUs</name>
+            <graph_items>
+                <graph_item>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>FFF3E0</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 16 Nucleo</host>
+                        <key>mk.16n.cpugeral</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>BOLD_LINE</drawtype>
+                    <color>C80000</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 16 Nucleo</host>
+                        <key>mk.16n.cpu1</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>2</sortorder>
+                    <drawtype>BOLD_LINE</drawtype>
+                    <color>00C800</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 16 Nucleo</host>
+                        <key>mk.16n.cpu2</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>3</sortorder>
+                    <drawtype>BOLD_LINE</drawtype>
+                    <color>0000C8</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 16 Nucleo</host>
+                        <key>mk.16n.cpu3</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>4</sortorder>
+                    <drawtype>BOLD_LINE</drawtype>
+                    <color>C800C8</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 16 Nucleo</host>
+                        <key>mk.16n.cpu4</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>5</sortorder>
+                    <drawtype>BOLD_LINE</drawtype>
+                    <color>00C8C8</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 16 Nucleo</host>
+                        <key>mk.16n.cpu5</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>6</sortorder>
+                    <drawtype>BOLD_LINE</drawtype>
+                    <color>C8C800</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 16 Nucleo</host>
+                        <key>mk.16n.cpu6</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>7</sortorder>
+                    <drawtype>BOLD_LINE</drawtype>
+                    <color>C8C8C8</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 16 Nucleo</host>
+                        <key>mk.16n.cpu7</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>8</sortorder>
+                    <drawtype>BOLD_LINE</drawtype>
+                    <color>960000</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 16 Nucleo</host>
+                        <key>mk.16n.cpu8</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>9</sortorder>
+                    <drawtype>BOLD_LINE</drawtype>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 16 Nucleo</host>
+                        <key>mk.16n.cpu9</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>10</sortorder>
+                    <drawtype>BOLD_LINE</drawtype>
+                    <color>000096</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 16 Nucleo</host>
+                        <key>mk.16n.cpu10</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>11</sortorder>
+                    <drawtype>BOLD_LINE</drawtype>
+                    <color>960096</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 16 Nucleo</host>
+                        <key>mk.16n.cpu11</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>12</sortorder>
+                    <drawtype>BOLD_LINE</drawtype>
+                    <color>009696</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 16 Nucleo</host>
+                        <key>mk.16n.cpu12</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>13</sortorder>
+                    <drawtype>BOLD_LINE</drawtype>
+                    <color>969600</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 16 Nucleo</host>
+                        <key>mk.16n.cpu13</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>14</sortorder>
+                    <drawtype>BOLD_LINE</drawtype>
+                    <color>969696</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 16 Nucleo</host>
+                        <key>mk.16n.cpu14</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>15</sortorder>
+                    <drawtype>BOLD_LINE</drawtype>
+                    <color>FF0000</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 16 Nucleo</host>
+                        <key>mk.16n.cpu15</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>16</sortorder>
+                    <drawtype>BOLD_LINE</drawtype>
+                    <color>00FF00</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 16 Nucleo</host>
+                        <key>mk.16n.cpu16</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>Info: CPUs Individuais</name>
+            <graph_items>
+                <graph_item>
+                    <color>C80000</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 16 Nucleo</host>
+                        <key>mk.16n.cpu1</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <color>00C800</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 16 Nucleo</host>
+                        <key>mk.16n.cpu2</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>2</sortorder>
+                    <color>0000C8</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 16 Nucleo</host>
+                        <key>mk.16n.cpu3</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>3</sortorder>
+                    <color>C800C8</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 16 Nucleo</host>
+                        <key>mk.16n.cpu4</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>4</sortorder>
+                    <color>00C8C8</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 16 Nucleo</host>
+                        <key>mk.16n.cpu5</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>5</sortorder>
+                    <color>C8C800</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 16 Nucleo</host>
+                        <key>mk.16n.cpu6</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>6</sortorder>
+                    <color>C8C8C8</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 16 Nucleo</host>
+                        <key>mk.16n.cpu7</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>7</sortorder>
+                    <color>960000</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 16 Nucleo</host>
+                        <key>mk.16n.cpu8</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>8</sortorder>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 16 Nucleo</host>
+                        <key>mk.16n.cpu9</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>9</sortorder>
+                    <color>000096</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 16 Nucleo</host>
+                        <key>mk.16n.cpu10</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>10</sortorder>
+                    <color>960096</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 16 Nucleo</host>
+                        <key>mk.16n.cpu11</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>11</sortorder>
+                    <color>009696</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 16 Nucleo</host>
+                        <key>mk.16n.cpu12</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>12</sortorder>
+                    <color>969600</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 16 Nucleo</host>
+                        <key>mk.16n.cpu13</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>13</sortorder>
+                    <color>969696</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 16 Nucleo</host>
+                        <key>mk.16n.cpu14</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>14</sortorder>
+                    <color>FF0000</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 16 Nucleo</host>
+                        <key>mk.16n.cpu15</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>15</sortorder>
+                    <color>00FF00</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 16 Nucleo</host>
+                        <key>mk.16n.cpu16</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+    </graphs>
+</zabbix_export>

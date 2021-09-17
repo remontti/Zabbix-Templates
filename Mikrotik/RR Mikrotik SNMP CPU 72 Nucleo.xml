@@ -1,0 +1,2229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2021-09-17T18:11:22Z</date>
+    <groups>
+        <group>
+            <name>Templates RR</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>RR Mikrotik SNMP CPU 72 Nucleo</template>
+            <name>RR Mikrotik SNMP CPU 72 Nucleo</name>
+            <description>By Rudimar Remontti</description>
+            <groups>
+                <group>
+                    <name>Templates RR</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>CPU</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>CPU 1</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.1</snmp_oid>
+                    <key>mk.72n.cpu1</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 1 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 2</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.2</snmp_oid>
+                    <key>mk.72n.cpu2</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 2 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 3</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.3</snmp_oid>
+                    <key>mk.72n.cpu3</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 3 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 4</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.4</snmp_oid>
+                    <key>mk.72n.cpu4</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 4 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 5</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.5</snmp_oid>
+                    <key>mk.72n.cpu5</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 5 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 6</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.6</snmp_oid>
+                    <key>mk.72n.cpu6</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 6 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 7</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.7</snmp_oid>
+                    <key>mk.72n.cpu7</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 7 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 8</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.8</snmp_oid>
+                    <key>mk.72n.cpu8</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 8 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 9</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.9</snmp_oid>
+                    <key>mk.72n.cpu9</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 9 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 10</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.10</snmp_oid>
+                    <key>mk.72n.cpu10</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 10 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 11</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.11</snmp_oid>
+                    <key>mk.72n.cpu11</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 11 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 12</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.12</snmp_oid>
+                    <key>mk.72n.cpu12</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 12 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 13</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.13</snmp_oid>
+                    <key>mk.72n.cpu13</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 13 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 14</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.14</snmp_oid>
+                    <key>mk.72n.cpu14</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 14 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 15</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.15</snmp_oid>
+                    <key>mk.72n.cpu15</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 15 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 16</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.16</snmp_oid>
+                    <key>mk.72n.cpu16</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 16 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 17</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.17</snmp_oid>
+                    <key>mk.72n.cpu17</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 17 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 18</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.18</snmp_oid>
+                    <key>mk.72n.cpu18</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 18 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 19</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.19</snmp_oid>
+                    <key>mk.72n.cpu19</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 19 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 20</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.20</snmp_oid>
+                    <key>mk.72n.cpu20</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 20 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 21</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.21</snmp_oid>
+                    <key>mk.72n.cpu21</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 21 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 22</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.22</snmp_oid>
+                    <key>mk.72n.cpu22</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 22 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 23</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.23</snmp_oid>
+                    <key>mk.72n.cpu23</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 23 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 24</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.24</snmp_oid>
+                    <key>mk.72n.cpu24</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 24 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 25</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.25</snmp_oid>
+                    <key>mk.72n.cpu25</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 25 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 26</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.26</snmp_oid>
+                    <key>mk.72n.cpu26</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 26 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 27</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.27</snmp_oid>
+                    <key>mk.72n.cpu27</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 27 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 28</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.28</snmp_oid>
+                    <key>mk.72n.cpu28</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 28 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 29</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.29</snmp_oid>
+                    <key>mk.72n.cpu29</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 29 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 30</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.30</snmp_oid>
+                    <key>mk.72n.cpu30</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 30 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 31</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.31</snmp_oid>
+                    <key>mk.72n.cpu31</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 31 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 32</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.32</snmp_oid>
+                    <key>mk.72n.cpu32</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 32 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 33</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.33</snmp_oid>
+                    <key>mk.72n.cpu33</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 33 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 34</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.34</snmp_oid>
+                    <key>mk.72n.cpu34</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 34 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 35</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.35</snmp_oid>
+                    <key>mk.72n.cpu35</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 35 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 36</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.36</snmp_oid>
+                    <key>mk.72n.cpu36</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 36 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 37</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.37</snmp_oid>
+                    <key>mk.72n.cpu37</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 37 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 38</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.38</snmp_oid>
+                    <key>mk.72n.cpu38</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 38 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 39</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.39</snmp_oid>
+                    <key>mk.72n.cpu39</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 39 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 40</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.40</snmp_oid>
+                    <key>mk.72n.cpu40</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 40 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 41</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.41</snmp_oid>
+                    <key>mk.72n.cpu41</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 41 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 42</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.42</snmp_oid>
+                    <key>mk.72n.cpu42</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 42 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 43</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.43</snmp_oid>
+                    <key>mk.72n.cpu43</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 43 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 44</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.44</snmp_oid>
+                    <key>mk.72n.cpu44</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 44 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 45</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.45</snmp_oid>
+                    <key>mk.72n.cpu45</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 45 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 46</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.46</snmp_oid>
+                    <key>mk.72n.cpu46</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 46 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 47</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.47</snmp_oid>
+                    <key>mk.72n.cpu47</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 47 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 48</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.48</snmp_oid>
+                    <key>mk.72n.cpu48</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 48 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 49</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.49</snmp_oid>
+                    <key>mk.72n.cpu49</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 49 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 50</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.50</snmp_oid>
+                    <key>mk.72n.cpu50</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 50 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 51</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.51</snmp_oid>
+                    <key>mk.72n.cpu51</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 51 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 52</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.52</snmp_oid>
+                    <key>mk.72n.cpu52</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 52 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 53</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.53</snmp_oid>
+                    <key>mk.72n.cpu53</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 53 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 54</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.54</snmp_oid>
+                    <key>mk.72n.cpu54</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 54 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 55</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.55</snmp_oid>
+                    <key>mk.72n.cpu55</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 55 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 56</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.56</snmp_oid>
+                    <key>mk.72n.cpu56</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 56 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 57</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.57</snmp_oid>
+                    <key>mk.72n.cpu57</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 57 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 58</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.58</snmp_oid>
+                    <key>mk.72n.cpu58</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 58 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 59</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.59</snmp_oid>
+                    <key>mk.72n.cpu59</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 59 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 60</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.60</snmp_oid>
+                    <key>mk.72n.cpu60</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 60 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 61</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.61</snmp_oid>
+                    <key>mk.72n.cpu61</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 61 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 62</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.62</snmp_oid>
+                    <key>mk.72n.cpu62</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 62 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 63</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.63</snmp_oid>
+                    <key>mk.72n.cpu63</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 63 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 64</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.64</snmp_oid>
+                    <key>mk.72n.cpu64</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 64 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 65</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.65</snmp_oid>
+                    <key>mk.72n.cpu65</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 65 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 66</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.66</snmp_oid>
+                    <key>mk.72n.cpu66</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 66 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 67</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.67</snmp_oid>
+                    <key>mk.72n.cpu67</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 67 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 68</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.68</snmp_oid>
+                    <key>mk.72n.cpu68</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 68 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 69</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.69</snmp_oid>
+                    <key>mk.72n.cpu69</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 69 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 70</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.70</snmp_oid>
+                    <key>mk.72n.cpu70</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 70 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 71</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.71</snmp_oid>
+                    <key>mk.72n.cpu71</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 71 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU 72</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.25.3.3.1.2.72</snmp_oid>
+                    <key>mk.72n.cpu72</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(3m)}&gt;75</expression>
+                            <name>CPU 72 acima de 75%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>CPU Geral</name>
+                    <type>CALCULATED</type>
+                    <key>mk.72n.cpugeral</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <params>(last(&quot;mk.72n.cpu1&quot;)+last(&quot;mk.72n.cpu2&quot;)+last(&quot;mk.72n.cpu3&quot;)+last(&quot;mk.72n.cpu4&quot;)+last(&quot;mk.72n.cpu5&quot;)+last(&quot;mk.72n.cpu6&quot;)+last(&quot;mk.72n.cpu7&quot;)+last(&quot;mk.72n.cpu8&quot;)+last(&quot;mk.72n.cpu9&quot;)+last(&quot;mk.72n.cpu10&quot;)+last(&quot;mk.72n.cpu11&quot;)+last(&quot;mk.72n.cpu12&quot;)+last(&quot;mk.72n.cpu13&quot;)+last(&quot;mk.72n.cpu14&quot;)+last(&quot;mk.72n.cpu15&quot;)+last(&quot;mk.72n.cpu16&quot;)+last(&quot;mk.72n.cpu17&quot;)+last(&quot;mk.72n.cpu18&quot;)+last(&quot;mk.72n.cpu19&quot;)+last(&quot;mk.72n.cpu20&quot;)+last(&quot;mk.72n.cpu21&quot;)+last(&quot;mk.72n.cpu22&quot;)+last(&quot;mk.72n.cpu23&quot;)+last(&quot;mk.72n.cpu24&quot;)+last(&quot;mk.72n.cpu25&quot;)+last(&quot;mk.72n.cpu26&quot;)+last(&quot;mk.72n.cpu27&quot;)+last(&quot;mk.72n.cpu28&quot;)+last(&quot;mk.72n.cpu29&quot;)+last(&quot;mk.72n.cpu30&quot;)+last(&quot;mk.72n.cpu31&quot;)+last(&quot;mk.72n.cpu32&quot;)+last(&quot;mk.72n.cpu33&quot;)+last(&quot;mk.72n.cpu34&quot;)+last(&quot;mk.72n.cpu35&quot;)+last(&quot;mk.72n.cpu36&quot;)+last(&quot;mk.72n.cpu37&quot;)+last(&quot;mk.72n.cpu38&quot;)+last(&quot;mk.72n.cpu39&quot;)+last(&quot;mk.72n.cpu40&quot;)+last(&quot;mk.72n.cpu41&quot;)+last(&quot;mk.72n.cpu42&quot;)+last(&quot;mk.72n.cpu43&quot;)+last(&quot;mk.72n.cpu44&quot;)+last(&quot;mk.72n.cpu45&quot;)+last(&quot;mk.72n.cpu46&quot;)+last(&quot;mk.72n.cpu47&quot;)+last(&quot;mk.72n.cpu48&quot;)+last(&quot;mk.72n.cpu49&quot;)+last(&quot;mk.72n.cpu50&quot;)+last(&quot;mk.72n.cpu51&quot;)+last(&quot;mk.72n.cpu52&quot;)+last(&quot;mk.72n.cpu53&quot;)+last(&quot;mk.72n.cpu54&quot;)+last(&quot;mk.72n.cpu55&quot;)+last(&quot;mk.72n.cpu56&quot;)+last(&quot;mk.72n.cpu57&quot;)+last(&quot;mk.72n.cpu58&quot;)+last(&quot;mk.72n.cpu59&quot;)+last(&quot;mk.72n.cpu60&quot;)+last(&quot;mk.72n.cpu61&quot;)+last(&quot;mk.72n.cpu62&quot;)+last(&quot;mk.72n.cpu63&quot;)+last(&quot;mk.72n.cpu64&quot;)+last(&quot;mk.72n.cpu65&quot;)+last(&quot;mk.72n.cpu66&quot;)+last(&quot;mk.72n.cpu67&quot;)+last(&quot;mk.72n.cpu68&quot;)+last(&quot;mk.72n.cpu69&quot;)+last(&quot;mk.72n.cpu70&quot;)+last(&quot;mk.72n.cpu71&quot;)+last(&quot;mk.72n.cpu72&quot;))/(72)</params>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(4m)}&gt;50</expression>
+                            <name>CPU geral acima de 50%</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+            </items>
+        </template>
+    </templates>
+    <graphs>
+        <graph>
+            <name>Info: CPU Geral</name>
+            <graph_items>
+                <graph_item>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>FFAB91</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpugeral</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>Info: CPUs Individuais</name>
+            <graph_items>
+                <graph_item>
+                    <color>199C0D</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu1</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <color>F63100</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu2</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>2</sortorder>
+                    <color>2774A4</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu3</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>3</sortorder>
+                    <color>F7941D</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu4</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>4</sortorder>
+                    <color>FC6EA3</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu5</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>5</sortorder>
+                    <color>6C59DC</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu6</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>6</sortorder>
+                    <color>C7A72D</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu7</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>7</sortorder>
+                    <color>BA2A5D</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu8</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>8</sortorder>
+                    <color>F230E0</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu9</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>9</sortorder>
+                    <color>5CCD18</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu10</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>10</sortorder>
+                    <color>BB2A02</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu11</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>11</sortorder>
+                    <color>AC41A5</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu12</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>12</sortorder>
+                    <color>89ABF8</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu13</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>13</sortorder>
+                    <color>7EC25C</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu14</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>14</sortorder>
+                    <color>3165D5</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu15</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>15</sortorder>
+                    <color>79A277</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu16</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>16</sortorder>
+                    <color>AA73DE</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu17</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>17</sortorder>
+                    <color>FD5434</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu18</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>18</sortorder>
+                    <color>F21C3E</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu19</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>19</sortorder>
+                    <color>87AC4D</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu20</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>20</sortorder>
+                    <color>E89DF4</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu21</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>21</sortorder>
+                    <color>199C0D</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu22</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>22</sortorder>
+                    <color>F63100</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu23</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>23</sortorder>
+                    <color>2774A4</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu24</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>24</sortorder>
+                    <color>F7941D</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu25</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>25</sortorder>
+                    <color>FC6EA3</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu26</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>26</sortorder>
+                    <color>6C59DC</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu27</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>27</sortorder>
+                    <color>C7A72D</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu28</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>28</sortorder>
+                    <color>BA2A5D</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu29</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>29</sortorder>
+                    <color>F230E0</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu30</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>30</sortorder>
+                    <color>5CCD18</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu31</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>31</sortorder>
+                    <color>BB2A02</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu32</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>32</sortorder>
+                    <color>AC41A5</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu33</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>33</sortorder>
+                    <color>89ABF8</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu34</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>34</sortorder>
+                    <color>7EC25C</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu35</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>35</sortorder>
+                    <color>3165D5</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu36</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>36</sortorder>
+                    <color>79A277</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu37</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>37</sortorder>
+                    <color>AA73DE</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu38</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>38</sortorder>
+                    <color>FD5434</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu39</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>39</sortorder>
+                    <color>F21C3E</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu40</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>40</sortorder>
+                    <color>87AC4D</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu41</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>41</sortorder>
+                    <color>E89DF4</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu42</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>42</sortorder>
+                    <color>199C0D</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu43</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>43</sortorder>
+                    <color>F63100</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu44</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>44</sortorder>
+                    <color>2774A4</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu45</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>45</sortorder>
+                    <color>F7941D</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu46</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>46</sortorder>
+                    <color>FC6EA3</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu47</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>47</sortorder>
+                    <color>6C59DC</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu48</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>48</sortorder>
+                    <color>C7A72D</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu49</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>49</sortorder>
+                    <color>BA2A5D</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu50</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>50</sortorder>
+                    <color>F230E0</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu51</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>51</sortorder>
+                    <color>5CCD18</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu52</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>52</sortorder>
+                    <color>BB2A02</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu53</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>53</sortorder>
+                    <color>AC41A5</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu54</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>54</sortorder>
+                    <color>89ABF8</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu55</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>55</sortorder>
+                    <color>7EC25C</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu56</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>56</sortorder>
+                    <color>3165D5</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu57</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>57</sortorder>
+                    <color>79A277</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu58</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>58</sortorder>
+                    <color>AA73DE</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu59</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>59</sortorder>
+                    <color>FD5434</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu60</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>60</sortorder>
+                    <color>F21C3E</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu61</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>61</sortorder>
+                    <color>87AC4D</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu62</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>62</sortorder>
+                    <color>E89DF4</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu63</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>63</sortorder>
+                    <color>199C0D</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu64</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>64</sortorder>
+                    <color>F63100</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu65</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>65</sortorder>
+                    <color>2774A4</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu66</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>66</sortorder>
+                    <color>F7941D</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu67</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>67</sortorder>
+                    <color>FC6EA3</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu68</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>68</sortorder>
+                    <color>6C59DC</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu69</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>69</sortorder>
+                    <color>C7A72D</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu70</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>70</sortorder>
+                    <color>BA2A5D</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu71</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>71</sortorder>
+                    <color>F230E0</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU 72 Nucleo</host>
+                        <key>mk.72n.cpu72</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+    </graphs>
+</zabbix_export>

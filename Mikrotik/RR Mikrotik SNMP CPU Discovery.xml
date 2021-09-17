@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2021-09-17T18:11:30Z</date>
+    <groups>
+        <group>
+            <name>Templates RR</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>RR Mikrotik SNMP CPU Discovery</template>
+            <name>RR Mikrotik SNMP CPU Discovery</name>
+            <description>By Rudimar Remontti</description>
+            <groups>
+                <group>
+                    <name>Templates RR</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>CPU</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>CPU Geral</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.2021.11.10.0</snmp_oid>
+                    <key>cpu.load.geral</key>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(4m)}&gt;60</expression>
+                            <name>CPU Geral acima de 60%</name>
+                            <priority>INFO</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+            </items>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>discovery.cpus</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#CPUNUMBER}, 1.3.6.1.2.1.25.3.2.1.1]</snmp_oid>
+                    <key>discovery.cpu</key>
+                    <delay>5m</delay>
+                    <lifetime>1d</lifetime>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>CPU {#CPUNUMBER}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.2.1.25.3.3.1.2.{#SNMPINDEX}</snmp_oid>
+                            <key>cpu.load[{#CPUNUMBER}]</key>
+                            <history>30d</history>
+                            <trends>90d</trends>
+                            <units>%</units>
+                            <applications>
+                                <application>
+                                    <name>CPU</name>
+                                </application>
+                            </applications>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{avg(4m)}&gt;75</expression>
+                                    <name>CPU {#CPUNUMBER} acima de 75%</name>
+                                    <priority>WARNING</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                    </item_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <name>CPU {#CPUNUMBER}</name>
+                            <graph_items>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <color>7E57C2</color>
+                                    <item>
+                                        <host>RR Mikrotik SNMP CPU Discovery</host>
+                                        <key>cpu.load[{#CPUNUMBER}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+        </template>
+    </templates>
+    <graphs>
+        <graph>
+            <name>CPU Geral</name>
+            <graph_items>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>7E57C2</color>
+                    <item>
+                        <host>RR Mikrotik SNMP CPU Discovery</host>
+                        <key>cpu.load.geral</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+    </graphs>
+</zabbix_export>
