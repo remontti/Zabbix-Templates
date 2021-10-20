@@ -5,7 +5,7 @@ Alguns dos templates foi copiado, alterado, mexido, bagunçado... rsrsrs
 Contribua também, se usar e fizer alguma melhoria, criar novos, não exite em compartilhar criando um pull request com as suas modificações/arquivo! 
 
 
-Instalação do Zabbix 5 + notificações pelo Telegram nativo + Grafana 7 + Debian 10 Buster
+Instalação do Zabbix 5.0 LTS + notificações pelo Telegram nativo + Grafana 7/8 + Debian 10/11
 https://blog.remontti.com.br/4348 
 
 ### MIBs
@@ -26,11 +26,13 @@ deb-src http://ftp.br.debian.org/debian/ stretch-updates main contrib non-free
 
 # apt update
 # apt upgrade
-# apt install snmp-mibs-downloader
+# apt install snmp-mibs-downloader snmp
 
 # vim /etc/snmp/snmp.conf
 Comente ==> #mibs :
 
 # systemctl restart zabbix-server
+# systemctl disable snmpd
+# systemctl stop snmpd
 ```
 
