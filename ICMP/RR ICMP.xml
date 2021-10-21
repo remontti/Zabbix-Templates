@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>5.0</version>
-    <date>2021-05-12T19:50:30Z</date>
+    <date>2021-10-21T16:54:31Z</date>
     <groups>
         <group>
             <name>Templates RR</name>
@@ -136,7 +136,7 @@
                     <name>Status</name>
                     <type>SIMPLE</type>
                     <key>icmpping</key>
-                    <history>1w</history>
+                    <history>7d</history>
                     <trends>90d</trends>
                     <applications>
                         <application>
@@ -150,7 +150,7 @@
                     <triggers>
                         <trigger>
                             <expression>{max(#3)}=0</expression>
-                            <name>ICMP Timeout</name>
+                            <name>Timeout</name>
                             <priority>DISASTER</priority>
                             <description>{HOST.NAME}: TIMEOUT</description>
                         </trigger>
@@ -160,7 +160,7 @@
                     <name>Latência</name>
                     <type>SIMPLE</type>
                     <key>icmppingsec</key>
-                    <history>1w</history>
+                    <history>7d</history>
                     <trends>90d</trends>
                     <value_type>FLOAT</value_type>
                     <units>s</units>
@@ -172,70 +172,8 @@
                     <request_method>POST</request_method>
                     <triggers>
                         <trigger>
-                            <expression>{avg(4m)}&gt;0.12</expression>
-                            <name>Latência acima de 120ms</name>
-                            <priority>AVERAGE</priority>
-                        </trigger>
-                    </triggers>
-                </item>
-            </items>
-        </template>
-        <template>
-            <template>RR ICMP Ping 100ms</template>
-            <name>RR ICMP Ping 100ms</name>
-            <groups>
-                <group>
-                    <name>Templates RR</name>
-                </group>
-            </groups>
-            <applications>
-                <application>
-                    <name>ICMP</name>
-                </application>
-            </applications>
-            <items>
-                <item>
-                    <name>Status</name>
-                    <type>SIMPLE</type>
-                    <key>icmpping</key>
-                    <history>1w</history>
-                    <trends>90d</trends>
-                    <applications>
-                        <application>
-                            <name>ICMP</name>
-                        </application>
-                    </applications>
-                    <valuemap>
-                        <name>Status ICMP</name>
-                    </valuemap>
-                    <request_method>POST</request_method>
-                    <triggers>
-                        <trigger>
-                            <expression>{max(#3)}=0</expression>
-                            <name>ICMP Timeout</name>
-                            <priority>DISASTER</priority>
-                            <description>{HOST.NAME}: TIMEOUT</description>
-                        </trigger>
-                    </triggers>
-                </item>
-                <item>
-                    <name>Latência</name>
-                    <type>SIMPLE</type>
-                    <key>icmppingsec</key>
-                    <history>1w</history>
-                    <trends>90d</trends>
-                    <value_type>FLOAT</value_type>
-                    <units>s</units>
-                    <applications>
-                        <application>
-                            <name>ICMP</name>
-                        </application>
-                    </applications>
-                    <request_method>POST</request_method>
-                    <triggers>
-                        <trigger>
-                            <expression>{avg(5m)}&gt;0.1</expression>
-                            <name>Latência +Q 100ms (5min)</name>
+                            <expression>{avg(4m)}&gt;0.10</expression>
+                            <name>Latência acima de 100ms</name>
                             <priority>AVERAGE</priority>
                         </trigger>
                     </triggers>
@@ -282,8 +220,8 @@
             </items>
         </template>
         <template>
-            <template>RR ICMP Ping Perda 50 porc</template>
-            <name>RR ICMP Ping Perda 50 porc</name>
+            <template>RR Template ICMP Ping</template>
+            <name>RR Template ICMP Ping</name>
             <groups>
                 <group>
                     <name>Templates RR</name>
@@ -296,11 +234,32 @@
             </applications>
             <items>
                 <item>
-                    <name>Perda</name>
+                    <name>ICMP ping</name>
+                    <type>SIMPLE</type>
+                    <key>icmpping</key>
+                    <history>1w</history>
+                    <applications>
+                        <application>
+                            <name>ICMP</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>Service state</name>
+                    </valuemap>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{max(#3)}=0</expression>
+                            <name>{HOST.NAME} is unavailable by ICMP</name>
+                            <priority>AVERAGE</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>ICMP loss</name>
                     <type>SIMPLE</type>
                     <key>icmppingloss</key>
                     <history>1w</history>
-                    <trends>90d</trends>
                     <value_type>FLOAT</value_type>
                     <units>%</units>
                     <applications>
@@ -311,10 +270,42 @@
                     <request_method>POST</request_method>
                     <triggers>
                         <trigger>
-                            <expression>{min(2m)}&gt;50</expression>
-                            <name>Perda de pacotes +Q 50%</name>
-                            <priority>HIGH</priority>
-                            <description>{HOST.NAME}: TIMEOUT</description>
+                            <expression>{min(5m)}&gt;20</expression>
+                            <name>Ping loss is too high on {HOST.NAME}</name>
+                            <priority>WARNING</priority>
+                            <dependencies>
+                                <dependency>
+                                    <name>{HOST.NAME} is unavailable by ICMP</name>
+                                    <expression>{RR Template ICMP Ping:icmpping.max(#3)}=0</expression>
+                                </dependency>
+                            </dependencies>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>ICMP response time</name>
+                    <type>SIMPLE</type>
+                    <key>icmppingsec</key>
+                    <history>1w</history>
+                    <value_type>FLOAT</value_type>
+                    <units>s</units>
+                    <applications>
+                        <application>
+                            <name>ICMP</name>
+                        </application>
+                    </applications>
+                    <request_method>POST</request_method>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(5m)}&gt;0.15</expression>
+                            <name>Response time is too high on {HOST.NAME}</name>
+                            <priority>WARNING</priority>
+                            <dependencies>
+                                <dependency>
+                                    <name>{HOST.NAME} is unavailable by ICMP</name>
+                                    <expression>{RR Template ICMP Ping:icmpping.max(#3)}=0</expression>
+                                </dependency>
+                            </dependencies>
                         </trigger>
                     </triggers>
                 </item>
@@ -338,21 +329,6 @@
             </graph_items>
         </graph>
         <graph>
-            <name>ICMP Latência</name>
-            <height>350</height>
-            <graph_items>
-                <graph_item>
-                    <drawtype>GRADIENT_LINE</drawtype>
-                    <color>FFFF99</color>
-                    <calc_fnc>ALL</calc_fnc>
-                    <item>
-                        <host>RR ICMP Ping 100ms</host>
-                        <key>icmppingsec</key>
-                    </item>
-                </graph_item>
-            </graph_items>
-        </graph>
-        <graph>
             <name>ICMP Perda</name>
             <height>300</height>
             <graph_items>
@@ -361,20 +337,6 @@
                     <color>EE0000</color>
                     <item>
                         <host>RR ICMP Ping Perda</host>
-                        <key>icmppingloss</key>
-                    </item>
-                </graph_item>
-            </graph_items>
-        </graph>
-        <graph>
-            <name>ICMP Perda</name>
-            <height>300</height>
-            <graph_items>
-                <graph_item>
-                    <drawtype>GRADIENT_LINE</drawtype>
-                    <color>EE0000</color>
-                    <item>
-                        <host>RR ICMP Ping Perda 50 porc</host>
                         <key>icmppingloss</key>
                     </item>
                 </graph_item>
@@ -405,6 +367,19 @@
         </graph>
     </graphs>
     <value_maps>
+        <value_map>
+            <name>Service state</name>
+            <mappings>
+                <mapping>
+                    <value>0</value>
+                    <newvalue>Down</newvalue>
+                </mapping>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>Up</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
         <value_map>
             <name>Status ICMP</name>
             <mappings>
