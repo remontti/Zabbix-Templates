@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>5.0</version>
-    <date>2021-06-10T17:18:18Z</date>
+    <date>2021-10-21T16:22:12Z</date>
     <groups>
         <group>
             <name>Templates RR</name>
@@ -11,13 +11,15 @@
         <template>
             <template>RR Ubiquiti AC Series 8.x SNMP Clientes</template>
             <name>RR Ubiquiti AC Series 8.x SNMP Clientes</name>
-            <description>Atualização a cada 5min</description>
             <groups>
                 <group>
                     <name>Templates RR</name>
                 </group>
             </groups>
             <applications>
+                <application>
+                    <name>Cliente Bit Rate</name>
+                </application>
                 <application>
                     <name>Cliente CCQ</name>
                 </application>
@@ -38,17 +40,19 @@
                 <discovery_rule>
                     <name>MAC conectados</name>
                     <type>SNMP_AGENT</type>
-                    <snmp_oid>discovery[{#SNMPVALUE},.1.3.6.1.4.1.41112.1.4.7.1.1.1]</snmp_oid>
+                    <snmp_oid>discovery[{#SNMPVALUE},.1.3.6.1.4.1.41112.1.4.7.1.1.1, {#IFALIAS},.1.3.6.1.4.1.41112.1.4.7.1.2.1]</snmp_oid>
                     <key>discovery.mac.conectados</key>
+                    <delay>1h</delay>
                     <lifetime>7d</lifetime>
                     <item_prototypes>
                         <item_prototype>
-                            <name>{#SNMPVALUE} Downlink Capacity</name>
+                            <name>{#SNMPVALUE} {#IFALIAS} Downlink Capacity</name>
                             <type>SNMP_AGENT</type>
                             <snmp_oid>.1.3.6.1.4.1.41112.1.4.7.1.17.1.{#SNMPINDEX}</snmp_oid>
                             <key>dd.down.cliente[{#SNMPVALUE}]</key>
-                            <history>15d</history>
-                            <trends>120d</trends>
+                            <delay>1h</delay>
+                            <history>7d</history>
+                            <trends>180d</trends>
                             <value_type>FLOAT</value_type>
                             <units>bps</units>
                             <applications>
@@ -64,12 +68,13 @@
                             </preprocessing>
                         </item_prototype>
                         <item_prototype>
-                            <name>{#SNMPVALUE} KM</name>
+                            <name>{#SNMPVALUE} {#IFALIAS} KM</name>
                             <type>SNMP_AGENT</type>
                             <snmp_oid>.1.3.6.1.4.1.41112.1.4.7.1.5.1.{#SNMPINDEX}</snmp_oid>
                             <key>dd.km.cliente[{#SNMPVALUE}]</key>
-                            <history>15d</history>
-                            <trends>120d</trends>
+                            <delay>1h</delay>
+                            <history>7d</history>
+                            <trends>180d</trends>
                             <value_type>FLOAT</value_type>
                             <units>Km</units>
                             <applications>
@@ -85,12 +90,38 @@
                             </preprocessing>
                         </item_prototype>
                         <item_prototype>
-                            <name>{#SNMPVALUE} Sinal</name>
+                            <name>{#SNMPVALUE} {#IFALIAS} RX Bit Rate</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.41112.1.4.7.1.13.1.{#SNMPINDEX}</snmp_oid>
+                            <key>dd.rx.bit.cliente[{#SNMPVALUE}]</key>
+                            <delay>4m</delay>
+                            <history>7d</history>
+                            <trends>0</trends>
+                            <units>bps</units>
+                            <applications>
+                                <application>
+                                    <name>Cliente Bit Rate</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>8</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#SNMPVALUE} {#IFALIAS} Sinal</name>
                             <type>SNMP_AGENT</type>
                             <snmp_oid>.1.3.6.1.4.1.41112.1.4.7.1.3.1.{#SNMPINDEX}</snmp_oid>
                             <key>dd.sinal.cliente[{#SNMPVALUE}]</key>
-                            <history>15d</history>
-                            <trends>120d</trends>
+                            <delay>1h</delay>
+                            <history>7d</history>
+                            <trends>180d</trends>
                             <value_type>FLOAT</value_type>
                             <units>dBm</units>
                             <applications>
@@ -98,14 +129,48 @@
                                     <name>Cliente Sinal</name>
                                 </application>
                             </applications>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last()}&lt;-70</expression>
+                                    <name>Sinal do MAC {#SNMPVALUE} {#IFALIAS} baixo</name>
+                                    <priority>WARNING</priority>
+                                    <manual_close>YES</manual_close>
+                                </trigger_prototype>
+                            </trigger_prototypes>
                         </item_prototype>
                         <item_prototype>
-                            <name>{#SNMPVALUE} Uplink Capacity</name>
+                            <name>{#SNMPVALUE} {#IFALIAS} TX Bit Rate</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.41112.1.4.7.1.14.1.{#SNMPINDEX}</snmp_oid>
+                            <key>dd.tx.bit.cliente[{#SNMPVALUE}]</key>
+                            <delay>4m</delay>
+                            <history>7d</history>
+                            <trends>0</trends>
+                            <units>bps</units>
+                            <applications>
+                                <application>
+                                    <name>Cliente Bit Rate</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>8</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#SNMPVALUE} {#IFALIAS} Uplink Capacity</name>
                             <type>SNMP_AGENT</type>
                             <snmp_oid>.1.3.6.1.4.1.41112.1.4.7.1.18.1.{#SNMPINDEX}</snmp_oid>
                             <key>dd.uplink.cliente[{#SNMPVALUE}]</key>
-                            <history>15d</history>
-                            <trends>120d</trends>
+                            <delay>1h</delay>
+                            <history>7d</history>
+                            <trends>180d</trends>
                             <value_type>FLOAT</value_type>
                             <units>bps</units>
                             <applications>
@@ -121,12 +186,13 @@
                             </preprocessing>
                         </item_prototype>
                         <item_prototype>
-                            <name>{#SNMPVALUE} Uptime</name>
+                            <name>{#SNMPVALUE} {#IFALIAS} Uptime</name>
                             <type>SNMP_AGENT</type>
                             <snmp_oid>.1.3.6.1.4.1.41112.1.4.7.1.15.1.{#SNMPINDEX}</snmp_oid>
                             <key>dd.uptime.cliente[{#SNMPVALUE}]</key>
-                            <history>15d</history>
-                            <trends>120d</trends>
+                            <delay>1h</delay>
+                            <history>7d</history>
+                            <trends>180d</trends>
                             <value_type>FLOAT</value_type>
                             <units>uptime</units>
                             <applications>
@@ -144,11 +210,12 @@
                     </item_prototypes>
                     <graph_prototypes>
                         <graph_prototype>
-                            <name>{#SNMPVALUE}  Km</name>
+                            <name>{#SNMPVALUE}  {#IFALIAS} Km</name>
                             <show_work_period>NO</show_work_period>
                             <show_triggers>NO</show_triggers>
                             <graph_items>
                                 <graph_item>
+                                    <sortorder>1</sortorder>
                                     <drawtype>GRADIENT_LINE</drawtype>
                                     <color>F06292</color>
                                     <item>
@@ -159,9 +226,10 @@
                             </graph_items>
                         </graph_prototype>
                         <graph_prototype>
-                            <name>{#SNMPVALUE} Sinal</name>
+                            <name>{#SNMPVALUE} {#IFALIAS} Sinal</name>
                             <graph_items>
                                 <graph_item>
+                                    <sortorder>1</sortorder>
                                     <drawtype>GRADIENT_LINE</drawtype>
                                     <color>BFFF00</color>
                                     <yaxisside>RIGHT</yaxisside>
@@ -173,9 +241,10 @@
                             </graph_items>
                         </graph_prototype>
                         <graph_prototype>
-                            <name>{#SNMPVALUE} TX / RX</name>
+                            <name>{#SNMPVALUE} {#IFALIAS} TX / RX</name>
                             <graph_items>
                                 <graph_item>
+                                    <sortorder>1</sortorder>
                                     <drawtype>BOLD_LINE</drawtype>
                                     <color>00FFFF</color>
                                     <yaxisside>RIGHT</yaxisside>
@@ -185,7 +254,7 @@
                                     </item>
                                 </graph_item>
                                 <graph_item>
-                                    <sortorder>1</sortorder>
+                                    <sortorder>2</sortorder>
                                     <drawtype>BOLD_LINE</drawtype>
                                     <color>FFFF00</color>
                                     <yaxisside>RIGHT</yaxisside>
@@ -197,11 +266,35 @@
                             </graph_items>
                         </graph_prototype>
                         <graph_prototype>
-                            <name>{#SNMPVALUE}  Uptime</name>
+                            <name>{#SNMPVALUE}  {#IFALIAS}  TX/RX Bit Rate</name>
+                            <graph_items>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>00FF00</color>
+                                    <item>
+                                        <host>RR Ubiquiti AC Series 8.x SNMP Clientes</host>
+                                        <key>dd.rx.bit.cliente[{#SNMPVALUE}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>2</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>0040FF</color>
+                                    <item>
+                                        <host>RR Ubiquiti AC Series 8.x SNMP Clientes</host>
+                                        <key>dd.tx.bit.cliente[{#SNMPVALUE}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                        <graph_prototype>
+                            <name>{#SNMPVALUE}  {#IFALIAS} Uptime</name>
                             <show_work_period>NO</show_work_period>
                             <show_triggers>NO</show_triggers>
                             <graph_items>
                                 <graph_item>
+                                    <sortorder>1</sortorder>
                                     <drawtype>GRADIENT_LINE</drawtype>
                                     <color>00FFFF</color>
                                     <item>
@@ -237,8 +330,8 @@
                     <type>SNMP_AGENT</type>
                     <snmp_oid>.1.3.6.1.2.1.2.2.1.16.2</snmp_oid>
                     <key>ubnt.in.eth0</key>
-                    <history>1w</history>
-                    <trends>26w</trends>
+                    <history>7d</history>
+                    <trends>180d</trends>
                     <units>bps</units>
                     <applications>
                         <application>
@@ -262,8 +355,8 @@
                     <type>SNMP_AGENT</type>
                     <snmp_oid>.1.3.6.1.2.1.2.2.1.10.2</snmp_oid>
                     <key>ubnt.out.eth0</key>
-                    <history>1w</history>
-                    <trends>26w</trends>
+                    <history>7d</history>
+                    <trends>180d</trends>
                     <units>bps</units>
                     <applications>
                         <application>
@@ -287,9 +380,9 @@
                     <type>SNMP_AGENT</type>
                     <snmp_oid>iso.3.6.1.4.1.41112.1.4.5.1.14.1</snmp_oid>
                     <key>ubnt56.abertura</key>
-                    <delay>10m</delay>
-                    <history>1w</history>
-                    <trends>26w</trends>
+                    <delay>1h</delay>
+                    <history>7d</history>
+                    <trends>180d</trends>
                     <units>MHz</units>
                     <applications>
                         <application>
@@ -312,8 +405,8 @@
                     <snmp_oid>iso.3.6.1.2.1.2.2.1.5.2</snmp_oid>
                     <key>ubnt56.advertise</key>
                     <delay>5m</delay>
-                    <history>1w</history>
-                    <trends>26w</trends>
+                    <history>7d</history>
+                    <trends>180d</trends>
                     <units>bps</units>
                     <applications>
                         <application>
@@ -334,9 +427,9 @@
                     <type>SNMP_AGENT</type>
                     <snmp_oid>iso.3.6.1.4.1.41112.1.4.1.1.4.1</snmp_oid>
                     <key>ubnt56.canal</key>
-                    <delay>10m</delay>
-                    <history>1w</history>
-                    <trends>26w</trends>
+                    <delay>1h</delay>
+                    <history>7d</history>
+                    <trends>180d</trends>
                     <units>MHz</units>
                     <applications>
                         <application>
@@ -358,9 +451,9 @@
                     <type>SNMP_AGENT</type>
                     <snmp_oid>iso.3.6.1.4.1.41112.1.4.5.1.15.1</snmp_oid>
                     <key>ubnt56.conectados</key>
-                    <delay>10m</delay>
-                    <history>1w</history>
-                    <trends>26w</trends>
+                    <delay>1h</delay>
+                    <history>7d</history>
+                    <trends>180d</trends>
                     <applications>
                         <application>
                             <name>Info</name>
@@ -390,9 +483,9 @@
                     <type>SNMP_AGENT</type>
                     <snmp_oid>.1.3.6.1.4.1.10002.1.1.1.1.1.0</snmp_oid>
                     <key>ubnt56.mentotal</key>
-                    <delay>10m</delay>
-                    <history>1w</history>
-                    <trends>26w</trends>
+                    <delay>1h</delay>
+                    <history>7d</history>
+                    <trends>180d</trends>
                     <units>B</units>
                     <applications>
                         <application>
@@ -413,8 +506,8 @@
                     <snmp_oid>.1.3.6.1.4.1.10002.1.1.1.1.2.0</snmp_oid>
                     <key>ubnt56.menusada</key>
                     <delay>5m</delay>
-                    <history>1w</history>
-                    <trends>26w</trends>
+                    <history>7d</history>
+                    <trends>180d</trends>
                     <units>B</units>
                     <applications>
                         <application>
@@ -434,9 +527,9 @@
                     <type>SNMP_AGENT</type>
                     <snmp_oid>iso.3.6.1.4.1.41112.1.4.5.1.8.1</snmp_oid>
                     <key>ubnt56.noise</key>
-                    <delay>5m</delay>
-                    <history>1w</history>
-                    <trends>26w</trends>
+                    <delay>30m</delay>
+                    <history>7d</history>
+                    <trends>180d</trends>
                     <value_type>FLOAT</value_type>
                     <units>dBm</units>
                     <applications>
@@ -451,8 +544,8 @@
                     <type>SNMP_AGENT</type>
                     <snmp_oid>iso.3.6.1.4.1.41112.1.4.5.1.2.1</snmp_oid>
                     <key>ubnt56.ssid</key>
-                    <delay>10m</delay>
-                    <history>1w</history>
+                    <delay>1h</delay>
+                    <history>7d</history>
                     <trends>0</trends>
                     <value_type>TEXT</value_type>
                     <applications>
@@ -475,9 +568,9 @@
                     <type>SNMP_AGENT</type>
                     <snmp_oid>.1.3.6.1.2.1.1.3.0</snmp_oid>
                     <key>ubnt56.uptime</key>
-                    <delay>5m</delay>
-                    <history>1w</history>
-                    <trends>26w</trends>
+                    <delay>30m</delay>
+                    <history>7d</history>
+                    <trends>180d</trends>
                     <units>uptime</units>
                     <applications>
                         <application>
@@ -504,8 +597,9 @@
                     <type>SNMP_AGENT</type>
                     <snmp_oid>iso.3.6.1.4.1.10002.1.1.1.4.2.1.3.1</snmp_oid>
                     <key>ubnt56.usocpu</key>
-                    <history>1w</history>
-                    <trends>26w</trends>
+                    <delay>5m</delay>
+                    <history>7d</history>
+                    <trends>180d</trends>
                     <units>%</units>
                     <applications>
                         <application>
@@ -519,8 +613,8 @@
                     <type>SNMP_AGENT</type>
                     <snmp_oid>.1.2.840.10036.3.1.2.1.4.7</snmp_oid>
                     <key>ubnt56.versaofirm</key>
-                    <delay>10m</delay>
-                    <history>1w</history>
+                    <delay>1h</delay>
+                    <history>7d</history>
                     <trends>0</trends>
                     <value_type>TEXT</value_type>
                     <applications>
@@ -562,8 +656,8 @@
                     <type>SNMP_AGENT</type>
                     <snmp_oid>.1.3.6.1.2.1.2.2.1.16.4</snmp_oid>
                     <key>ubnt.in.eth0</key>
-                    <history>1w</history>
-                    <trends>26w</trends>
+                    <history>7d</history>
+                    <trends>180d</trends>
                     <units>bps</units>
                     <applications>
                         <application>
@@ -587,8 +681,8 @@
                     <type>SNMP_AGENT</type>
                     <snmp_oid>.1.3.6.1.2.1.2.2.1.16.5</snmp_oid>
                     <key>ubnt.in.eth1</key>
-                    <history>1w</history>
-                    <trends>26w</trends>
+                    <history>7d</history>
+                    <trends>180d</trends>
                     <units>bps</units>
                     <applications>
                         <application>
@@ -611,8 +705,8 @@
                     <type>SNMP_AGENT</type>
                     <snmp_oid>.1.3.6.1.2.1.2.2.1.10.4</snmp_oid>
                     <key>ubnt.out.eth0</key>
-                    <history>1w</history>
-                    <trends>26w</trends>
+                    <history>7d</history>
+                    <trends>180d</trends>
                     <units>bps</units>
                     <applications>
                         <application>
@@ -636,8 +730,8 @@
                     <type>SNMP_AGENT</type>
                     <snmp_oid>.1.3.6.1.2.1.2.2.1.10.5</snmp_oid>
                     <key>ubnt.out.eth1</key>
-                    <history>1w</history>
-                    <trends>26w</trends>
+                    <history>7d</history>
+                    <trends>180d</trends>
                     <units>bps</units>
                     <applications>
                         <application>
@@ -660,9 +754,9 @@
                     <type>SNMP_AGENT</type>
                     <snmp_oid>iso.3.6.1.4.1.41112.1.4.5.1.14.1</snmp_oid>
                     <key>ubnt56.abertura</key>
-                    <delay>10m</delay>
-                    <history>1w</history>
-                    <trends>26w</trends>
+                    <delay>1h</delay>
+                    <history>7d</history>
+                    <trends>180d</trends>
                     <units>MHz</units>
                     <applications>
                         <application>
@@ -685,8 +779,8 @@
                     <snmp_oid>iso.3.6.1.2.1.2.2.1.5.4</snmp_oid>
                     <key>ubnt56.advertise.eth0</key>
                     <delay>5m</delay>
-                    <history>1w</history>
-                    <trends>26w</trends>
+                    <history>7d</history>
+                    <trends>180d</trends>
                     <units>bps</units>
                     <applications>
                         <application>
@@ -708,8 +802,8 @@
                     <snmp_oid>iso.3.6.1.2.1.2.2.1.5.5</snmp_oid>
                     <key>ubnt56.advertise.eth1</key>
                     <delay>5m</delay>
-                    <history>1w</history>
-                    <trends>26w</trends>
+                    <history>7d</history>
+                    <trends>180d</trends>
                     <status>DISABLED</status>
                     <units>bps</units>
                     <applications>
@@ -731,9 +825,9 @@
                     <type>SNMP_AGENT</type>
                     <snmp_oid>iso.3.6.1.4.1.41112.1.4.1.1.4.1</snmp_oid>
                     <key>ubnt56.canal</key>
-                    <delay>10m</delay>
-                    <history>1w</history>
-                    <trends>26w</trends>
+                    <delay>1h</delay>
+                    <history>7d</history>
+                    <trends>180d</trends>
                     <units>MHz</units>
                     <applications>
                         <application>
@@ -755,9 +849,9 @@
                     <type>SNMP_AGENT</type>
                     <snmp_oid>iso.3.6.1.4.1.41112.1.4.5.1.15.1</snmp_oid>
                     <key>ubnt56.conectados</key>
-                    <delay>10m</delay>
-                    <history>1w</history>
-                    <trends>26w</trends>
+                    <delay>1h</delay>
+                    <history>7d</history>
+                    <trends>180d</trends>
                     <applications>
                         <application>
                             <name>Info</name>
@@ -787,9 +881,9 @@
                     <type>SNMP_AGENT</type>
                     <snmp_oid>.1.3.6.1.4.1.10002.1.1.1.1.1.0</snmp_oid>
                     <key>ubnt56.mentotal</key>
-                    <delay>10m</delay>
-                    <history>1w</history>
-                    <trends>26w</trends>
+                    <delay>1h</delay>
+                    <history>7d</history>
+                    <trends>180d</trends>
                     <units>B</units>
                     <applications>
                         <application>
@@ -810,8 +904,8 @@
                     <snmp_oid>.1.3.6.1.4.1.10002.1.1.1.1.2.0</snmp_oid>
                     <key>ubnt56.menusada</key>
                     <delay>5m</delay>
-                    <history>1w</history>
-                    <trends>26w</trends>
+                    <history>7d</history>
+                    <trends>180d</trends>
                     <units>B</units>
                     <applications>
                         <application>
@@ -831,9 +925,9 @@
                     <type>SNMP_AGENT</type>
                     <snmp_oid>iso.3.6.1.4.1.41112.1.4.5.1.8.1</snmp_oid>
                     <key>ubnt56.noise</key>
-                    <delay>5m</delay>
-                    <history>1w</history>
-                    <trends>26w</trends>
+                    <delay>10m</delay>
+                    <history>7d</history>
+                    <trends>180d</trends>
                     <value_type>FLOAT</value_type>
                     <units>dBm</units>
                     <applications>
@@ -849,7 +943,7 @@
                     <snmp_oid>iso.3.6.1.4.1.41112.1.4.5.1.2.1</snmp_oid>
                     <key>ubnt56.ssid</key>
                     <delay>10m</delay>
-                    <history>1w</history>
+                    <history>7d</history>
                     <trends>0</trends>
                     <value_type>TEXT</value_type>
                     <applications>
@@ -873,8 +967,8 @@
                     <snmp_oid>.1.3.6.1.2.1.1.3.0</snmp_oid>
                     <key>ubnt56.uptime</key>
                     <delay>5m</delay>
-                    <history>1w</history>
-                    <trends>26w</trends>
+                    <history>7d</history>
+                    <trends>180d</trends>
                     <units>uptime</units>
                     <applications>
                         <application>
@@ -901,8 +995,9 @@
                     <type>SNMP_AGENT</type>
                     <snmp_oid>iso.3.6.1.4.1.10002.1.1.1.4.2.1.3.1</snmp_oid>
                     <key>ubnt56.usocpu</key>
-                    <history>1w</history>
-                    <trends>26w</trends>
+                    <delay>5m</delay>
+                    <history>7d</history>
+                    <trends>180d</trends>
                     <units>%</units>
                     <applications>
                         <application>
@@ -916,8 +1011,8 @@
                     <type>SNMP_AGENT</type>
                     <snmp_oid>.1.2.840.10036.3.1.2.1.4.10</snmp_oid>
                     <key>ubnt56.versaofirm</key>
-                    <delay>10m</delay>
-                    <history>1w</history>
+                    <delay>1h</delay>
+                    <history>7d</history>
                     <trends>0</trends>
                     <value_type>TEXT</value_type>
                     <applications>
@@ -956,8 +1051,8 @@
                     <type>SNMP_AGENT</type>
                     <snmp_oid>.1.3.6.1.2.1.2.2.1.16.2</snmp_oid>
                     <key>ubnt.in.eth0</key>
-                    <history>1w</history>
-                    <trends>160d</trends>
+                    <history>7d</history>
+                    <trends>180d</trends>
                     <units>bps</units>
                     <applications>
                         <application>
@@ -981,8 +1076,8 @@
                     <type>SNMP_AGENT</type>
                     <snmp_oid>.1.3.6.1.2.1.2.2.1.10.2</snmp_oid>
                     <key>ubnt.out.eth0</key>
-                    <history>1w</history>
-                    <trends>160d</trends>
+                    <history>7d</history>
+                    <trends>180d</trends>
                     <units>bps</units>
                     <applications>
                         <application>
@@ -1004,9 +1099,8 @@
             </items>
         </template>
         <template>
-            <template>RR Ubiquiti M Series  6.x SNMP Clientes</template>
-            <name>RR Ubiquiti M Series  6.x SNMP Clientes</name>
-            <description>Atualização a cada 5min</description>
+            <template>RR Ubiquiti M Series 6.x SNMP Clientes</template>
+            <name>RR Ubiquiti M Series 6.x SNMP Clientes</name>
             <groups>
                 <group>
                     <name>Templates RR</name>
@@ -1015,6 +1109,9 @@
             <applications>
                 <application>
                     <name>Cliente airMAX</name>
+                </application>
+                <application>
+                    <name>Cliente Bit Rate</name>
                 </application>
                 <application>
                     <name>Cliente CCQ</name>
@@ -1036,19 +1133,19 @@
                 <discovery_rule>
                     <name>MAC conectados</name>
                     <type>SNMP_AGENT</type>
-                    <snmp_oid>discovery[{#SNMPVALUE},.1.3.6.1.4.1.41112.1.4.7.1.1.1]</snmp_oid>
+                    <snmp_oid>discovery[{#SNMPVALUE},.1.3.6.1.4.1.41112.1.4.7.1.1.1, {#IFALIAS},.1.3.6.1.4.1.41112.1.4.7.1.2.1]</snmp_oid>
                     <key>discovery.mac.conectados</key>
-                    <delay>5m</delay>
+                    <delay>1h</delay>
                     <lifetime>7d</lifetime>
                     <item_prototypes>
                         <item_prototype>
-                            <name>{#SNMPVALUE} airMAX Capacity</name>
+                            <name>{#SNMPVALUE} {#IFALIAS} airMAX Capacity</name>
                             <type>SNMP_AGENT</type>
                             <snmp_oid>.1.3.6.1.4.1.41112.1.4.7.1.9.1.{#SNMPINDEX}</snmp_oid>
                             <key>dd.aircapacity.cliente[{#SNMPVALUE}]</key>
-                            <delay>5m</delay>
-                            <history>15d</history>
-                            <trends>120d</trends>
+                            <delay>1h</delay>
+                            <history>7d</history>
+                            <trends>180d</trends>
                             <units>%</units>
                             <applications>
                                 <application>
@@ -1057,13 +1154,13 @@
                             </applications>
                         </item_prototype>
                         <item_prototype>
-                            <name>{#SNMPVALUE} airMAX Quality</name>
+                            <name>{#SNMPVALUE} {#IFALIAS} airMAX Quality</name>
                             <type>SNMP_AGENT</type>
                             <snmp_oid>.1.3.6.1.4.1.41112.1.4.7.1.8.1.{#SNMPINDEX}</snmp_oid>
                             <key>dd.airquality.cliente[{#SNMPVALUE}]</key>
-                            <delay>5m</delay>
-                            <history>15d</history>
-                            <trends>120d</trends>
+                            <delay>1h</delay>
+                            <history>7d</history>
+                            <trends>180d</trends>
                             <units>%</units>
                             <applications>
                                 <application>
@@ -1072,13 +1169,13 @@
                             </applications>
                         </item_prototype>
                         <item_prototype>
-                            <name>{#SNMPVALUE} CCQ</name>
+                            <name>{#SNMPVALUE} {#IFALIAS} CCQ</name>
                             <type>SNMP_AGENT</type>
                             <snmp_oid>.1.3.6.1.4.1.41112.1.4.7.1.6.1.{#SNMPINDEX}</snmp_oid>
                             <key>dd.ccq.cliente[{#SNMPVALUE}]</key>
-                            <delay>5m</delay>
-                            <history>15d</history>
-                            <trends>120d</trends>
+                            <delay>1h</delay>
+                            <history>7d</history>
+                            <trends>180d</trends>
                             <units>%</units>
                             <applications>
                                 <application>
@@ -1087,13 +1184,13 @@
                             </applications>
                         </item_prototype>
                         <item_prototype>
-                            <name>{#SNMPVALUE} KM</name>
+                            <name>{#SNMPVALUE} {#IFALIAS} KM</name>
                             <type>SNMP_AGENT</type>
                             <snmp_oid>.1.3.6.1.4.1.41112.1.4.7.1.5.1.{#SNMPINDEX}</snmp_oid>
                             <key>dd.km.cliente[{#SNMPVALUE}]</key>
-                            <delay>5m</delay>
-                            <history>15d</history>
-                            <trends>120d</trends>
+                            <delay>1h</delay>
+                            <history>7d</history>
+                            <trends>180d</trends>
                             <value_type>FLOAT</value_type>
                             <units>Km</units>
                             <applications>
@@ -1109,13 +1206,38 @@
                             </preprocessing>
                         </item_prototype>
                         <item_prototype>
-                            <name>{#SNMPVALUE} RX</name>
+                            <name>{#SNMPVALUE} {#IFALIAS} RX Bit Rate</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.41112.1.4.7.1.13.1.{#SNMPINDEX}</snmp_oid>
+                            <key>dd.rx.bit.cliente[{#SNMPVALUE}]</key>
+                            <delay>4m</delay>
+                            <history>7d</history>
+                            <trends>0</trends>
+                            <units>bps</units>
+                            <applications>
+                                <application>
+                                    <name>Cliente Bit Rate</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>8</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#SNMPVALUE} {#IFALIAS} RX</name>
                             <type>SNMP_AGENT</type>
                             <snmp_oid>.1.3.6.1.4.1.41112.1.4.7.1.12.1.{#SNMPINDEX}</snmp_oid>
                             <key>dd.rx.cliente[{#SNMPVALUE}]</key>
-                            <delay>5m</delay>
-                            <history>15d</history>
-                            <trends>120d</trends>
+                            <delay>1h</delay>
+                            <history>7d</history>
+                            <trends>180d</trends>
                             <value_type>FLOAT</value_type>
                             <units>bps</units>
                             <applications>
@@ -1125,13 +1247,13 @@
                             </applications>
                         </item_prototype>
                         <item_prototype>
-                            <name>{#SNMPVALUE} Sinal</name>
+                            <name>{#SNMPVALUE} {#IFALIAS} Sinal</name>
                             <type>SNMP_AGENT</type>
                             <snmp_oid>.1.3.6.1.4.1.41112.1.4.7.1.3.1.{#SNMPINDEX}</snmp_oid>
                             <key>dd.sinal.cliente[{#SNMPVALUE}]</key>
-                            <delay>5m</delay>
-                            <history>15d</history>
-                            <trends>120d</trends>
+                            <delay>1h</delay>
+                            <history>7d</history>
+                            <trends>180d</trends>
                             <value_type>FLOAT</value_type>
                             <units>dBm</units>
                             <applications>
@@ -1139,15 +1261,48 @@
                                     <name>Cliente Sinal</name>
                                 </application>
                             </applications>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last()}&lt;-80</expression>
+                                    <name>Sinal do MAC {#SNMPVALUE} {#IFALIAS} baixo</name>
+                                    <priority>WARNING</priority>
+                                    <manual_close>YES</manual_close>
+                                </trigger_prototype>
+                            </trigger_prototypes>
                         </item_prototype>
                         <item_prototype>
-                            <name>{#SNMPVALUE} TX</name>
+                            <name>{#SNMPVALUE} {#IFALIAS} TX Bit Rate</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.41112.1.4.7.1.14.1.{#SNMPINDEX}</snmp_oid>
+                            <key>dd.tx.bit.cliente[{#SNMPVALUE}]</key>
+                            <delay>4m</delay>
+                            <history>7d</history>
+                            <trends>0</trends>
+                            <units>bps</units>
+                            <applications>
+                                <application>
+                                    <name>Cliente Bit Rate</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>8</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#SNMPVALUE} {#IFALIAS} TX</name>
                             <type>SNMP_AGENT</type>
                             <snmp_oid>.1.3.6.1.4.1.41112.1.4.7.1.11.1.{#SNMPINDEX}</snmp_oid>
                             <key>dd.tx.cliente[{#SNMPVALUE}]</key>
-                            <delay>5m</delay>
-                            <history>15d</history>
-                            <trends>120d</trends>
+                            <delay>1h</delay>
+                            <history>7d</history>
+                            <trends>180d</trends>
                             <value_type>FLOAT</value_type>
                             <units>bps</units>
                             <applications>
@@ -1157,13 +1312,13 @@
                             </applications>
                         </item_prototype>
                         <item_prototype>
-                            <name>{#SNMPVALUE} Uptime</name>
+                            <name>{#SNMPVALUE} {#IFALIAS} Uptime</name>
                             <type>SNMP_AGENT</type>
                             <snmp_oid>.1.3.6.1.4.1.41112.1.4.7.1.15.1.{#SNMPINDEX}</snmp_oid>
                             <key>dd.uptime.cliente[{#SNMPVALUE}]</key>
-                            <delay>5m</delay>
-                            <history>15d</history>
-                            <trends>120d</trends>
+                            <delay>1h</delay>
+                            <history>7d</history>
+                            <trends>180d</trends>
                             <value_type>FLOAT</value_type>
                             <units>uptime</units>
                             <applications>
@@ -1181,101 +1336,129 @@
                     </item_prototypes>
                     <graph_prototypes>
                         <graph_prototype>
-                            <name>{#SNMPVALUE}  airMAX</name>
+                            <name>{#SNMPVALUE}  {#IFALIAS} airMAX</name>
                             <ymin_type_1>FIXED</ymin_type_1>
                             <ymax_type_1>FIXED</ymax_type_1>
                             <graph_items>
                                 <graph_item>
+                                    <sortorder>1</sortorder>
                                     <drawtype>BOLD_LINE</drawtype>
                                     <color>00FFFF</color>
                                     <yaxisside>RIGHT</yaxisside>
                                     <item>
-                                        <host>RR Ubiquiti M Series  6.x SNMP Clientes</host>
+                                        <host>RR Ubiquiti M Series 6.x SNMP Clientes</host>
                                         <key>dd.aircapacity.cliente[{#SNMPVALUE}]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
-                                    <sortorder>1</sortorder>
+                                    <sortorder>2</sortorder>
                                     <drawtype>BOLD_LINE</drawtype>
                                     <color>80FF00</color>
                                     <item>
-                                        <host>RR Ubiquiti M Series  6.x SNMP Clientes</host>
+                                        <host>RR Ubiquiti M Series 6.x SNMP Clientes</host>
                                         <key>dd.airquality.cliente[{#SNMPVALUE}]</key>
                                     </item>
                                 </graph_item>
                             </graph_items>
                         </graph_prototype>
                         <graph_prototype>
-                            <name>{#SNMPVALUE}  Km</name>
+                            <name>{#SNMPVALUE}  {#IFALIAS} Km</name>
                             <show_work_period>NO</show_work_period>
                             <show_triggers>NO</show_triggers>
                             <graph_items>
                                 <graph_item>
+                                    <sortorder>1</sortorder>
                                     <drawtype>GRADIENT_LINE</drawtype>
                                     <color>F06292</color>
                                     <item>
-                                        <host>RR Ubiquiti M Series  6.x SNMP Clientes</host>
+                                        <host>RR Ubiquiti M Series 6.x SNMP Clientes</host>
                                         <key>dd.km.cliente[{#SNMPVALUE}]</key>
                                     </item>
                                 </graph_item>
                             </graph_items>
                         </graph_prototype>
                         <graph_prototype>
-                            <name>{#SNMPVALUE} Sinal</name>
+                            <name>{#SNMPVALUE} {#IFALIAS} Sinal</name>
                             <graph_items>
                                 <graph_item>
+                                    <sortorder>1</sortorder>
                                     <drawtype>GRADIENT_LINE</drawtype>
                                     <color>BFFF00</color>
                                     <yaxisside>RIGHT</yaxisside>
                                     <item>
-                                        <host>RR Ubiquiti M Series  6.x SNMP Clientes</host>
+                                        <host>RR Ubiquiti M Series 6.x SNMP Clientes</host>
                                         <key>dd.sinal.cliente[{#SNMPVALUE}]</key>
                                     </item>
                                 </graph_item>
                             </graph_items>
                         </graph_prototype>
                         <graph_prototype>
-                            <name>{#SNMPVALUE} TX / RX - CCQ</name>
+                            <name>{#SNMPVALUE} {#IFALIAS} TX / RX - CCQ</name>
                             <graph_items>
                                 <graph_item>
+                                    <sortorder>1</sortorder>
                                     <color>FF0000</color>
                                     <item>
-                                        <host>RR Ubiquiti M Series  6.x SNMP Clientes</host>
+                                        <host>RR Ubiquiti M Series 6.x SNMP Clientes</host>
                                         <key>dd.ccq.cliente[{#SNMPVALUE}]</key>
-                                    </item>
-                                </graph_item>
-                                <graph_item>
-                                    <sortorder>1</sortorder>
-                                    <drawtype>BOLD_LINE</drawtype>
-                                    <color>00FFFF</color>
-                                    <yaxisside>RIGHT</yaxisside>
-                                    <item>
-                                        <host>RR Ubiquiti M Series  6.x SNMP Clientes</host>
-                                        <key>dd.tx.cliente[{#SNMPVALUE}]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
                                     <sortorder>2</sortorder>
                                     <drawtype>BOLD_LINE</drawtype>
+                                    <color>00FFFF</color>
+                                    <yaxisside>RIGHT</yaxisside>
+                                    <item>
+                                        <host>RR Ubiquiti M Series 6.x SNMP Clientes</host>
+                                        <key>dd.tx.cliente[{#SNMPVALUE}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>3</sortorder>
+                                    <drawtype>BOLD_LINE</drawtype>
                                     <color>FFFF00</color>
                                     <yaxisside>RIGHT</yaxisside>
                                     <item>
-                                        <host>RR Ubiquiti M Series  6.x SNMP Clientes</host>
+                                        <host>RR Ubiquiti M Series 6.x SNMP Clientes</host>
                                         <key>dd.rx.cliente[{#SNMPVALUE}]</key>
                                     </item>
                                 </graph_item>
                             </graph_items>
                         </graph_prototype>
                         <graph_prototype>
-                            <name>{#SNMPVALUE}  Uptime</name>
+                            <name>{#SNMPVALUE}  {#IFALIAS}  TX/RX Bit Rate</name>
+                            <graph_items>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>00FF00</color>
+                                    <item>
+                                        <host>RR Ubiquiti M Series 6.x SNMP Clientes</host>
+                                        <key>dd.rx.bit.cliente[{#SNMPVALUE}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>2</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>0040FF</color>
+                                    <item>
+                                        <host>RR Ubiquiti M Series 6.x SNMP Clientes</host>
+                                        <key>dd.tx.bit.cliente[{#SNMPVALUE}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                        <graph_prototype>
+                            <name>{#SNMPVALUE}  {#IFALIAS} Uptime</name>
                             <show_work_period>NO</show_work_period>
                             <show_triggers>NO</show_triggers>
                             <graph_items>
                                 <graph_item>
+                                    <sortorder>1</sortorder>
                                     <drawtype>GRADIENT_LINE</drawtype>
                                     <color>00FFFF</color>
                                     <item>
-                                        <host>RR Ubiquiti M Series  6.x SNMP Clientes</host>
+                                        <host>RR Ubiquiti M Series 6.x SNMP Clientes</host>
                                         <key>dd.uptime.cliente[{#SNMPVALUE}]</key>
                                     </item>
                                 </graph_item>
@@ -1307,8 +1490,8 @@
                     <type>SNMP_AGENT</type>
                     <snmp_oid>.1.3.6.1.2.1.2.2.1.16.2</snmp_oid>
                     <key>ubnt.in.eth0</key>
-                    <history>1w</history>
-                    <trends>26w</trends>
+                    <history>7d</history>
+                    <trends>180d</trends>
                     <units>bps</units>
                     <applications>
                         <application>
@@ -1332,8 +1515,8 @@
                     <type>SNMP_AGENT</type>
                     <snmp_oid>.1.3.6.1.2.1.2.2.1.10.2</snmp_oid>
                     <key>ubnt.out.eth0</key>
-                    <history>1w</history>
-                    <trends>26w</trends>
+                    <history>7d</history>
+                    <trends>180d</trends>
                     <units>bps</units>
                     <applications>
                         <application>
@@ -1357,9 +1540,9 @@
                     <type>SNMP_AGENT</type>
                     <snmp_oid>iso.3.6.1.4.1.41112.1.4.5.1.14.1</snmp_oid>
                     <key>ubnt56.abertura</key>
-                    <delay>10m</delay>
-                    <history>1w</history>
-                    <trends>26w</trends>
+                    <delay>1h</delay>
+                    <history>7d</history>
+                    <trends>180d</trends>
                     <units>MHz</units>
                     <applications>
                         <application>
@@ -1382,8 +1565,8 @@
                     <snmp_oid>iso.3.6.1.2.1.2.2.1.5.2</snmp_oid>
                     <key>ubnt56.advertise</key>
                     <delay>5m</delay>
-                    <history>1w</history>
-                    <trends>26w</trends>
+                    <history>1d</history>
+                    <trends>0</trends>
                     <units>bps</units>
                     <applications>
                         <application>
@@ -1404,9 +1587,9 @@
                     <type>SNMP_AGENT</type>
                     <snmp_oid>iso.3.6.1.4.1.41112.1.4.1.1.4.1</snmp_oid>
                     <key>ubnt56.canal</key>
-                    <delay>10m</delay>
-                    <history>1w</history>
-                    <trends>26w</trends>
+                    <delay>1h</delay>
+                    <history>7d</history>
+                    <trends>180d</trends>
                     <units>MHz</units>
                     <applications>
                         <application>
@@ -1428,9 +1611,9 @@
                     <type>SNMP_AGENT</type>
                     <snmp_oid>iso.3.6.1.4.1.41112.1.4.5.1.7.1</snmp_oid>
                     <key>ubnt56.ccq</key>
-                    <delay>5m</delay>
-                    <history>1w</history>
-                    <trends>26w</trends>
+                    <delay>30m</delay>
+                    <history>7d</history>
+                    <trends>180d</trends>
                     <units>%</units>
                     <applications>
                         <application>
@@ -1444,9 +1627,9 @@
                     <type>SNMP_AGENT</type>
                     <snmp_oid>iso.3.6.1.4.1.41112.1.4.5.1.15.1</snmp_oid>
                     <key>ubnt56.conectados</key>
-                    <delay>10m</delay>
-                    <history>1w</history>
-                    <trends>26w</trends>
+                    <delay>1h</delay>
+                    <history>7d</history>
+                    <trends>180d</trends>
                     <applications>
                         <application>
                             <name>Info</name>
@@ -1476,9 +1659,9 @@
                     <type>SNMP_AGENT</type>
                     <snmp_oid>.1.3.6.1.4.1.10002.1.1.1.1.1.0</snmp_oid>
                     <key>ubnt56.mentotal</key>
-                    <delay>10m</delay>
-                    <history>1w</history>
-                    <trends>26w</trends>
+                    <delay>1h</delay>
+                    <history>7d</history>
+                    <trends>0</trends>
                     <units>B</units>
                     <applications>
                         <application>
@@ -1499,8 +1682,8 @@
                     <snmp_oid>.1.3.6.1.4.1.10002.1.1.1.1.2.0</snmp_oid>
                     <key>ubnt56.menusada</key>
                     <delay>5m</delay>
-                    <history>1w</history>
-                    <trends>26w</trends>
+                    <history>7d</history>
+                    <trends>180d</trends>
                     <units>B</units>
                     <applications>
                         <application>
@@ -1520,9 +1703,9 @@
                     <type>SNMP_AGENT</type>
                     <snmp_oid>iso.3.6.1.4.1.41112.1.4.5.1.8.1</snmp_oid>
                     <key>ubnt56.noise</key>
-                    <delay>5m</delay>
-                    <history>1w</history>
-                    <trends>26w</trends>
+                    <delay>10m</delay>
+                    <history>7d</history>
+                    <trends>180d</trends>
                     <value_type>FLOAT</value_type>
                     <units>dBm</units>
                     <applications>
@@ -1561,9 +1744,9 @@
                     <type>SNMP_AGENT</type>
                     <snmp_oid>.1.3.6.1.2.1.1.3.0</snmp_oid>
                     <key>ubnt56.uptime</key>
-                    <delay>5m</delay>
-                    <history>1w</history>
-                    <trends>26w</trends>
+                    <delay>30m</delay>
+                    <history>7d</history>
+                    <trends>180d</trends>
                     <units>uptime</units>
                     <applications>
                         <application>
@@ -1590,8 +1773,9 @@
                     <type>SNMP_AGENT</type>
                     <snmp_oid>iso.3.6.1.4.1.10002.1.1.1.4.2.1.3.1</snmp_oid>
                     <key>ubnt56.usocpu</key>
-                    <history>1w</history>
-                    <trends>26w</trends>
+                    <delay>5m</delay>
+                    <history>7d</history>
+                    <trends>180d</trends>
                     <units>%</units>
                     <applications>
                         <application>
@@ -1605,8 +1789,8 @@
                     <type>SNMP_AGENT</type>
                     <snmp_oid>.1.2.840.10036.3.1.2.1.4.5</snmp_oid>
                     <key>ubnt56.versaofirm</key>
-                    <delay>10m</delay>
-                    <history>1w</history>
+                    <delay>1h</delay>
+                    <history>7d</history>
                     <trends>0</trends>
                     <value_type>TEXT</value_type>
                     <applications>
