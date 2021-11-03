@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>5.0</version>
-    <date>2021-09-17T18:13:02Z</date>
+    <date>2021-11-03T17:46:38Z</date>
     <groups>
         <group>
             <name>Templates RR</name>
@@ -26,16 +26,16 @@
                 <discovery_rule>
                     <name>Interfaces</name>
                     <type>SNMP_AGENT</type>
-                    <snmp_oid>discovery[{#SNMPVALUE}, .1.3.6.1.2.1.2.2.1.2]</snmp_oid>
-                    <key>mk.nome.interface</key>
+                    <snmp_oid>discovery[{#IFNAME},.1.3.6.1.2.1.2.2.1.2,{#IFALIAS},.1.3.6.1.2.1.31.1.1.1.18,{#IFTYPE},.1.3.6.1.2.1.2.2.1.3]</snmp_oid>
+                    <key>mk.nome.interface.all</key>
                     <delay>5m</delay>
                     <description>Descobre nome da interface</description>
                     <item_prototypes>
                         <item_prototype>
-                            <name>In interface $1</name>
+                            <name>In interface $1 {#IFALIAS}</name>
                             <type>SNMP_AGENT</type>
                             <snmp_oid>.1.3.6.1.2.1.31.1.1.1.6.{#SNMPINDEX}</snmp_oid>
-                            <key>mk.in[{#SNMPVALUE}]</key>
+                            <key>mk.in.all[{#IFNAME}]</key>
                             <history>3d</history>
                             <trends>7d</trends>
                             <units>bps</units>
@@ -57,10 +57,10 @@
                             <request_method>POST</request_method>
                         </item_prototype>
                         <item_prototype>
-                            <name>Out interface $1</name>
+                            <name>Out interface $1 {#IFALIAS}</name>
                             <type>SNMP_AGENT</type>
                             <snmp_oid>.1.3.6.1.2.1.31.1.1.1.10.{#SNMPINDEX}</snmp_oid>
-                            <key>mk.out[{#SNMPVALUE}]</key>
+                            <key>mk.out.all[{#IFNAME}]</key>
                             <history>3d</history>
                             <trends>7d</trends>
                             <units>bps</units>
@@ -84,23 +84,24 @@
                     </item_prototypes>
                     <graph_prototypes>
                         <graph_prototype>
-                            <name>{#SNMPVALUE} Tráfego</name>
+                            <name>Tráfego  {#IFNAME} {#IFALIAS}</name>
                             <graph_items>
                                 <graph_item>
+                                    <sortorder>1</sortorder>
                                     <drawtype>GRADIENT_LINE</drawtype>
                                     <color>00C853</color>
                                     <item>
                                         <host>RR Mikrotik SNMP Interf. Todas Trafego - FTTH 7dias</host>
-                                        <key>mk.in[{#SNMPVALUE}]</key>
+                                        <key>mk.in.all[{#IFNAME}]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
-                                    <sortorder>1</sortorder>
+                                    <sortorder>2</sortorder>
                                     <drawtype>GRADIENT_LINE</drawtype>
                                     <color>0091EA</color>
                                     <item>
                                         <host>RR Mikrotik SNMP Interf. Todas Trafego - FTTH 7dias</host>
-                                        <key>mk.out[{#SNMPVALUE}]</key>
+                                        <key>mk.out.all[{#IFNAME}]</key>
                                     </item>
                                 </graph_item>
                             </graph_items>

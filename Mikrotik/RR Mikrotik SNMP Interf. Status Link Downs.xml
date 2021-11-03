@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>5.0</version>
-    <date>2021-09-17T18:12:26Z</date>
+    <date>2021-11-03T17:44:05Z</date>
     <groups>
         <group>
             <name>Templates RR</name>
@@ -25,15 +25,14 @@
                 <discovery_rule>
                     <name>Interfaces</name>
                     <type>SNMP_AGENT</type>
-                    <snmp_oid>discovery[{#SNMPVALUE},.1.3.6.1.2.1.2.2.1.2,{#IFTYPE},.1.3.6.1.2.1.2.2.1.3]</snmp_oid>
-                    <key>mk.name.interface</key>
+                    <snmp_oid>discovery[{#IFNAME},.1.3.6.1.2.1.2.2.1.2,{#IFALIAS},.1.3.6.1.2.1.31.1.1.1.18,{#IFTYPE},.1.3.6.1.2.1.2.2.1.3]</snmp_oid>
+                    <key>mk.name.interface.down</key>
                     <delay>1h</delay>
                     <filter>
                         <evaltype>AND</evaltype>
                         <conditions>
                             <condition>
                                 <macro>{#IFTYPE}</macro>
-                                <value>(1|6)</value>
                                 <formulaid>A</formulaid>
                             </condition>
                         </conditions>
@@ -41,10 +40,10 @@
                     <lifetime>1d</lifetime>
                     <item_prototypes>
                         <item_prototype>
-                            <name>Interface $1 Downs</name>
+                            <name>Interface $1 {#IFALIAS} Downs</name>
                             <type>SNMP_AGENT</type>
                             <snmp_oid>.1.3.6.1.4.1.14988.1.1.14.1.1.90.{#SNMPINDEX}</snmp_oid>
-                            <key>interface.downs[{#SNMPVALUE}]</key>
+                            <key>interface.downs[{#IFNAME}]</key>
                             <delay>2m</delay>
                             <history>7d</history>
                             <trends>0</trends>
@@ -56,10 +55,10 @@
                             <request_method>POST</request_method>
                         </item_prototype>
                         <item_prototype>
-                            <name>Status Interface $1</name>
+                            <name>Status Interface $1 {#IFALIAS}</name>
                             <type>SNMP_AGENT</type>
                             <snmp_oid>.1.3.6.1.2.1.2.2.1.8.{#SNMPINDEX}</snmp_oid>
-                            <key>interface.status[{#SNMPVALUE}]</key>
+                            <key>interface.status[{#IFNAME}]</key>
                             <delay>2m</delay>
                             <history>7d</history>
                             <trends>0</trends>
@@ -75,16 +74,16 @@
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
-                            <expression>{RR Mikrotik SNMP Interf. Status Link Downs:interface.downs[{#SNMPVALUE}].diff(0)}&gt;0</expression>
+                            <expression>{RR Mikrotik SNMP Interf. Status Link Downs:interface.downs[{#IFNAME}].diff(0)}&gt;0</expression>
                             <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
-                            <recovery_expression>{RR Mikrotik SNMP Interf. Status Link Downs:interface.status[{#SNMPVALUE}].last()}=1</recovery_expression>
-                            <name>Link Downs {#SNMPVALUE}</name>
+                            <recovery_expression>{RR Mikrotik SNMP Interf. Status Link Downs:interface.status[{#IFNAME}].last()}=1</recovery_expression>
+                            <name>Link Downs {#IFNAME} {#IFALIAS}</name>
                             <priority>INFO</priority>
                         </trigger_prototype>
                     </trigger_prototypes>
                     <graph_prototypes>
                         <graph_prototype>
-                            <name>Status link downs {#SNMPVALUE}</name>
+                            <name>Status link downs {#IFNAME} {#IFALIAS}</name>
                             <graph_items>
                                 <graph_item>
                                     <sortorder>1</sortorder>
@@ -93,7 +92,7 @@
                                     <yaxisside>RIGHT</yaxisside>
                                     <item>
                                         <host>RR Mikrotik SNMP Interf. Status Link Downs</host>
-                                        <key>interface.status[{#SNMPVALUE}]</key>
+                                        <key>interface.status[{#IFNAME}]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -102,7 +101,7 @@
                                     <color>FF4000</color>
                                     <item>
                                         <host>RR Mikrotik SNMP Interf. Status Link Downs</host>
-                                        <key>interface.downs[{#SNMPVALUE}]</key>
+                                        <key>interface.downs[{#IFNAME}]</key>
                                     </item>
                                 </graph_item>
                             </graph_items>

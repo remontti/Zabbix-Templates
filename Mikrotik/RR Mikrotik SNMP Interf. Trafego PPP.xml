@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>5.0</version>
-    <date>2021-11-03T17:39:39Z</date>
+    <date>2021-11-03T17:46:57Z</date>
     <groups>
         <group>
             <name>Templates RR</name>
@@ -9,9 +9,11 @@
     </groups>
     <templates>
         <template>
-            <template>RR Mikrotik SNMP Interf. Comentadas Trafego</template>
-            <name>RR Mikrotik SNMP Interf. Comentadas Trafego</name>
-            <description>By Rudimar Remontti</description>
+            <template>RR Mikrotik SNMP Interf. Trafego PPP</template>
+            <name>RR Mikrotik SNMP Interf. Trafego PPP</name>
+            <description>By Rudimar Remontti&#13;
+Trafego dos:&#13;
+PPPOE, PPTP, SSTP, L2TP, OVPN</description>
             <groups>
                 <group>
                     <name>Templates RR</name>
@@ -19,39 +21,37 @@
             </groups>
             <applications>
                 <application>
-                    <name>Interfaces</name>
+                    <name>Interface Trafego</name>
                 </application>
             </applications>
             <discovery_rules>
                 <discovery_rule>
-                    <name>Interfaces Descoberta</name>
+                    <name>Interfaces fisicas ppp</name>
                     <type>SNMP_AGENT</type>
                     <snmp_oid>discovery[{#IFNAME},.1.3.6.1.2.1.2.2.1.2,{#IFALIAS},.1.3.6.1.2.1.31.1.1.1.18,{#IFTYPE},.1.3.6.1.2.1.2.2.1.3]</snmp_oid>
-                    <key>mk.coment.if</key>
+                    <key>mk.nome.interface.ppp</key>
                     <delay>10m</delay>
                     <filter>
                         <conditions>
                             <condition>
-                                <macro>{#IFALIAS}</macro>
-                                <value>^(?=.*\s*)(?=.*)+$</value>
-                                <operator>NOT_MATCHES_REGEX</operator>
+                                <macro>{#IFTYPE}</macro>
+                                <value>23</value>
                                 <formulaid>A</formulaid>
                             </condition>
                         </conditions>
                     </filter>
-                    <lifetime>0</lifetime>
+                    <description>Descobre nome das interfaces fisicas</description>
                     <item_prototypes>
                         <item_prototype>
-                            <name>In $1 ({#IFALIAS})</name>
+                            <name>In interface - $1 {#IFALIAS}</name>
                             <type>SNMP_AGENT</type>
                             <snmp_oid>.1.3.6.1.2.1.31.1.1.1.6.{#SNMPINDEX}</snmp_oid>
-                            <key>mk.coment.in[{#IFNAME}]</key>
-                            <delay>30s</delay>
-                            <trends>180d</trends>
+                            <key>mk.in.ppp[{#IFNAME}]</key>
+                            <history>1w</history>
                             <units>bps</units>
                             <applications>
                                 <application>
-                                    <name>Interfaces</name>
+                                    <name>Interface Trafego</name>
                                 </application>
                             </applications>
                             <preprocessing>
@@ -64,18 +64,18 @@
                                     <params>8</params>
                                 </step>
                             </preprocessing>
+                            <request_method>POST</request_method>
                         </item_prototype>
                         <item_prototype>
-                            <name>Out $1 ({#IFALIAS})</name>
+                            <name>Out interface  - $1 {#IFALIAS}</name>
                             <type>SNMP_AGENT</type>
                             <snmp_oid>.1.3.6.1.2.1.31.1.1.1.10.{#SNMPINDEX}</snmp_oid>
-                            <key>mk.coment.out[{#IFNAME}]</key>
-                            <delay>30s</delay>
-                            <trends>180d</trends>
+                            <key>mk.out.ppp[{#IFNAME}]</key>
+                            <history>1w</history>
                             <units>bps</units>
                             <applications>
                                 <application>
-                                    <name>Interfaces</name>
+                                    <name>Interface Trafego</name>
                                 </application>
                             </applications>
                             <preprocessing>
@@ -88,37 +88,35 @@
                                     <params>8</params>
                                 </step>
                             </preprocessing>
+                            <request_method>POST</request_method>
                         </item_prototype>
                     </item_prototypes>
                     <graph_prototypes>
                         <graph_prototype>
-                            <name>Trafego {#IFNAME} ({#IFALIAS})</name>
+                            <name>Tráfego {#IFNAME} {#IFALIAS}</name>
                             <graph_items>
                                 <graph_item>
                                     <sortorder>1</sortorder>
                                     <drawtype>GRADIENT_LINE</drawtype>
-                                    <color>00E676</color>
-                                    <yaxisside>RIGHT</yaxisside>
-                                    <calc_fnc>ALL</calc_fnc>
+                                    <color>00C853</color>
                                     <item>
-                                        <host>RR Mikrotik SNMP Interf. Comentadas Trafego</host>
-                                        <key>mk.coment.in[{#IFNAME}]</key>
+                                        <host>RR Mikrotik SNMP Interf. Trafego PPP</host>
+                                        <key>mk.in.ppp[{#IFNAME}]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
                                     <sortorder>2</sortorder>
                                     <drawtype>GRADIENT_LINE</drawtype>
-                                    <color>00B0FF</color>
-                                    <yaxisside>RIGHT</yaxisside>
-                                    <calc_fnc>ALL</calc_fnc>
+                                    <color>0091EA</color>
                                     <item>
-                                        <host>RR Mikrotik SNMP Interf. Comentadas Trafego</host>
-                                        <key>mk.coment.out[{#IFNAME}]</key>
+                                        <host>RR Mikrotik SNMP Interf. Trafego PPP</host>
+                                        <key>mk.out.ppp[{#IFNAME}]</key>
                                     </item>
                                 </graph_item>
                             </graph_items>
                         </graph_prototype>
                     </graph_prototypes>
+                    <request_method>POST</request_method>
                 </discovery_rule>
             </discovery_rules>
         </template>

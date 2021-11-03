@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>5.0</version>
-    <date>2021-09-17T18:12:42Z</date>
+    <date>2021-11-03T17:44:22Z</date>
     <groups>
         <group>
             <name>Templates RR</name>
@@ -9,8 +9,12 @@
     </groups>
     <templates>
         <template>
-            <template>RR Mikrotik SNMP Interf. Todas  Rate Advertise</template>
-            <name>RR Mikrotik SNMP Interf. Todas  Rate Advertise</name>
+            <template>RR Mikrotik SNMP Interf. Todas Rate Advertise</template>
+            <name>RR Mikrotik SNMP Interf. Todas Rate Advertise</name>
+            <description>By Rudimar Remontti&#13;
+Coletainformações das interfaces fisicas, para ver se seu status é:&#13;
+10mb, 100mb, 1gb 10gb...&#13;
+Notifica ao alterar o valor da rate</description>
             <groups>
                 <group>
                     <name>Templates RR</name>
@@ -18,53 +22,49 @@
             </groups>
             <applications>
                 <application>
-                    <name>Interface rate</name>
+                    <name>Interfaces</name>
                 </application>
             </applications>
             <discovery_rules>
                 <discovery_rule>
                     <name>Interfaces</name>
                     <type>SNMP_AGENT</type>
-                    <snmp_oid>discovery[{#SNMPVALUE}, .1.3.6.1.2.1.2.2.1.2]</snmp_oid>
-                    <key>mk.name.interface</key>
-                    <delay>3m</delay>
+                    <snmp_oid>discovery[{#IFNAME},.1.3.6.1.2.1.2.2.1.2,{#IFALIAS},.1.3.6.1.2.1.31.1.1.1.18,{#IFTYPE},.1.3.6.1.2.1.2.2.1.3]</snmp_oid>
+                    <key>mk.comentif</key>
+                    <delay>10m</delay>
                     <filter>
-                        <evaltype>AND</evaltype>
+                        <conditions>
+                            <condition>
+                                <macro>{#IFTYPE}</macro>
+                                <value>6</value>
+                                <formulaid>A</formulaid>
+                            </condition>
+                        </conditions>
                     </filter>
-                    <lifetime>1d</lifetime>
+                    <lifetime>0</lifetime>
                     <item_prototypes>
                         <item_prototype>
-                            <name>Speed $1</name>
+                            <name>Rate $1</name>
                             <type>SNMP_AGENT</type>
                             <snmp_oid>.1.3.6.1.2.1.2.2.1.5.{#SNMPINDEX}</snmp_oid>
-                            <key>mk.speed[{#SNMPVALUE}]</key>
-                            <delay>3m</delay>
-                            <history>1w</history>
-                            <trends>0d</trends>
-                            <value_type>FLOAT</value_type>
+                            <key>mk.coment.rate[{#IFNAME}]</key>
+                            <history>7d</history>
+                            <trends>30d</trends>
                             <units>bps</units>
                             <applications>
                                 <application>
-                                    <name>Interface rate</name>
+                                    <name>Interfaces</name>
                                 </application>
                             </applications>
-                            <request_method>POST</request_method>
                             <trigger_prototypes>
                                 <trigger_prototype>
-                                    <expression>{diff(0)}&gt;0</expression>
-                                    <name>Advertise</name>
-                                    <status>DISABLED</status>
+                                    <expression>{diff(0)}=1</expression>
+                                    <name>Advertise {#IFNAME}</name>
                                     <priority>INFO</priority>
-                                </trigger_prototype>
-                                <trigger_prototype>
-                                    <expression>{last()}&lt;11000000</expression>
-                                    <name>Interface em 10MB</name>
-                                    <priority>HIGH</priority>
                                 </trigger_prototype>
                             </trigger_prototypes>
                         </item_prototype>
                     </item_prototypes>
-                    <request_method>POST</request_method>
                 </discovery_rule>
             </discovery_rules>
         </template>

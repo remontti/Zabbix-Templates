@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>5.0</version>
-    <date>2021-11-03T17:44:33Z</date>
+    <date>2021-11-03T17:46:51Z</date>
     <groups>
         <group>
             <name>Templates RR</name>
@@ -9,8 +9,8 @@
     </groups>
     <templates>
         <template>
-            <template>RR Mikrotik SNMP Interf. Todas Traf. PPS e Erros</template>
-            <name>RR Mikrotik SNMP Interf. Todas Traf. PPS e Erros</name>
+            <template>RR Mikrotik SNMP Interf. Trafego e PPS de  VLANs Comentadas</template>
+            <name>RR Mikrotik SNMP Interf. Trafego e PPS de  VLANs Comentadas</name>
             <description>By Rudimar Remontti</description>
             <groups>
                 <group>
@@ -30,53 +30,24 @@
             </applications>
             <discovery_rules>
                 <discovery_rule>
-                    <name>Interfaces</name>
+                    <name>Interfaces fisicas</name>
                     <type>SNMP_AGENT</type>
                     <snmp_oid>discovery[{#IFNAME},.1.3.6.1.2.1.2.2.1.2,{#IFALIAS},.1.3.6.1.2.1.31.1.1.1.18,{#IFTYPE},.1.3.6.1.2.1.2.2.1.3]</snmp_oid>
                     <key>mk.nome.interface</key>
                     <delay>10m</delay>
-                    <description>Descobre nome da interface</description>
+                    <filter>
+                        <conditions>
+                            <condition>
+                                <macro>{#IFTYPE}</macro>
+                                <value>135</value>
+                                <formulaid>A</formulaid>
+                            </condition>
+                        </conditions>
+                    </filter>
+                    <description>Descobre nome das interfaces fisicas</description>
                     <item_prototypes>
                         <item_prototype>
-                            <name>Erros In interface $1 {#IFALIAS}</name>
-                            <type>SNMP_AGENT</type>
-                            <snmp_oid>.1.3.6.1.2.1.2.2.1.14.{#SNMPINDEX}</snmp_oid>
-                            <key>mk.erros.in[{#IFNAME}]</key>
-                            <history>1w</history>
-                            <applications>
-                                <application>
-                                    <name>Interface Erros</name>
-                                </application>
-                            </applications>
-                            <preprocessing>
-                                <step>
-                                    <type>CHANGE_PER_SECOND</type>
-                                    <params/>
-                                </step>
-                            </preprocessing>
-                            <request_method>POST</request_method>
-                        </item_prototype>
-                        <item_prototype>
-                            <name>Erros Out interface $1 {#IFALIAS}</name>
-                            <type>SNMP_AGENT</type>
-                            <snmp_oid>.1.3.6.1.2.1.2.2.1.20.{#SNMPINDEX}</snmp_oid>
-                            <key>mk.erros.out[{#IFNAME}]</key>
-                            <history>1w</history>
-                            <applications>
-                                <application>
-                                    <name>Interface Erros</name>
-                                </application>
-                            </applications>
-                            <preprocessing>
-                                <step>
-                                    <type>CHANGE_PER_SECOND</type>
-                                    <params/>
-                                </step>
-                            </preprocessing>
-                            <request_method>POST</request_method>
-                        </item_prototype>
-                        <item_prototype>
-                            <name>In interface $1 {#IFALIAS}</name>
+                            <name>In interface - $1 {#IFALIAS}</name>
                             <type>SNMP_AGENT</type>
                             <snmp_oid>.1.3.6.1.2.1.31.1.1.1.6.{#SNMPINDEX}</snmp_oid>
                             <key>mk.in[{#IFNAME}]</key>
@@ -100,7 +71,7 @@
                             <request_method>POST</request_method>
                         </item_prototype>
                         <item_prototype>
-                            <name>Out interface $1 {#IFALIAS}</name>
+                            <name>Out interface  - $1 {#IFALIAS}</name>
                             <type>SNMP_AGENT</type>
                             <snmp_oid>.1.3.6.1.2.1.31.1.1.1.10.{#SNMPINDEX}</snmp_oid>
                             <key>mk.out[{#IFNAME}]</key>
@@ -174,37 +145,14 @@
                     </item_prototypes>
                     <graph_prototypes>
                         <graph_prototype>
-                            <name>Erros {#IFNAME} {#IFALIAS}</name>
-                            <graph_items>
-                                <graph_item>
-                                    <sortorder>1</sortorder>
-                                    <drawtype>GRADIENT_LINE</drawtype>
-                                    <color>DD2C00</color>
-                                    <item>
-                                        <host>RR Mikrotik SNMP Interf. Todas Traf. PPS e Erros</host>
-                                        <key>mk.erros.in[{#IFNAME}]</key>
-                                    </item>
-                                </graph_item>
-                                <graph_item>
-                                    <sortorder>2</sortorder>
-                                    <drawtype>GRADIENT_LINE</drawtype>
-                                    <color>FF1744</color>
-                                    <item>
-                                        <host>RR Mikrotik SNMP Interf. Todas Traf. PPS e Erros</host>
-                                        <key>mk.erros.out[{#IFNAME}]</key>
-                                    </item>
-                                </graph_item>
-                            </graph_items>
-                        </graph_prototype>
-                        <graph_prototype>
-                            <name>p/s  {#IFNAME} {#IFALIAS}</name>
+                            <name>p/s {#IFNAME} {#IFALIAS}</name>
                             <graph_items>
                                 <graph_item>
                                     <sortorder>1</sortorder>
                                     <drawtype>GRADIENT_LINE</drawtype>
                                     <color>F57F17</color>
                                     <item>
-                                        <host>RR Mikrotik SNMP Interf. Todas Traf. PPS e Erros</host>
+                                        <host>RR Mikrotik SNMP Interf. Trafego e PPS de  VLANs Comentadas</host>
                                         <key>mk.pac.in[{#IFNAME}]</key>
                                     </item>
                                 </graph_item>
@@ -213,21 +161,21 @@
                                     <drawtype>GRADIENT_LINE</drawtype>
                                     <color>FFEB3B</color>
                                     <item>
-                                        <host>RR Mikrotik SNMP Interf. Todas Traf. PPS e Erros</host>
+                                        <host>RR Mikrotik SNMP Interf. Trafego e PPS de  VLANs Comentadas</host>
                                         <key>mk.pac.out[{#IFNAME}]</key>
                                     </item>
                                 </graph_item>
                             </graph_items>
                         </graph_prototype>
                         <graph_prototype>
-                            <name>Tráfego  {#IFNAME} {#IFALIAS}</name>
+                            <name>Tráfego {#IFNAME} {#IFALIAS}</name>
                             <graph_items>
                                 <graph_item>
                                     <sortorder>1</sortorder>
                                     <drawtype>GRADIENT_LINE</drawtype>
                                     <color>00C853</color>
                                     <item>
-                                        <host>RR Mikrotik SNMP Interf. Todas Traf. PPS e Erros</host>
+                                        <host>RR Mikrotik SNMP Interf. Trafego e PPS de  VLANs Comentadas</host>
                                         <key>mk.in[{#IFNAME}]</key>
                                     </item>
                                 </graph_item>
@@ -236,7 +184,7 @@
                                     <drawtype>GRADIENT_LINE</drawtype>
                                     <color>0091EA</color>
                                     <item>
-                                        <host>RR Mikrotik SNMP Interf. Todas Traf. PPS e Erros</host>
+                                        <host>RR Mikrotik SNMP Interf. Trafego e PPS de  VLANs Comentadas</host>
                                         <key>mk.out[{#IFNAME}]</key>
                                     </item>
                                 </graph_item>
