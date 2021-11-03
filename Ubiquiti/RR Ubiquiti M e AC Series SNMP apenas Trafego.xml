@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2021-11-03T18:03:53Z</date>
+    <groups>
+        <group>
+            <name>Templates RR</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>RR Ubiquiti M e AC Series SNMP apenas Trafego</template>
+            <name>RR Ubiquiti M e AC Series SNMP apenas Trafego</name>
+            <groups>
+                <group>
+                    <name>Templates RR</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Interfaces</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>Trafego eth0 in</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.2.2.1.16.2</snmp_oid>
+                    <key>ubnt.in.eth0</key>
+                    <history>7d</history>
+                    <trends>180d</trends>
+                    <units>bps</units>
+                    <applications>
+                        <application>
+                            <name>Interfaces</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>CHANGE_PER_SECOND</type>
+                            <params/>
+                        </step>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <params>8</params>
+                        </step>
+                    </preprocessing>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>Trafego eth0 out</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.2.2.1.10.2</snmp_oid>
+                    <key>ubnt.out.eth0</key>
+                    <history>7d</history>
+                    <trends>180d</trends>
+                    <units>bps</units>
+                    <applications>
+                        <application>
+                            <name>Interfaces</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>CHANGE_PER_SECOND</type>
+                            <params/>
+                        </step>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <params>8</params>
+                        </step>
+                    </preprocessing>
+                    <request_method>POST</request_method>
+                </item>
+            </items>
+        </template>
+    </templates>
+    <graphs>
+        <graph>
+            <name>Tráfego</name>
+            <graph_items>
+                <graph_item>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>00CC00</color>
+                    <item>
+                        <host>RR Ubiquiti M e AC Series SNMP apenas Trafego</host>
+                        <key>ubnt.in.eth0</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>3333FF</color>
+                    <item>
+                        <host>RR Ubiquiti M e AC Series SNMP apenas Trafego</host>
+                        <key>ubnt.out.eth0</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+    </graphs>
+</zabbix_export>

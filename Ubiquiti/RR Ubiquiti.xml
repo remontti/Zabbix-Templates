@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>5.0</version>
-    <date>2021-10-21T16:22:12Z</date>
+    <date>2021-11-03T18:03:20Z</date>
     <groups>
         <group>
             <name>Templates RR</name>
@@ -129,11 +129,18 @@
                                     <name>Cliente Sinal</name>
                                 </application>
                             </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>STR_REPLACE</type>
+                                    <params>-
+</params>
+                                </step>
+                            </preprocessing>
                             <trigger_prototypes>
                                 <trigger_prototype>
-                                    <expression>{last()}&lt;-70</expression>
+                                    <expression>{avg(24h)}&gt;=80</expression>
                                     <name>Sinal do MAC {#SNMPVALUE} {#IFALIAS} baixo</name>
-                                    <priority>WARNING</priority>
+                                    <priority>HIGH</priority>
                                     <manual_close>YES</manual_close>
                                 </trigger_prototype>
                             </trigger_prototypes>
@@ -1261,11 +1268,18 @@
                                     <name>Cliente Sinal</name>
                                 </application>
                             </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>STR_REPLACE</type>
+                                    <params>-
+</params>
+                                </step>
+                            </preprocessing>
                             <trigger_prototypes>
                                 <trigger_prototype>
-                                    <expression>{last()}&lt;-80</expression>
+                                    <expression>{avg(24h)}&gt;=80</expression>
                                     <name>Sinal do MAC {#SNMPVALUE} {#IFALIAS} baixo</name>
-                                    <priority>WARNING</priority>
+                                    <priority>HIGH</priority>
                                     <manual_close>YES</manual_close>
                                 </trigger_prototype>
                             </trigger_prototypes>
@@ -1832,7 +1846,7 @@
                     <drawtype>GRADIENT_LINE</drawtype>
                     <color>99FF99</color>
                     <item>
-                        <host>RR Ubiquiti AC Series 8.x SNMP Infos Rocket</host>
+                        <host>RR Ubiquiti AC Series 8.x SNMP Infos LiteAP</host>
                         <key>ubnt56.abertura</key>
                     </item>
                 </graph_item>
@@ -1845,7 +1859,7 @@
                     <drawtype>GRADIENT_LINE</drawtype>
                     <color>99FF99</color>
                     <item>
-                        <host>RR Ubiquiti AC Series 8.x SNMP Infos LiteAP</host>
+                        <host>RR Ubiquiti AC Series 8.x SNMP Infos Rocket</host>
                         <key>ubnt56.abertura</key>
                     </item>
                 </graph_item>
@@ -2083,6 +2097,19 @@
                     <drawtype>GRADIENT_LINE</drawtype>
                     <color>7B1FA2</color>
                     <item>
+                        <host>RR Ubiquiti AC Series 8.x SNMP Infos LiteAP</host>
+                        <key>ubnt56.noise</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>Noise Floor</name>
+            <graph_items>
+                <graph_item>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>7B1FA2</color>
+                    <item>
                         <host>RR Ubiquiti M Series 6.x SNMP Infos</host>
                         <key>ubnt56.noise</key>
                     </item>
@@ -2097,19 +2124,6 @@
                     <color>7B1FA2</color>
                     <item>
                         <host>RR Ubiquiti AC Series 8.x SNMP Infos Rocket</host>
-                        <key>ubnt56.noise</key>
-                    </item>
-                </graph_item>
-            </graph_items>
-        </graph>
-        <graph>
-            <name>Noise Floor</name>
-            <graph_items>
-                <graph_item>
-                    <drawtype>GRADIENT_LINE</drawtype>
-                    <color>7B1FA2</color>
-                    <item>
-                        <host>RR Ubiquiti AC Series 8.x SNMP Infos LiteAP</host>
                         <key>ubnt56.noise</key>
                     </item>
                 </graph_item>

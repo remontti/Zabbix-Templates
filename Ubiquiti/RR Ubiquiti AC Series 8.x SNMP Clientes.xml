@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2021-11-03T18:03:35Z</date>
+    <groups>
+        <group>
+            <name>Templates RR</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>RR Ubiquiti AC Series 8.x SNMP Clientes</template>
+            <name>RR Ubiquiti AC Series 8.x SNMP Clientes</name>
+            <groups>
+                <group>
+                    <name>Templates RR</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Cliente Bit Rate</name>
+                </application>
+                <application>
+                    <name>Cliente CCQ</name>
+                </application>
+                <application>
+                    <name>Cliente Distancia</name>
+                </application>
+                <application>
+                    <name>Cliente Sinal</name>
+                </application>
+                <application>
+                    <name>Cliente TX-RX-Mbps</name>
+                </application>
+                <application>
+                    <name>Cliente Uptime</name>
+                </application>
+            </applications>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>MAC conectados</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#SNMPVALUE},.1.3.6.1.4.1.41112.1.4.7.1.1.1, {#IFALIAS},.1.3.6.1.4.1.41112.1.4.7.1.2.1]</snmp_oid>
+                    <key>discovery.mac.conectados</key>
+                    <delay>1h</delay>
+                    <lifetime>7d</lifetime>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>{#SNMPVALUE} {#IFALIAS} Downlink Capacity</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.41112.1.4.7.1.17.1.{#SNMPINDEX}</snmp_oid>
+                            <key>dd.down.cliente[{#SNMPVALUE}]</key>
+                            <delay>1h</delay>
+                            <history>7d</history>
+                            <trends>180d</trends>
+                            <value_type>FLOAT</value_type>
+                            <units>bps</units>
+                            <applications>
+                                <application>
+                                    <name>Cliente TX-RX-Mbps</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>1024</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#SNMPVALUE} {#IFALIAS} KM</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.41112.1.4.7.1.5.1.{#SNMPINDEX}</snmp_oid>
+                            <key>dd.km.cliente[{#SNMPVALUE}]</key>
+                            <delay>1h</delay>
+                            <history>7d</history>
+                            <trends>180d</trends>
+                            <value_type>FLOAT</value_type>
+                            <units>Km</units>
+                            <applications>
+                                <application>
+                                    <name>Cliente Distancia</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>0.001</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#SNMPVALUE} {#IFALIAS} RX Bit Rate</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.41112.1.4.7.1.13.1.{#SNMPINDEX}</snmp_oid>
+                            <key>dd.rx.bit.cliente[{#SNMPVALUE}]</key>
+                            <delay>4m</delay>
+                            <history>7d</history>
+                            <trends>0</trends>
+                            <units>bps</units>
+                            <applications>
+                                <application>
+                                    <name>Cliente Bit Rate</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>8</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#SNMPVALUE} {#IFALIAS} Sinal</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.41112.1.4.7.1.3.1.{#SNMPINDEX}</snmp_oid>
+                            <key>dd.sinal.cliente[{#SNMPVALUE}]</key>
+                            <delay>1h</delay>
+                            <history>7d</history>
+                            <trends>180d</trends>
+                            <value_type>FLOAT</value_type>
+                            <units>dBm</units>
+                            <applications>
+                                <application>
+                                    <name>Cliente Sinal</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>STR_REPLACE</type>
+                                    <params>-
+</params>
+                                </step>
+                            </preprocessing>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{avg(24h)}&gt;=80</expression>
+                                    <name>Sinal do MAC {#SNMPVALUE} {#IFALIAS} baixo</name>
+                                    <priority>HIGH</priority>
+                                    <manual_close>YES</manual_close>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#SNMPVALUE} {#IFALIAS} TX Bit Rate</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.41112.1.4.7.1.14.1.{#SNMPINDEX}</snmp_oid>
+                            <key>dd.tx.bit.cliente[{#SNMPVALUE}]</key>
+                            <delay>4m</delay>
+                            <history>7d</history>
+                            <trends>0</trends>
+                            <units>bps</units>
+                            <applications>
+                                <application>
+                                    <name>Cliente Bit Rate</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>8</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#SNMPVALUE} {#IFALIAS} Uplink Capacity</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.41112.1.4.7.1.18.1.{#SNMPINDEX}</snmp_oid>
+                            <key>dd.uplink.cliente[{#SNMPVALUE}]</key>
+                            <delay>1h</delay>
+                            <history>7d</history>
+                            <trends>180d</trends>
+                            <value_type>FLOAT</value_type>
+                            <units>bps</units>
+                            <applications>
+                                <application>
+                                    <name>Cliente TX-RX-Mbps</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>1024</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#SNMPVALUE} {#IFALIAS} Uptime</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.41112.1.4.7.1.15.1.{#SNMPINDEX}</snmp_oid>
+                            <key>dd.uptime.cliente[{#SNMPVALUE}]</key>
+                            <delay>1h</delay>
+                            <history>7d</history>
+                            <trends>180d</trends>
+                            <value_type>FLOAT</value_type>
+                            <units>uptime</units>
+                            <applications>
+                                <application>
+                                    <name>Cliente Uptime</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>0.01</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                    </item_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <name>{#SNMPVALUE}  {#IFALIAS} Km</name>
+                            <show_work_period>NO</show_work_period>
+                            <show_triggers>NO</show_triggers>
+                            <graph_items>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>F06292</color>
+                                    <item>
+                                        <host>RR Ubiquiti AC Series 8.x SNMP Clientes</host>
+                                        <key>dd.km.cliente[{#SNMPVALUE}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                        <graph_prototype>
+                            <name>{#SNMPVALUE} {#IFALIAS} Sinal</name>
+                            <graph_items>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>BFFF00</color>
+                                    <yaxisside>RIGHT</yaxisside>
+                                    <item>
+                                        <host>RR Ubiquiti AC Series 8.x SNMP Clientes</host>
+                                        <key>dd.sinal.cliente[{#SNMPVALUE}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                        <graph_prototype>
+                            <name>{#SNMPVALUE} {#IFALIAS} TX / RX</name>
+                            <graph_items>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <drawtype>BOLD_LINE</drawtype>
+                                    <color>00FFFF</color>
+                                    <yaxisside>RIGHT</yaxisside>
+                                    <item>
+                                        <host>RR Ubiquiti AC Series 8.x SNMP Clientes</host>
+                                        <key>dd.down.cliente[{#SNMPVALUE}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>2</sortorder>
+                                    <drawtype>BOLD_LINE</drawtype>
+                                    <color>FFFF00</color>
+                                    <yaxisside>RIGHT</yaxisside>
+                                    <item>
+                                        <host>RR Ubiquiti AC Series 8.x SNMP Clientes</host>
+                                        <key>dd.uplink.cliente[{#SNMPVALUE}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                        <graph_prototype>
+                            <name>{#SNMPVALUE}  {#IFALIAS}  TX/RX Bit Rate</name>
+                            <graph_items>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>00FF00</color>
+                                    <item>
+                                        <host>RR Ubiquiti AC Series 8.x SNMP Clientes</host>
+                                        <key>dd.rx.bit.cliente[{#SNMPVALUE}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>2</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>0040FF</color>
+                                    <item>
+                                        <host>RR Ubiquiti AC Series 8.x SNMP Clientes</host>
+                                        <key>dd.tx.bit.cliente[{#SNMPVALUE}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                        <graph_prototype>
+                            <name>{#SNMPVALUE}  {#IFALIAS} Uptime</name>
+                            <show_work_period>NO</show_work_period>
+                            <show_triggers>NO</show_triggers>
+                            <graph_items>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>00FFFF</color>
+                                    <item>
+                                        <host>RR Ubiquiti AC Series 8.x SNMP Clientes</host>
+                                        <key>dd.uptime.cliente[{#SNMPVALUE}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+        </template>
+    </templates>
+</zabbix_export>
