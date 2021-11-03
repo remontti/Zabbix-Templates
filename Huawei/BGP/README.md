@@ -1,4 +1,4 @@
-Importe o 001-RR Huawei SNMPv2 - BGP Mapeamento de valor
+Importe o 001-RR Huawei SNMPv2 - BGP Mapeamento de valor primeiro em seguida 002-RR Huawei SNMPv2 - BGP
 
 Debian + Zabbix 5.x
 
