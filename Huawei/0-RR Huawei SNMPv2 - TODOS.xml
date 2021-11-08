@@ -1,0 +1,2603 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2021-11-08T20:19:32Z</date>
+    <groups>
+        <group>
+            <name>Templates RR</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>RR Huawei SNMPv2 - BGP</template>
+            <name>RR Huawei SNMPv2 - BGP</name>
+            <description>Monitorar sessões BGP</description>
+            <groups>
+                <group>
+                    <name>Templates RR</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Informações da tabela de roteamento</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>Total de Routas IPv4 na FIB</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.4.24.3.0</snmp_oid>
+                    <key>hwIPv4FibRoutes</key>
+                    <delay>5m</delay>
+                    <history>7d</history>
+                    <trends>30d</trends>
+                    <units>Prefixes</units>
+                    <applications>
+                        <application>
+                            <name>Informações da tabela de roteamento</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Total de Routas IPv4 na RIB</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.4.1.2011.5.25.177.9.1.0</snmp_oid>
+                    <key>hwIPv4RibRoutes</key>
+                    <delay>5m</delay>
+                    <history>7d</history>
+                    <trends>30d</trends>
+                    <units>Prefixes</units>
+                    <applications>
+                        <application>
+                            <name>Informações da tabela de roteamento</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Total de Routas IPv6 na FIB</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.2.1.55.1.9.0</snmp_oid>
+                    <key>hwIPv6FibRoutes</key>
+                    <delay>5m</delay>
+                    <history>7d</history>
+                    <trends>30d</trends>
+                    <units>Prefixes</units>
+                    <applications>
+                        <application>
+                            <name>Informações da tabela de roteamento</name>
+                        </application>
+                    </applications>
+                </item>
+            </items>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>Decoberta de Peer(s)</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#BGPPEER},.1.3.6.1.4.1.2011.5.25.177.1.1.2.1.4.0,{#ASNUM},.1.3.6.1.4.1.2011.5.25.177.1.1.2.1.2.0,{#ADMSTATUS},.1.3.6.1.4.1.2011.5.25.177.1.1.2.1.11.0]</snmp_oid>
+                    <key>BgpPeerRemoteAddr</key>
+                    <delay>1h</delay>
+                    <filter>
+                        <conditions>
+                            <condition>
+                                <macro>{#ADMSTATUS}</macro>
+                                <value>2</value>
+                                <formulaid>A</formulaid>
+                            </condition>
+                        </conditions>
+                    </filter>
+                    <lifetime>10d</lifetime>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Nome AS peer {#BGPPEER} - AS{#ASNUM}</name>
+                            <type>EXTERNAL</type>
+                            <key>asname[{#BGPPEER},{HOST.IP},{#ASNUM}]</key>
+                            <delay>1d</delay>
+                            <history>30d</history>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <description>as_name[&quot;-p&quot;,{#ASNUM}]&#13;
+asname[{#BGPPEER},{HOST.IP},{#ASNUM}]</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>BGP Peer</name>
+                                </application_prototype>
+                                <application_prototype>
+                                    <name>BGP Peer {#BGPPEER}  - AS{#ASNUM}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Tempo estabelecido do peer {#BGPPEER} - AS{#ASNUM}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.2011.5.25.177.1.1.2.1.7.0.{#SNMPINDEX}</snmp_oid>
+                            <key>BgpPeerFsmEstablishedTime[{#BGPPEER}]</key>
+                            <delay>2m</delay>
+                            <history>30d</history>
+                            <trends>90d</trends>
+                            <units>uptime</units>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>BGP Peer</name>
+                                </application_prototype>
+                                <application_prototype>
+                                    <name>BGP Peer {#BGPPEER}  - AS{#ASNUM}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Total de rotas recebidas com peer {#BGPPEER} - AS{#ASNUM}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.2011.5.25.177.1.1.3.1.1.0.{#SNMPINDEX}</snmp_oid>
+                            <key>BgpPeerRoutes[{#BGPPEER}]</key>
+                            <delay>5m</delay>
+                            <history>30d</history>
+                            <trends>90d</trends>
+                            <units>prefixes</units>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>BGP Peer</name>
+                                </application_prototype>
+                                <application_prototype>
+                                    <name>BGP Peer {#BGPPEER}  - AS{#ASNUM}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Status operacional para o peer {#BGPPEER} - AS{#ASNUM}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.2011.5.25.177.1.1.2.1.5.0.{#SNMPINDEX}</snmp_oid>
+                            <key>BgpPeerState[{#BGPPEER}]</key>
+                            <delay>2m</delay>
+                            <history>30d</history>
+                            <trends>90d</trends>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>BGP Peer</name>
+                                </application_prototype>
+                                <application_prototype>
+                                    <name>BGP Peer {#BGPPEER}  - AS{#ASNUM}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <valuemap>
+                                <name>BgpPeerState</name>
+                            </valuemap>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last(5m)}&lt;&gt;6</expression>
+                                    <name>Peer {#BGPPEER} - AS{#ASNUM} está DOWN !!!</name>
+                                    <priority>AVERAGE</priority>
+                                    <manual_close>YES</manual_close>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                    </item_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <name>Rotas recebidas  {#BGPPEER} - AS{#ASNUM}</name>
+                            <show_work_period>NO</show_work_period>
+                            <show_triggers>NO</show_triggers>
+                            <graph_items>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>6A1B9A</color>
+                                    <item>
+                                        <host>RR Huawei SNMPv2 - BGP</host>
+                                        <key>BgpPeerRoutes[{#BGPPEER}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+        </template>
+        <template>
+            <template>RR Huawei  SNMPv2 - CPU e Memoria</template>
+            <name>RR Huawei  SNMPv2 - CPU e Memoria</name>
+            <groups>
+                <group>
+                    <name>Templates RR</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>CPU Load</name>
+                </application>
+                <application>
+                    <name>Memória</name>
+                </application>
+            </applications>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>CPU</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#SNMPVALUE},1.3.6.1.4.1.2011.6.3.4.1.3]</snmp_oid>
+                    <key>huaweihwCpuDevIndex</key>
+                    <delay>1h</delay>
+                    <lifetime>1d</lifetime>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Uso médio da CPU em 1 min slot {#SNMPINDEX}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.2011.6.3.4.1.3.{#SNMPINDEX}</snmp_oid>
+                            <key>huaweihwAvgDuty1min[{#SNMPINDEX}]</key>
+                            <history>7d</history>
+                            <trends>60d</trends>
+                            <units>%</units>
+                            <applications>
+                                <application>
+                                    <name>CPU Load</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Uso médio da CPU em 5 min slot {#SNMPINDEX}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.2011.6.3.4.1.4.{#SNMPINDEX}</snmp_oid>
+                            <key>huaweihwAvgDuty5min[{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
+                            <history>7d</history>
+                            <trends>60d</trends>
+                            <units>%</units>
+                            <applications>
+                                <application>
+                                    <name>CPU Load</name>
+                                </application>
+                            </applications>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last()}&gt;80</expression>
+                                    <name>CPU em {HOST.NAME} sobrecarregada</name>
+                                    <priority>HIGH</priority>
+                                    <manual_close>YES</manual_close>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Uso médio da CPU em 5 seg slot {#SNMPINDEX}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.2011.6.3.4.1.2.{#SNMPINDEX}</snmp_oid>
+                            <key>huaweihwCpuDevDuty[{#SNMPINDEX}]</key>
+                            <history>7d</history>
+                            <trends>60d</trends>
+                            <units>%</units>
+                            <applications>
+                                <application>
+                                    <name>CPU Load</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                    </item_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <name>CPU slot {#SNMPINDEX}</name>
+                            <ymin_type_1>FIXED</ymin_type_1>
+                            <graph_items>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <color>00C800</color>
+                                    <item>
+                                        <host>RR Huawei  SNMPv2 - CPU e Memoria</host>
+                                        <key>huaweihwCpuDevDuty[{#SNMPINDEX}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>2</sortorder>
+                                    <color>0000C8</color>
+                                    <item>
+                                        <host>RR Huawei  SNMPv2 - CPU e Memoria</host>
+                                        <key>huaweihwAvgDuty1min[{#SNMPINDEX}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>3</sortorder>
+                                    <color>C80000</color>
+                                    <item>
+                                        <host>RR Huawei  SNMPv2 - CPU e Memoria</host>
+                                        <key>huaweihwAvgDuty5min[{#SNMPINDEX}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Memoria</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#SNMPVALUE},1.3.6.1.4.1.2011.6.3.5.1.1.2]</snmp_oid>
+                    <key>huaweihwMemoryDevModuleIndex</key>
+                    <delay>1h</delay>
+                    <lifetime>1d</lifetime>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Uso de memória em % slot {#SNMPINDEX}</name>
+                            <type>CALCULATED</type>
+                            <key>huaweiMemoryPFree[{#SNMPINDEX}]</key>
+                            <delay>180</delay>
+                            <units>%</units>
+                            <params>100 * ( ( last(&quot;hwTotalMem[{#SNMPINDEX}]&quot;) - last(&quot;hwMemLivre[{#SNMPINDEX}]&quot;) ) / last(&quot;hwTotalMem[{#SNMPINDEX}]&quot;) )</params>
+                            <applications>
+                                <application>
+                                    <name>Memória</name>
+                                </application>
+                            </applications>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{avg(6m)}&gt;90</expression>
+                                    <name>Low Memory on {HOST.NAME}</name>
+                                    <priority>HIGH</priority>
+                                    <manual_close>YES</manual_close>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Memória livre slot {#SNMPINDEX}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.2011.6.3.5.1.1.3.{#SNMPINDEX}</snmp_oid>
+                            <key>hwMemLivre[{#SNMPINDEX}]</key>
+                            <delay>180</delay>
+                            <history>7d</history>
+                            <trends>60d</trends>
+                            <units>B</units>
+                            <applications>
+                                <application>
+                                    <name>Memória</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Tamanho da memória slot {#SNMPINDEX}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.2011.6.3.5.1.1.2.{#SNMPINDEX}</snmp_oid>
+                            <key>hwTotalMem[{#SNMPINDEX}]</key>
+                            <delay>180</delay>
+                            <history>7d</history>
+                            <trends>60d</trends>
+                            <units>B</units>
+                            <applications>
+                                <application>
+                                    <name>Memória</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                    </item_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <name>HUAWEI MEMORY slot {#SNMPINDEX}</name>
+                            <ymin_type_1>FIXED</ymin_type_1>
+                            <ymax_type_1>ITEM</ymax_type_1>
+                            <ymax_item_1>
+                                <host>RR Huawei  SNMPv2 - CPU e Memoria</host>
+                                <key>hwTotalMem[{#SNMPINDEX}]</key>
+                            </ymax_item_1>
+                            <graph_items>
+                                <graph_item>
+                                    <drawtype>DASHED_LINE</drawtype>
+                                    <color>F63100</color>
+                                    <item>
+                                        <host>RR Huawei  SNMPv2 - CPU e Memoria</host>
+                                        <key>hwTotalMem[{#SNMPINDEX}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>00C800</color>
+                                    <item>
+                                        <host>RR Huawei  SNMPv2 - CPU e Memoria</host>
+                                        <key>hwMemLivre[{#SNMPINDEX}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+        </template>
+        <template>
+            <template>RR Huawei SNMPv2 - FIB e RIB</template>
+            <name>RR Huawei SNMPv2 - FIB e RIB</name>
+            <description>Monitorar tabela de rotas</description>
+            <groups>
+                <group>
+                    <name>Templates RR</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Informações da tabela de roteamento</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>Total de Routas IPv4 na FIB</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.4.24.3.0</snmp_oid>
+                    <key>hwIPv4FibRoutes</key>
+                    <delay>5m</delay>
+                    <history>7d</history>
+                    <trends>30d</trends>
+                    <units>Prefixes</units>
+                    <applications>
+                        <application>
+                            <name>Informações da tabela de roteamento</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Total de Routas IPv4 na RIB</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.4.1.2011.5.25.177.9.1.0</snmp_oid>
+                    <key>hwIPv4RibRoutes</key>
+                    <delay>5m</delay>
+                    <history>7d</history>
+                    <trends>30d</trends>
+                    <units>Prefixes</units>
+                    <applications>
+                        <application>
+                            <name>Informações da tabela de roteamento</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Total de Routas IPv6 na FIB</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.2.1.55.1.9.0</snmp_oid>
+                    <key>hwIPv6FibRoutes</key>
+                    <delay>5m</delay>
+                    <history>7d</history>
+                    <trends>30d</trends>
+                    <units>Prefixes</units>
+                    <applications>
+                        <application>
+                            <name>Informações da tabela de roteamento</name>
+                        </application>
+                    </applications>
+                </item>
+            </items>
+        </template>
+        <template>
+            <template>RR Huawei  SNMPv2 - Informacoes Extra</template>
+            <name>RR Huawei  SNMPv2 - Informacoes Extra</name>
+            <groups>
+                <group>
+                    <name>Templates RR</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>CPU</name>
+                </application>
+                <application>
+                    <name>Interfaces</name>
+                </application>
+                <application>
+                    <name>Memoria</name>
+                </application>
+                <application>
+                    <name>Sistema</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>Corrente Atual</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.2011.6.157.1.6.0</snmp_oid>
+                    <key>hwCorrente</key>
+                    <delay>5m</delay>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>w</units>
+                    <applications>
+                        <application>
+                            <name>Sistema</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Device ESN</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.4.1.2011.5.25.188.1.1.0</snmp_oid>
+                    <key>hwEsn</key>
+                    <delay>1d</delay>
+                    <history>7d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>Sistema</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Nome do Produto</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.2011.6.3.11.4.0</snmp_oid>
+                    <key>hwNomeProduto</key>
+                    <delay>1d</delay>
+                    <history>7d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>Sistema</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Uptime do Sistema</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.1.3.0</snmp_oid>
+                    <key>hwSysUpTime</key>
+                    <delay>5m</delay>
+                    <history>30d</history>
+                    <units>uptime</units>
+                    <applications>
+                        <application>
+                            <name>Sistema</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <params>0.01</params>
+                        </step>
+                    </preprocessing>
+                    <triggers>
+                        <trigger>
+                            <expression>{change(0)}&lt;0</expression>
+                            <name>Reiniciou</name>
+                            <priority>HIGH</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Número de interfaces</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.2.1.0</snmp_oid>
+                    <key>ifNumberInterfaces</key>
+                    <delay>1h</delay>
+                    <history>7d</history>
+                    <description>The number of network interfaces (regardless of their current state) present on this system.</description>
+                    <applications>
+                        <application>
+                            <name>Interfaces</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Versão do Sistema e Hardware</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.1.1.0</snmp_oid>
+                    <key>sysDescr.0</key>
+                    <delay>1d</delay>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <applications>
+                        <application>
+                            <name>Sistema</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{diff(0)}&gt;0</expression>
+                            <name>Versão modificada</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+            </items>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>Discovery memoria</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#SNMPVALUE},1.3.6.1.4.1.2011.6.3.5.1.1.2]</snmp_oid>
+                    <key>hwMemoryDev</key>
+                    <delay>1h</delay>
+                    <lifetime>1d</lifetime>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Contagem de falhas de alocação de memória</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.2011.6.3.5.1.1.6.{#SNMPINDEX}</snmp_oid>
+                            <key>hwMemoryDevFail[{#SNMPINDEX}]</key>
+                            <delay>60</delay>
+                            <applications>
+                                <application>
+                                    <name>Memoria</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Memoria Livre</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.2011.6.3.5.1.1.3.{#SNMPINDEX}</snmp_oid>
+                            <key>hwMemoryDevFree[{#SNMPINDEX}]</key>
+                            <delay>60</delay>
+                            <value_type>FLOAT</value_type>
+                            <units>B</units>
+                            <applications>
+                                <application>
+                                    <name>Memoria</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Memoria Utilizada</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.2011.6.3.5.1.1.4.{#SNMPINDEX}</snmp_oid>
+                            <key>hwMemoryDevRawSliceUsed[{#SNMPINDEX}]</key>
+                            <delay>60</delay>
+                            <value_type>FLOAT</value_type>
+                            <units>B</units>
+                            <applications>
+                                <application>
+                                    <name>Memoria</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Tamanho total da memória</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.2011.6.3.5.1.1.2.{#SNMPINDEX}</snmp_oid>
+                            <key>hwMemoryDevSize[{#SNMPINDEX}]</key>
+                            <delay>60</delay>
+                            <value_type>FLOAT</value_type>
+                            <units>B</units>
+                            <applications>
+                                <application>
+                                    <name>Memoria</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Memoria Livre (%)</name>
+                            <type>CALCULATED</type>
+                            <key>memFreePercentage[{#SNMPINDEX}]</key>
+                            <delay>60</delay>
+                            <value_type>FLOAT</value_type>
+                            <units>B</units>
+                            <params>last(&quot;hwMemoryDevFree[{#SNMPINDEX}]&quot;)/last(&quot;hwMemoryDevSize[{#SNMPINDEX}]&quot;)*100</params>
+                            <applications>
+                                <application>
+                                    <name>Memoria</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Memoria Utilizada (%)</name>
+                            <type>CALCULATED</type>
+                            <key>memUsedPercentage[{#SNMPINDEX}]</key>
+                            <delay>60</delay>
+                            <value_type>FLOAT</value_type>
+                            <units>%</units>
+                            <params>last(&quot;hwMemoryDevRawSliceUsed[{#SNMPINDEX}]&quot;)/last(&quot;hwMemoryDevSize[{#SNMPINDEX}]&quot;)*100</params>
+                            <applications>
+                                <application>
+                                    <name>Memoria</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                    </item_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <name>Memoria Livre</name>
+                            <yaxismax>0</yaxismax>
+                            <show_work_period>NO</show_work_period>
+                            <show_triggers>NO</show_triggers>
+                            <type>PIE</type>
+                            <graph_items>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <color>199C0D</color>
+                                    <item>
+                                        <host>RR Huawei  SNMPv2 - Informacoes Extra</host>
+                                        <key>memFreePercentage[{#SNMPINDEX}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                        <graph_prototype>
+                            <name>Memoria Utilizada</name>
+                            <yaxismax>0</yaxismax>
+                            <show_work_period>NO</show_work_period>
+                            <show_triggers>NO</show_triggers>
+                            <type>PIE</type>
+                            <graph_items>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <color>199C0D</color>
+                                    <item>
+                                        <host>RR Huawei  SNMPv2 - Informacoes Extra</host>
+                                        <key>memUsedPercentage[{#SNMPINDEX}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+        </template>
+        <template>
+            <template>RR Huawei SNMPv2 - Interfaces</template>
+            <name>RR Huawei SNMPv2 - Interfaces</name>
+            <groups>
+                <group>
+                    <name>Templates RR</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Interfaces</name>
+                </application>
+            </applications>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>Discovery interfaces</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#SNMPVALUE},.1.3.6.1.2.1.2.2.1.2, {#IFALIAS},.1.3.6.1.2.1.31.1.1.1.18]</snmp_oid>
+                    <key>ifDescr</key>
+                    <delay>30m</delay>
+                    <lifetime>1d</lifetime>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Status  admin $1 - {#IFALIAS}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.2.1.2.2.1.7.{#SNMPINDEX}</snmp_oid>
+                            <key>ifAdminStatus[{#SNMPVALUE}]</key>
+                            <delay>5m</delay>
+                            <history>1w</history>
+                            <trends>30d</trends>
+                            <description>The desired state of the interface.</description>
+                            <applications>
+                                <application>
+                                    <name>Interfaces</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>SNMP interface status (ifAdminStatus)</name>
+                            </valuemap>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Tráfego de entrada  $1 - {#IFALIAS}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.2.1.31.1.1.1.6.{#SNMPINDEX}</snmp_oid>
+                            <key>ifHCInOctets[{#SNMPVALUE}]</key>
+                            <units>bps</units>
+                            <description>The number of octets in valid MAC frames received on this interface, including the MAC header and FCS.</description>
+                            <applications>
+                                <application>
+                                    <name>Interfaces</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>8</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Tráfego de saída  $1 - {#IFALIAS}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.2.1.31.1.1.1.10.{#SNMPINDEX}</snmp_oid>
+                            <key>ifHCOutOctets[{#SNMPVALUE}]</key>
+                            <units>bps</units>
+                            <description>The number of octets transmitted in MAC frames on this interface, including the MAC header and FCS.</description>
+                            <applications>
+                                <application>
+                                    <name>Interfaces</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>8</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Erros de entrada $1 - {#IFALIAS}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.2.1.2.2.1.14.{#SNMPINDEX}</snmp_oid>
+                            <key>ifInErrors[{#SNMPVALUE}]</key>
+                            <delay>5m</delay>
+                            <history>1w</history>
+                            <trends>180d</trends>
+                            <description>For packet-oriented interfaces, the number of inbound packets that contained errors preventing them from being deliverable to a higher-layer protocol.  For character-oriented or fixed-length interfaces, the number of inbound transmission units that contained errors preventing them from being deliverable to a higher-layer protocol.</description>
+                            <applications>
+                                <application>
+                                    <name>Interfaces</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Status operacional  $1 - {#IFALIAS}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.2.1.2.2.1.8.{#SNMPINDEX}</snmp_oid>
+                            <key>ifOperStatus[{#SNMPVALUE}]</key>
+                            <delay>5m</delay>
+                            <history>1w</history>
+                            <trends>30d</trends>
+                            <description>The current operational state of the interface.</description>
+                            <applications>
+                                <application>
+                                    <name>Interfaces</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>SNMP interface status (ifOperStatus)</name>
+                            </valuemap>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{diff(0)}=1</expression>
+                                    <name>Status Operacional {HOST.NAME} interface {#SNMPVALUE} -  {#IFALIAS}</name>
+                                    <priority>HIGH</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Erros de saída $1 - {#IFALIAS}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.2.1.2.2.1.20.{#SNMPINDEX}</snmp_oid>
+                            <key>ifOutErrors[{#SNMPVALUE}]</key>
+                            <delay>5m</delay>
+                            <history>1w</history>
+                            <trends>180d</trends>
+                            <description>For packet-oriented interfaces, the number of outbound packets that could not be transmitted because of errors. For character-oriented or fixed-length interfaces, the number of outbound transmission units that could not be transmitted because of errors.</description>
+                            <applications>
+                                <application>
+                                    <name>Interfaces</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                    </item_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <name>Erros {#SNMPVALUE} ({#IFALIAS})</name>
+                            <graph_items>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <color>199C0D</color>
+                                    <item>
+                                        <host>RR Huawei SNMPv2 - Interfaces</host>
+                                        <key>ifInErrors[{#SNMPVALUE}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>2</sortorder>
+                                    <color>F63100</color>
+                                    <item>
+                                        <host>RR Huawei SNMPv2 - Interfaces</host>
+                                        <key>ifOutErrors[{#SNMPVALUE}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                        <graph_prototype>
+                            <name>Tráfego {#SNMPVALUE} ({#IFALIAS})</name>
+                            <graph_items>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>00AA00</color>
+                                    <item>
+                                        <host>RR Huawei SNMPv2 - Interfaces</host>
+                                        <key>ifHCInOctets[{#SNMPVALUE}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>2</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>3333FF</color>
+                                    <item>
+                                        <host>RR Huawei SNMPv2 - Interfaces</host>
+                                        <key>ifHCOutOctets[{#SNMPVALUE}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+        </template>
+        <template>
+            <template>RR Huawei SNMPv2 - Interfaces Fisicas com Descricao - So Trafego</template>
+            <name>RR Huawei SNMPv2 - Interfaces Fisicas com Descricao - So Trafego</name>
+            <description>By Rudimar Remontti</description>
+            <groups>
+                <group>
+                    <name>Templates RR</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Interface Trafego</name>
+                </application>
+            </applications>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>Descobre interfaces</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#IFNAME},.1.3.6.1.2.1.2.2.1.2,{#IFALIAS},.1.3.6.1.2.1.31.1.1.1.18,{#IFTYPE},.1.3.6.1.2.1.2.2.1.3]</snmp_oid>
+                    <key>hw.interface.namedes</key>
+                    <delay>1h</delay>
+                    <filter>
+                        <conditions>
+                            <condition>
+                                <macro>{#IFTYPE}</macro>
+                                <value>6</value>
+                                <formulaid>B</formulaid>
+                            </condition>
+                            <condition>
+                                <macro>{#IFALIAS}</macro>
+                                <value>^(?=.*\s*)(?=.*)+$</value>
+                                <operator>NOT_MATCHES_REGEX</operator>
+                                <formulaid>A</formulaid>
+                            </condition>
+                        </conditions>
+                    </filter>
+                    <lifetime>1h</lifetime>
+                    <description>Descobre nome das interfaces fisicas</description>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>In interface - $1 {#IFALIAS}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.2.1.31.1.1.1.6.{#SNMPINDEX}</snmp_oid>
+                            <key>hw.in[{#IFNAME}]</key>
+                            <history>1w</history>
+                            <units>bps</units>
+                            <applications>
+                                <application>
+                                    <name>Interface Trafego</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>8</params>
+                                </step>
+                            </preprocessing>
+                            <request_method>POST</request_method>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Out interface  - $1 {#IFALIAS}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.2.1.31.1.1.1.10.{#SNMPINDEX}</snmp_oid>
+                            <key>hw.out[{#IFNAME}]</key>
+                            <history>1w</history>
+                            <units>bps</units>
+                            <applications>
+                                <application>
+                                    <name>Interface Trafego</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>8</params>
+                                </step>
+                            </preprocessing>
+                            <request_method>POST</request_method>
+                        </item_prototype>
+                    </item_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <name>Tráfego {#IFNAME} {#IFALIAS}</name>
+                            <graph_items>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>00C853</color>
+                                    <item>
+                                        <host>RR Huawei SNMPv2 - Interfaces Fisicas com Descricao - So Trafego</host>
+                                        <key>hw.in[{#IFNAME}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>2</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>0091EA</color>
+                                    <item>
+                                        <host>RR Huawei SNMPv2 - Interfaces Fisicas com Descricao - So Trafego</host>
+                                        <key>hw.out[{#IFNAME}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                    <request_method>POST</request_method>
+                </discovery_rule>
+            </discovery_rules>
+        </template>
+        <template>
+            <template>RR Huawei SNMPv2 - Interfaces Fisicas com Descricao - Trafego Erros PPS</template>
+            <name>RR Huawei SNMPv2 - Interfaces Fisicas com Descricao - Trafego Erros PPS</name>
+            <description>By Rudimar Remontti</description>
+            <groups>
+                <group>
+                    <name>Templates RR</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Interface Erros</name>
+                </application>
+                <application>
+                    <name>Interface Pacotes</name>
+                </application>
+                <application>
+                    <name>Interface Trafego</name>
+                </application>
+            </applications>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>Descobre interfaces</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#IFNAME},.1.3.6.1.2.1.2.2.1.2,{#IFALIAS},.1.3.6.1.2.1.31.1.1.1.18,{#IFTYPE},.1.3.6.1.2.1.2.2.1.3]</snmp_oid>
+                    <key>hw.interface.namedes</key>
+                    <delay>1h</delay>
+                    <filter>
+                        <conditions>
+                            <condition>
+                                <macro>{#IFTYPE}</macro>
+                                <value>6</value>
+                                <formulaid>B</formulaid>
+                            </condition>
+                            <condition>
+                                <macro>{#IFALIAS}</macro>
+                                <value>^(?=.*\s*)(?=.*)+$</value>
+                                <operator>NOT_MATCHES_REGEX</operator>
+                                <formulaid>A</formulaid>
+                            </condition>
+                        </conditions>
+                    </filter>
+                    <lifetime>1h</lifetime>
+                    <description>Descobre nome das interfaces fisicas</description>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Erros In interface $1 {#IFALIAS}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.2.1.2.2.1.14.{#SNMPINDEX}</snmp_oid>
+                            <key>hw.erros.in[{#IFNAME}]</key>
+                            <history>1w</history>
+                            <applications>
+                                <application>
+                                    <name>Interface Erros</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                            </preprocessing>
+                            <request_method>POST</request_method>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Erros Out interface $1 {#IFALIAS}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.2.1.2.2.1.20.{#SNMPINDEX}</snmp_oid>
+                            <key>hw.erros.out[{#IFNAME}]</key>
+                            <history>1w</history>
+                            <applications>
+                                <application>
+                                    <name>Interface Erros</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                            </preprocessing>
+                            <request_method>POST</request_method>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>In interface - $1 {#IFALIAS}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.2.1.31.1.1.1.6.{#SNMPINDEX}</snmp_oid>
+                            <key>hw.in[{#IFNAME}]</key>
+                            <history>1w</history>
+                            <units>bps</units>
+                            <applications>
+                                <application>
+                                    <name>Interface Trafego</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>8</params>
+                                </step>
+                            </preprocessing>
+                            <request_method>POST</request_method>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Out interface  - $1 {#IFALIAS}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.2.1.31.1.1.1.10.{#SNMPINDEX}</snmp_oid>
+                            <key>hw.out[{#IFNAME}]</key>
+                            <history>1w</history>
+                            <units>bps</units>
+                            <applications>
+                                <application>
+                                    <name>Interface Trafego</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>8</params>
+                                </step>
+                            </preprocessing>
+                            <request_method>POST</request_method>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Pac In interface $1 {#IFALIAS}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.2.1.31.1.1.1.7.{#SNMPINDEX}</snmp_oid>
+                            <key>hw.pac.in[{#IFNAME}]</key>
+                            <history>1w</history>
+                            <units>p/s</units>
+                            <applications>
+                                <application>
+                                    <name>Interface Pacotes</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>1</params>
+                                </step>
+                            </preprocessing>
+                            <request_method>POST</request_method>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Pac Out interface $1 {#IFALIAS}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.2.1.31.1.1.1.11.{#SNMPINDEX}</snmp_oid>
+                            <key>hw.pac.out[{#IFNAME}]</key>
+                            <history>1w</history>
+                            <units>p/s</units>
+                            <applications>
+                                <application>
+                                    <name>Interface Pacotes</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>1</params>
+                                </step>
+                            </preprocessing>
+                            <request_method>POST</request_method>
+                        </item_prototype>
+                    </item_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <name>Erros {#IFNAME} {#IFALIAS}</name>
+                            <graph_items>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>DD2C00</color>
+                                    <item>
+                                        <host>RR Huawei SNMPv2 - Interfaces Fisicas com Descricao - Trafego Erros PPS</host>
+                                        <key>hw.erros.in[{#IFNAME}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>2</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>FF1744</color>
+                                    <item>
+                                        <host>RR Huawei SNMPv2 - Interfaces Fisicas com Descricao - Trafego Erros PPS</host>
+                                        <key>hw.erros.out[{#IFNAME}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                        <graph_prototype>
+                            <name>p/s {#IFNAME} {#IFALIAS}</name>
+                            <graph_items>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>F57F17</color>
+                                    <item>
+                                        <host>RR Huawei SNMPv2 - Interfaces Fisicas com Descricao - Trafego Erros PPS</host>
+                                        <key>hw.pac.in[{#IFNAME}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>2</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>FFEB3B</color>
+                                    <item>
+                                        <host>RR Huawei SNMPv2 - Interfaces Fisicas com Descricao - Trafego Erros PPS</host>
+                                        <key>hw.pac.out[{#IFNAME}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                        <graph_prototype>
+                            <name>Tráfego {#IFNAME} {#IFALIAS}</name>
+                            <graph_items>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>00C853</color>
+                                    <item>
+                                        <host>RR Huawei SNMPv2 - Interfaces Fisicas com Descricao - Trafego Erros PPS</host>
+                                        <key>hw.in[{#IFNAME}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>2</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>0091EA</color>
+                                    <item>
+                                        <host>RR Huawei SNMPv2 - Interfaces Fisicas com Descricao - Trafego Erros PPS</host>
+                                        <key>hw.out[{#IFNAME}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                    <request_method>POST</request_method>
+                </discovery_rule>
+            </discovery_rules>
+        </template>
+        <template>
+            <template>RR Huawei SNMPv2 - Interfaces Fisicas Todas - Trafego Erros PPS</template>
+            <name>RR Huawei SNMPv2 - Interfaces Fisicas Todas - Trafego Erros PPS</name>
+            <description>By Rudimar Remontti</description>
+            <groups>
+                <group>
+                    <name>Templates RR</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Interface Erros</name>
+                </application>
+                <application>
+                    <name>Interface Pacotes</name>
+                </application>
+                <application>
+                    <name>Interface Trafego</name>
+                </application>
+            </applications>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>Descobre interfaces</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#IFNAME},.1.3.6.1.2.1.2.2.1.2,{#IFALIAS},.1.3.6.1.2.1.31.1.1.1.18,{#IFTYPE},.1.3.6.1.2.1.2.2.1.3]</snmp_oid>
+                    <key>hw.interface.name</key>
+                    <delay>1h</delay>
+                    <filter>
+                        <conditions>
+                            <condition>
+                                <macro>{#IFTYPE}</macro>
+                                <value>6</value>
+                                <formulaid>A</formulaid>
+                            </condition>
+                        </conditions>
+                    </filter>
+                    <lifetime>1h</lifetime>
+                    <description>Descobre nome das interfaces fisicas</description>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Erros In interface $1 {#IFALIAS}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.2.1.2.2.1.14.{#SNMPINDEX}</snmp_oid>
+                            <key>hw.erros.in[{#IFNAME}]</key>
+                            <history>1w</history>
+                            <applications>
+                                <application>
+                                    <name>Interface Erros</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                            </preprocessing>
+                            <request_method>POST</request_method>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Erros Out interface $1 {#IFALIAS}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.2.1.2.2.1.20.{#SNMPINDEX}</snmp_oid>
+                            <key>hw.erros.out[{#IFNAME}]</key>
+                            <history>1w</history>
+                            <applications>
+                                <application>
+                                    <name>Interface Erros</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                            </preprocessing>
+                            <request_method>POST</request_method>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>In interface - $1 {#IFALIAS}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.2.1.31.1.1.1.6.{#SNMPINDEX}</snmp_oid>
+                            <key>hw.in[{#IFNAME}]</key>
+                            <history>1w</history>
+                            <units>bps</units>
+                            <applications>
+                                <application>
+                                    <name>Interface Trafego</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>8</params>
+                                </step>
+                            </preprocessing>
+                            <request_method>POST</request_method>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Out interface  - $1 {#IFALIAS}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.2.1.31.1.1.1.10.{#SNMPINDEX}</snmp_oid>
+                            <key>hw.out[{#IFNAME}]</key>
+                            <history>1w</history>
+                            <units>bps</units>
+                            <applications>
+                                <application>
+                                    <name>Interface Trafego</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>8</params>
+                                </step>
+                            </preprocessing>
+                            <request_method>POST</request_method>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Pac In interface $1 {#IFALIAS}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.2.1.31.1.1.1.7.{#SNMPINDEX}</snmp_oid>
+                            <key>hw.pac.in[{#IFNAME}]</key>
+                            <history>1w</history>
+                            <units>p/s</units>
+                            <applications>
+                                <application>
+                                    <name>Interface Pacotes</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>1</params>
+                                </step>
+                            </preprocessing>
+                            <request_method>POST</request_method>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Pac Out interface $1 {#IFALIAS}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.2.1.31.1.1.1.11.{#SNMPINDEX}</snmp_oid>
+                            <key>hw.pac.out[{#IFNAME}]</key>
+                            <history>1w</history>
+                            <units>p/s</units>
+                            <applications>
+                                <application>
+                                    <name>Interface Pacotes</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>1</params>
+                                </step>
+                            </preprocessing>
+                            <request_method>POST</request_method>
+                        </item_prototype>
+                    </item_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <name>Erros {#IFNAME} {#IFALIAS}</name>
+                            <graph_items>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>DD2C00</color>
+                                    <item>
+                                        <host>RR Huawei SNMPv2 - Interfaces Fisicas Todas - Trafego Erros PPS</host>
+                                        <key>hw.erros.in[{#IFNAME}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>2</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>FF1744</color>
+                                    <item>
+                                        <host>RR Huawei SNMPv2 - Interfaces Fisicas Todas - Trafego Erros PPS</host>
+                                        <key>hw.erros.out[{#IFNAME}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                        <graph_prototype>
+                            <name>p/s {#IFNAME} {#IFALIAS}</name>
+                            <graph_items>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>F57F17</color>
+                                    <item>
+                                        <host>RR Huawei SNMPv2 - Interfaces Fisicas Todas - Trafego Erros PPS</host>
+                                        <key>hw.pac.in[{#IFNAME}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>2</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>FFEB3B</color>
+                                    <item>
+                                        <host>RR Huawei SNMPv2 - Interfaces Fisicas Todas - Trafego Erros PPS</host>
+                                        <key>hw.pac.out[{#IFNAME}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                        <graph_prototype>
+                            <name>Tráfego {#IFNAME} {#IFALIAS}</name>
+                            <graph_items>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>00C853</color>
+                                    <item>
+                                        <host>RR Huawei SNMPv2 - Interfaces Fisicas Todas - Trafego Erros PPS</host>
+                                        <key>hw.in[{#IFNAME}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>2</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>0091EA</color>
+                                    <item>
+                                        <host>RR Huawei SNMPv2 - Interfaces Fisicas Todas - Trafego Erros PPS</host>
+                                        <key>hw.out[{#IFNAME}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                    <request_method>POST</request_method>
+                </discovery_rule>
+            </discovery_rules>
+        </template>
+        <template>
+            <template>RR Huawei SNMPv2 -  Interfaces Info Modulos Opticos</template>
+            <name>RR Huawei SNMPv2 -  Interfaces Info Modulos Opticos</name>
+            <description>Informações sobre Módulos Ópticos, só coleta do gbic q tem info!</description>
+            <groups>
+                <group>
+                    <name>Templates RR</name>
+                </group>
+            </groups>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>Network Optical Modules Info</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#IFNAME},1.3.6.1.2.1.47.1.1.1.1.7,{#IFALIAS},1.3.6.1.2.1.31.1.1.1.18,{#IFPRESENT},1.3.6.1.4.1.2011.5.25.31.1.1.3.1.14,{#IFCLASS},1.3.6.1.2.1.47.1.1.1.1.5]</snmp_oid>
+                    <key>net.if.optical.discovery</key>
+                    <delay>1h</delay>
+                    <filter>
+                        <evaltype>AND</evaltype>
+                        <conditions>
+                            <condition>
+                                <macro>{#IFCLASS}</macro>
+                                <value>10</value>
+                                <formulaid>A</formulaid>
+                            </condition>
+                            <condition>
+                                <macro>{#IFPRESENT}</macro>
+                                <value>-1</value>
+                                <operator>NOT_MATCHES_REGEX</operator>
+                                <formulaid>B</formulaid>
+                            </condition>
+                        </conditions>
+                    </filter>
+                    <description>Discovering interfaces from IF-MIB. Interfaces with down(2) Administrative Status are not discovered.</description>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>{#IFNAME}: Rx Power</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.2011.5.25.31.1.1.3.1.32.{#SNMPINDEX}</snmp_oid>
+                            <key>hwEntityOpticalLaneRxPower[{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
+                            <history>30d</history>
+                            <trends>90d</trends>
+                            <value_type>FLOAT</value_type>
+                            <units>dBm</units>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Optical Module {#IFNAME}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>0.01</params>
+                                </step>
+                            </preprocessing>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last()}=-40</expression>
+                                    <name>Interface {#IFNAME}: Down</name>
+                                    <priority>DISASTER</priority>
+                                    <manual_close>YES</manual_close>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#IFNAME}: Tx Power</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.2011.5.25.31.1.1.3.1.33.{#SNMPINDEX}</snmp_oid>
+                            <key>hwEntityOpticalLaneTxPower[{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
+                            <history>30d</history>
+                            <trends>90d</trends>
+                            <value_type>FLOAT</value_type>
+                            <units>dBm</units>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Optical Module {#IFNAME}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>0.01</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#IFNAME}:  Rx High Threshold</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.2011.5.25.31.1.1.3.1.14.{#SNMPINDEX}</snmp_oid>
+                            <key>hwEntityOpticalRxHighThreshold[{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
+                            <history>30d</history>
+                            <trends>90d</trends>
+                            <value_type>FLOAT</value_type>
+                            <units>dBm</units>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Optical Module {#IFNAME}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>0.01</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#IFNAME}: Rx High Warning</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.2011.5.25.31.1.1.3.1.21.{#SNMPINDEX}</snmp_oid>
+                            <key>hwEntityOpticalRxHighWarnThreshold[{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
+                            <history>30d</history>
+                            <trends>90d</trends>
+                            <value_type>FLOAT</value_type>
+                            <units>dBm</units>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Optical Module {#IFNAME}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>0.01</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#IFNAME}: Rx Low Threshold</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.2011.5.25.31.1.1.3.1.13.{#SNMPINDEX}</snmp_oid>
+                            <key>hwEntityOpticalRxLowThreshold[{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
+                            <history>30d</history>
+                            <trends>90d</trends>
+                            <value_type>FLOAT</value_type>
+                            <units>dBm</units>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Optical Module {#IFNAME}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>0.01</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#IFNAME}: Rx Low Warning</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.2011.5.25.31.1.1.3.1.20.{#SNMPINDEX}</snmp_oid>
+                            <key>hwEntityOpticalRxLowWarnThreshold[{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
+                            <history>30d</history>
+                            <trends>90d</trends>
+                            <value_type>FLOAT</value_type>
+                            <units>dBm</units>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Optical Module {#IFNAME}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>0.01</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#IFNAME}: Temperatura</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.2011.5.25.31.1.1.3.1.5.{#SNMPINDEX}</snmp_oid>
+                            <key>hwEntityOpticalTemperature[{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
+                            <history>30d</history>
+                            <trends>90d</trends>
+                            <units>C</units>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Optical Module {#IFNAME}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last()}&gt;{$OPT_MOD_TEMP_WARN} and {last()}&lt;{$OPT_MOD_TEMP_CRIT}</expression>
+                                    <name>Interface {#IFNAME}: Temperatura do Modulo Otico   &gt; 85C</name>
+                                    <priority>WARNING</priority>
+                                    <description>Temperatura Atual: {ITEM.LASTVALUE1}.</description>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <expression>{last()}&gt;={$OPT_MOD_TEMP_CRIT}</expression>
+                                    <name>Interface {#IFNAME}: Temperatura do Modulo Otico    &gt; 90C</name>
+                                    <priority>DISASTER</priority>
+                                    <description>Temperatura Atual: {ITEM.LASTVALUE1}.</description>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#IFNAME}: Tx High Threshold</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.2011.5.25.31.1.1.3.1.16.{#SNMPINDEX}</snmp_oid>
+                            <key>hwEntityOpticalTxHighThreshold[{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
+                            <history>30d</history>
+                            <trends>90d</trends>
+                            <value_type>FLOAT</value_type>
+                            <units>dBm</units>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Optical Module {#IFNAME}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>0.01</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#IFNAME}: Tx High Warning</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.2011.5.25.31.1.1.3.1.23.{#SNMPINDEX}</snmp_oid>
+                            <key>hwEntityOpticalTxHighWarnThreshold[{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
+                            <history>30d</history>
+                            <trends>90d</trends>
+                            <value_type>FLOAT</value_type>
+                            <units>dBm</units>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Optical Module {#IFNAME}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>0.01</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#IFNAME}: Tx Low Threshold</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.2011.5.25.31.1.1.3.1.15.{#SNMPINDEX}</snmp_oid>
+                            <key>hwEntityOpticalTxLowThreshold[{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
+                            <history>30d</history>
+                            <trends>90d</trends>
+                            <value_type>FLOAT</value_type>
+                            <units>dBm</units>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Optical Module {#IFNAME}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>0.01</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#IFNAME}: Tx Low Warning</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.2011.5.25.31.1.1.3.1.22.{#SNMPINDEX}</snmp_oid>
+                            <key>hwEntityOpticalTxLowWarnThreshold[{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
+                            <history>30d</history>
+                            <trends>90d</trends>
+                            <value_type>FLOAT</value_type>
+                            <units>dBm</units>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Optical Module {#IFNAME}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>0.01</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                    </item_prototypes>
+                    <trigger_prototypes>
+                        <trigger_prototype>
+                            <expression>({RR Huawei SNMPv2 -  Interfaces Info Modulos Opticos:hwEntityOpticalLaneRxPower[{#SNMPINDEX}].last()}&gt;{RR Huawei SNMPv2 -  Interfaces Info Modulos Opticos:hwEntityOpticalRxHighWarnThreshold[{#SNMPINDEX}].last()}) and ({RR Huawei SNMPv2 -  Interfaces Info Modulos Opticos:hwEntityOpticalLaneRxPower[{#SNMPINDEX}].last()}&lt;={RR Huawei SNMPv2 -  Interfaces Info Modulos Opticos:hwEntityOpticalRxHighThreshold[{#SNMPINDEX}].last()}) and ({RR Huawei SNMPv2 -  Interfaces Info Modulos Opticos:hwEntityOpticalRxHighWarnThreshold[{#SNMPINDEX}].last()} &lt;&gt; -0.01)</expression>
+                            <name>Interface {#IFNAME}: Rx Power Alto</name>
+                            <priority>WARNING</priority>
+                            <description>Rx Atual: {ITEM.LASTVALUE1}&#13;
+Rx Referencia: {ITEM.LASTVALUE2}</description>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>({RR Huawei SNMPv2 -  Interfaces Info Modulos Opticos:hwEntityOpticalLaneRxPower[{#SNMPINDEX}].last()}&lt;{RR Huawei SNMPv2 -  Interfaces Info Modulos Opticos:hwEntityOpticalRxLowWarnThreshold[{#SNMPINDEX}].last()}) and ({RR Huawei SNMPv2 -  Interfaces Info Modulos Opticos:hwEntityOpticalLaneRxPower[{#SNMPINDEX}].last()}&gt;={RR Huawei SNMPv2 -  Interfaces Info Modulos Opticos:hwEntityOpticalRxLowThreshold[{#SNMPINDEX}].last()}) and ({RR Huawei SNMPv2 -  Interfaces Info Modulos Opticos:hwEntityOpticalRxLowWarnThreshold[{#SNMPINDEX}].last()} &lt;&gt; -0.01)and ({RR Huawei SNMPv2 -  Interfaces Info Modulos Opticos:hwEntityOpticalLaneRxPower[{#SNMPINDEX}].last()}&gt; -40)</expression>
+                            <name>Interface {#IFNAME}: Rx Power Baixo</name>
+                            <priority>WARNING</priority>
+                            <description>Rx Atual: {ITEM.LASTVALUE1}&#13;
+Rx Referencia: {ITEM.LASTVALUE2}</description>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>({RR Huawei SNMPv2 -  Interfaces Info Modulos Opticos:hwEntityOpticalLaneRxPower[{#SNMPINDEX}].last()}&gt;{RR Huawei SNMPv2 -  Interfaces Info Modulos Opticos:hwEntityOpticalRxHighThreshold[{#SNMPINDEX}].last()}) and ({RR Huawei SNMPv2 -  Interfaces Info Modulos Opticos:hwEntityOpticalRxHighThreshold[{#SNMPINDEX}].last()} &lt;&gt; -0.01)</expression>
+                            <name>Interface {#IFNAME}: Rx Power Muito Alto</name>
+                            <priority>DISASTER</priority>
+                            <description>Rx Atual: {ITEM.LASTVALUE1}&#13;
+Rx Referencia : {ITEM.LASTVALUE2}</description>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>({RR Huawei SNMPv2 -  Interfaces Info Modulos Opticos:hwEntityOpticalLaneRxPower[{#SNMPINDEX}].last()}&lt;{RR Huawei SNMPv2 -  Interfaces Info Modulos Opticos:hwEntityOpticalRxLowThreshold[{#SNMPINDEX}].last()}) and {RR Huawei SNMPv2 -  Interfaces Info Modulos Opticos:hwEntityOpticalRxLowThreshold[{#SNMPINDEX}].last()} &lt;&gt; -0.01 and ({RR Huawei SNMPv2 -  Interfaces Info Modulos Opticos:hwEntityOpticalLaneRxPower[{#SNMPINDEX}].last()}&gt; -40)</expression>
+                            <name>Interface {#IFNAME}: Rx Power Muito Baixo</name>
+                            <priority>DISASTER</priority>
+                            <description>Rx Atual: {ITEM.LASTVALUE1}&#13;
+Rx Referencia: {ITEM.LASTVALUE2}</description>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>({RR Huawei SNMPv2 -  Interfaces Info Modulos Opticos:hwEntityOpticalLaneTxPower[{#SNMPINDEX}].last()}&gt;{RR Huawei SNMPv2 -  Interfaces Info Modulos Opticos:hwEntityOpticalTxHighWarnThreshold[{#SNMPINDEX}].last()}) and ({RR Huawei SNMPv2 -  Interfaces Info Modulos Opticos:hwEntityOpticalLaneTxPower[{#SNMPINDEX}].last()}&gt;{RR Huawei SNMPv2 -  Interfaces Info Modulos Opticos:hwEntityOpticalTxHighThreshold[{#SNMPINDEX}].last()}) and ({RR Huawei SNMPv2 -  Interfaces Info Modulos Opticos:hwEntityOpticalTxHighWarnThreshold[{#SNMPINDEX}].last()} &lt;&gt; -0.01)</expression>
+                            <name>Interface {#IFNAME}: Tx Power Alto</name>
+                            <priority>WARNING</priority>
+                            <description>Tx Atual: {ITEM.LASTVALUE1}&#13;
+Tx Referencia: {ITEM.LASTVALUE2}</description>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>({RR Huawei SNMPv2 -  Interfaces Info Modulos Opticos:hwEntityOpticalLaneTxPower[{#SNMPINDEX}].last()}&lt;{RR Huawei SNMPv2 -  Interfaces Info Modulos Opticos:hwEntityOpticalTxLowWarnThreshold[{#SNMPINDEX}].last()}) and ({RR Huawei SNMPv2 -  Interfaces Info Modulos Opticos:hwEntityOpticalLaneTxPower[{#SNMPINDEX}].last()}&lt;{RR Huawei SNMPv2 -  Interfaces Info Modulos Opticos:hwEntityOpticalTxLowThreshold[{#SNMPINDEX}].last()}) and ({RR Huawei SNMPv2 -  Interfaces Info Modulos Opticos:hwEntityOpticalTxLowWarnThreshold[{#SNMPINDEX}].last()} &lt;&gt; -0.01) and ({RR Huawei SNMPv2 -  Interfaces Info Modulos Opticos:hwEntityOpticalLaneTxPower[{#SNMPINDEX}].last()}&gt; -40)</expression>
+                            <name>Interface {#IFNAME}: Tx Power Baixo</name>
+                            <priority>WARNING</priority>
+                            <description>Tx Atual: {ITEM.LASTVALUE1}&#13;
+Tx Referencia: {ITEM.LASTVALUE2}</description>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>({RR Huawei SNMPv2 -  Interfaces Info Modulos Opticos:hwEntityOpticalLaneTxPower[{#SNMPINDEX}].last()}&gt;{RR Huawei SNMPv2 -  Interfaces Info Modulos Opticos:hwEntityOpticalTxHighThreshold[{#SNMPINDEX}].last()}) and {RR Huawei SNMPv2 -  Interfaces Info Modulos Opticos:hwEntityOpticalTxHighThreshold[{#SNMPINDEX}].last()} &lt;&gt; -0.01</expression>
+                            <name>Interface {#IFNAME}: Tx Power Muito Alto</name>
+                            <priority>DISASTER</priority>
+                            <description>Tx Atual: {ITEM.LASTVALUE1}&#13;
+Tx Referencia: {ITEM.LASTVALUE2}</description>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>({RR Huawei SNMPv2 -  Interfaces Info Modulos Opticos:hwEntityOpticalLaneTxPower[{#SNMPINDEX}].last()}&lt;{RR Huawei SNMPv2 -  Interfaces Info Modulos Opticos:hwEntityOpticalTxLowThreshold[{#SNMPINDEX}].last()}) and {RR Huawei SNMPv2 -  Interfaces Info Modulos Opticos:hwEntityOpticalTxLowThreshold[{#SNMPINDEX}].last()} &lt;&gt; -0.01 and ({RR Huawei SNMPv2 -  Interfaces Info Modulos Opticos:hwEntityOpticalLaneTxPower[{#SNMPINDEX}].last()}&gt; -40)</expression>
+                            <name>Interface {#IFNAME}: Tx Power Muito Baixo</name>
+                            <priority>DISASTER</priority>
+                            <description>Tx Atual: {ITEM.LASTVALUE1}&#13;
+Tx Referencia: {ITEM.LASTVALUE2}</description>
+                        </trigger_prototype>
+                    </trigger_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <name>{#IFNAME}: Rx Power</name>
+                            <graph_items>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <color>199C0D</color>
+                                    <item>
+                                        <host>RR Huawei SNMPv2 -  Interfaces Info Modulos Opticos</host>
+                                        <key>hwEntityOpticalRxHighThreshold[{#SNMPINDEX}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>2</sortorder>
+                                    <color>F63100</color>
+                                    <item>
+                                        <host>RR Huawei SNMPv2 -  Interfaces Info Modulos Opticos</host>
+                                        <key>hwEntityOpticalRxHighWarnThreshold[{#SNMPINDEX}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>3</sortorder>
+                                    <color>2774A4</color>
+                                    <item>
+                                        <host>RR Huawei SNMPv2 -  Interfaces Info Modulos Opticos</host>
+                                        <key>hwEntityOpticalRxLowThreshold[{#SNMPINDEX}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>4</sortorder>
+                                    <color>F7941D</color>
+                                    <item>
+                                        <host>RR Huawei SNMPv2 -  Interfaces Info Modulos Opticos</host>
+                                        <key>hwEntityOpticalRxLowWarnThreshold[{#SNMPINDEX}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>5</sortorder>
+                                    <color>FC6EA3</color>
+                                    <item>
+                                        <host>RR Huawei SNMPv2 -  Interfaces Info Modulos Opticos</host>
+                                        <key>hwEntityOpticalLaneRxPower[{#SNMPINDEX}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                        <graph_prototype>
+                            <name>{#IFNAME}: Temperatura do Modulo Otico</name>
+                            <graph_items>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <color>1A7C11</color>
+                                    <item>
+                                        <host>RR Huawei SNMPv2 -  Interfaces Info Modulos Opticos</host>
+                                        <key>hwEntityOpticalTemperature[{#SNMPINDEX}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                        <graph_prototype>
+                            <name>{#IFNAME}: Tx Power</name>
+                            <graph_items>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <color>199C0D</color>
+                                    <item>
+                                        <host>RR Huawei SNMPv2 -  Interfaces Info Modulos Opticos</host>
+                                        <key>hwEntityOpticalTxHighThreshold[{#SNMPINDEX}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>2</sortorder>
+                                    <color>F63100</color>
+                                    <item>
+                                        <host>RR Huawei SNMPv2 -  Interfaces Info Modulos Opticos</host>
+                                        <key>hwEntityOpticalTxHighWarnThreshold[{#SNMPINDEX}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>3</sortorder>
+                                    <color>2774A4</color>
+                                    <item>
+                                        <host>RR Huawei SNMPv2 -  Interfaces Info Modulos Opticos</host>
+                                        <key>hwEntityOpticalTxLowThreshold[{#SNMPINDEX}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>4</sortorder>
+                                    <color>F7941D</color>
+                                    <item>
+                                        <host>RR Huawei SNMPv2 -  Interfaces Info Modulos Opticos</host>
+                                        <key>hwEntityOpticalTxLowWarnThreshold[{#SNMPINDEX}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>5</sortorder>
+                                    <color>FC6EA3</color>
+                                    <item>
+                                        <host>RR Huawei SNMPv2 -  Interfaces Info Modulos Opticos</host>
+                                        <key>hwEntityOpticalLaneTxPower[{#SNMPINDEX}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                        <graph_prototype>
+                            <name>{#IFNAME}: Tx Power / Rx Power</name>
+                            <graph_items>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <color>199C0D</color>
+                                    <item>
+                                        <host>RR Huawei SNMPv2 -  Interfaces Info Modulos Opticos</host>
+                                        <key>hwEntityOpticalLaneRxPower[{#SNMPINDEX}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>2</sortorder>
+                                    <color>F63100</color>
+                                    <item>
+                                        <host>RR Huawei SNMPv2 -  Interfaces Info Modulos Opticos</host>
+                                        <key>hwEntityOpticalLaneTxPower[{#SNMPINDEX}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+            <macros>
+                <macro>
+                    <macro>{$OPT_MOD_TEMP_CRIT}</macro>
+                    <value>90</value>
+                </macro>
+                <macro>
+                    <macro>{$OPT_MOD_TEMP_WARN}</macro>
+                    <value>85</value>
+                </macro>
+            </macros>
+        </template>
+        <template>
+            <template>RR Huawei SNMPv2 - Interfaces Todas - So Trafego</template>
+            <name>RR Huawei SNMPv2 - Interfaces Todas - So Trafego</name>
+            <description>By Rudimar Remontti</description>
+            <groups>
+                <group>
+                    <name>Templates RR</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Interface Trafego</name>
+                </application>
+            </applications>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>Descobre interfaces</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#IFNAME},.1.3.6.1.2.1.2.2.1.2,{#IFALIAS},.1.3.6.1.2.1.31.1.1.1.18,{#IFTYPE},.1.3.6.1.2.1.2.2.1.3]</snmp_oid>
+                    <key>hw.interface.name</key>
+                    <delay>1h</delay>
+                    <lifetime>1h</lifetime>
+                    <description>Descobre nome das interfaces fisicas</description>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>In interface - $1 {#IFALIAS}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.2.1.31.1.1.1.6.{#SNMPINDEX}</snmp_oid>
+                            <key>hw.in[{#IFNAME}]</key>
+                            <history>1w</history>
+                            <units>bps</units>
+                            <applications>
+                                <application>
+                                    <name>Interface Trafego</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>8</params>
+                                </step>
+                            </preprocessing>
+                            <request_method>POST</request_method>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Out interface  - $1 {#IFALIAS}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.2.1.31.1.1.1.10.{#SNMPINDEX}</snmp_oid>
+                            <key>hw.out[{#IFNAME}]</key>
+                            <history>1w</history>
+                            <units>bps</units>
+                            <applications>
+                                <application>
+                                    <name>Interface Trafego</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>8</params>
+                                </step>
+                            </preprocessing>
+                            <request_method>POST</request_method>
+                        </item_prototype>
+                    </item_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <name>Tráfego {#IFNAME} {#IFALIAS}</name>
+                            <graph_items>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>00C853</color>
+                                    <item>
+                                        <host>RR Huawei SNMPv2 - Interfaces Todas - So Trafego</host>
+                                        <key>hw.in[{#IFNAME}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>2</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>0091EA</color>
+                                    <item>
+                                        <host>RR Huawei SNMPv2 - Interfaces Todas - So Trafego</host>
+                                        <key>hw.out[{#IFNAME}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                    <request_method>POST</request_method>
+                </discovery_rule>
+            </discovery_rules>
+        </template>
+        <template>
+            <template>RR Huawei SNMPv2 - Interfaces Todas com Descricao - So Trafego</template>
+            <name>RR Huawei SNMPv2 - Interfaces Todas com Descricao - So Trafego</name>
+            <description>By Rudimar Remontti</description>
+            <groups>
+                <group>
+                    <name>Templates RR</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Interface Trafego</name>
+                </application>
+            </applications>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>Descobre interfaces</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#IFNAME},.1.3.6.1.2.1.2.2.1.2,{#IFALIAS},.1.3.6.1.2.1.31.1.1.1.18,{#IFTYPE},.1.3.6.1.2.1.2.2.1.3]</snmp_oid>
+                    <key>hw.interface.namedes</key>
+                    <delay>1h</delay>
+                    <filter>
+                        <conditions>
+                            <condition>
+                                <macro>{#IFALIAS}</macro>
+                                <value>^(?=.*\s*)(?=.*)+$</value>
+                                <operator>NOT_MATCHES_REGEX</operator>
+                                <formulaid>A</formulaid>
+                            </condition>
+                        </conditions>
+                    </filter>
+                    <lifetime>1h</lifetime>
+                    <description>Descobre nome das interfaces fisicas</description>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>In interface - $1 {#IFALIAS}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.2.1.31.1.1.1.6.{#SNMPINDEX}</snmp_oid>
+                            <key>hw.in[{#IFNAME}]</key>
+                            <history>1w</history>
+                            <units>bps</units>
+                            <applications>
+                                <application>
+                                    <name>Interface Trafego</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>8</params>
+                                </step>
+                            </preprocessing>
+                            <request_method>POST</request_method>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Out interface  - $1 {#IFALIAS}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.2.1.31.1.1.1.10.{#SNMPINDEX}</snmp_oid>
+                            <key>hw.out[{#IFNAME}]</key>
+                            <history>1w</history>
+                            <units>bps</units>
+                            <applications>
+                                <application>
+                                    <name>Interface Trafego</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>8</params>
+                                </step>
+                            </preprocessing>
+                            <request_method>POST</request_method>
+                        </item_prototype>
+                    </item_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <name>Tráfego {#IFNAME} {#IFALIAS}</name>
+                            <graph_items>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>00C853</color>
+                                    <item>
+                                        <host>RR Huawei SNMPv2 - Interfaces Todas com Descricao - So Trafego</host>
+                                        <key>hw.in[{#IFNAME}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>2</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>0091EA</color>
+                                    <item>
+                                        <host>RR Huawei SNMPv2 - Interfaces Todas com Descricao - So Trafego</host>
+                                        <key>hw.out[{#IFNAME}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                    <request_method>POST</request_method>
+                </discovery_rule>
+            </discovery_rules>
+        </template>
+        <template>
+            <template>RR Huawei SNMPv2 - Total PPPoE</template>
+            <name>RR Huawei SNMPv2 - Total PPPoE</name>
+            <groups>
+                <group>
+                    <name>Templates RR</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>PPPoE Info</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>PPPoE Online</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.2011.5.2.1.14.1.2.0</snmp_oid>
+                    <key>hwPPPoeOn</key>
+                    <delay>2m</delay>
+                    <history>7d</history>
+                    <applications>
+                        <application>
+                            <name>PPPoE Info</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{change()}&lt;(-25)</expression>
+                            <name>Queda de 25 PPPoE</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                        <trigger>
+                            <expression>{change()}&lt;(-50)</expression>
+                            <name>Queda de 50 PPPoE</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                        <trigger>
+                            <expression>{change()}&lt;(-100)</expression>
+                            <name>Queda de 100 PPPoE</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                        <trigger>
+                            <expression>{change()}&lt;(-200)</expression>
+                            <name>Queda de 200 PPPoE</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                        <trigger>
+                            <expression>{change()}&lt;(-1000)</expression>
+                            <name>Queda de 1000 PPPoE</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>PPPoE Online DualStack</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.2011.5.2.1.14.1.17.0</snmp_oid>
+                    <key>hwPPPoeOnDS</key>
+                    <delay>2m</delay>
+                    <history>7d</history>
+                    <applications>
+                        <application>
+                            <name>PPPoE Info</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>PPPoE Online IPv4</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.2011.5.2.1.14.1.15.0</snmp_oid>
+                    <key>hwPPPoeV4</key>
+                    <delay>2m</delay>
+                    <history>7d</history>
+                    <applications>
+                        <application>
+                            <name>PPPoE Info</name>
+                        </application>
+                    </applications>
+                </item>
+            </items>
+        </template>
+    </templates>
+    <graphs>
+        <graph>
+            <name>Corrente Atual</name>
+            <graph_items>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>E57373</color>
+                    <item>
+                        <host>RR Huawei  SNMPv2 - Informacoes Extra</host>
+                        <key>hwCorrente</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>FIB - IPv4</name>
+            <graph_items>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>FILLED_REGION</drawtype>
+                    <color>00EE00</color>
+                    <item>
+                        <host>RR Huawei SNMPv2 - FIB e RIB</host>
+                        <key>hwIPv4FibRoutes</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>FIB - IPv4</name>
+            <graph_items>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>FILLED_REGION</drawtype>
+                    <color>00EE00</color>
+                    <item>
+                        <host>RR Huawei SNMPv2 - BGP</host>
+                        <key>hwIPv4FibRoutes</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>FIB - IPv6</name>
+            <graph_items>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <color>F63100</color>
+                    <item>
+                        <host>RR Huawei SNMPv2 - BGP</host>
+                        <key>hwIPv6FibRoutes</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>FIB - IPv6</name>
+            <graph_items>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <color>F63100</color>
+                    <item>
+                        <host>RR Huawei SNMPv2 - FIB e RIB</host>
+                        <key>hwIPv6FibRoutes</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>PPPoE</name>
+            <graph_items>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>BOLD_LINE</drawtype>
+                    <color>0080FF</color>
+                    <item>
+                        <host>RR Huawei SNMPv2 - Total PPPoE</host>
+                        <key>hwPPPoeOn</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>2</sortorder>
+                    <drawtype>BOLD_LINE</drawtype>
+                    <color>BFFF00</color>
+                    <item>
+                        <host>RR Huawei SNMPv2 - Total PPPoE</host>
+                        <key>hwPPPoeOnDS</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>3</sortorder>
+                    <drawtype>BOLD_LINE</drawtype>
+                    <color>FF4000</color>
+                    <item>
+                        <host>RR Huawei SNMPv2 - Total PPPoE</host>
+                        <key>hwPPPoeV4</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>RIB - IPv4</name>
+            <graph_items>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>FILLED_REGION</drawtype>
+                    <color>EE0000</color>
+                    <item>
+                        <host>RR Huawei SNMPv2 - BGP</host>
+                        <key>hwIPv4RibRoutes</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>RIB - IPv4</name>
+            <graph_items>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>FILLED_REGION</drawtype>
+                    <color>EE0000</color>
+                    <item>
+                        <host>RR Huawei SNMPv2 - FIB e RIB</host>
+                        <key>hwIPv4RibRoutes</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>RIB x FIB - IPv4</name>
+            <graph_items>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>BOLD_LINE</drawtype>
+                    <color>00EE00</color>
+                    <item>
+                        <host>RR Huawei SNMPv2 - FIB e RIB</host>
+                        <key>hwIPv4FibRoutes</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>2</sortorder>
+                    <drawtype>BOLD_LINE</drawtype>
+                    <color>EE0000</color>
+                    <item>
+                        <host>RR Huawei SNMPv2 - FIB e RIB</host>
+                        <key>hwIPv4RibRoutes</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>RIB x FIB - IPv4</name>
+            <graph_items>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>BOLD_LINE</drawtype>
+                    <color>00EE00</color>
+                    <item>
+                        <host>RR Huawei SNMPv2 - BGP</host>
+                        <key>hwIPv4FibRoutes</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>2</sortorder>
+                    <drawtype>BOLD_LINE</drawtype>
+                    <color>EE0000</color>
+                    <item>
+                        <host>RR Huawei SNMPv2 - BGP</host>
+                        <key>hwIPv4RibRoutes</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>Uptime do Sistema</name>
+            <graph_items>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>0080FF</color>
+                    <item>
+                        <host>RR Huawei  SNMPv2 - Informacoes Extra</host>
+                        <key>hwSysUpTime</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+    </graphs>
+    <value_maps>
+        <value_map>
+            <name>BgpPeerState</name>
+            <mappings>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>idle</newvalue>
+                </mapping>
+                <mapping>
+                    <value>2</value>
+                    <newvalue>connect</newvalue>
+                </mapping>
+                <mapping>
+                    <value>3</value>
+                    <newvalue>active</newvalue>
+                </mapping>
+                <mapping>
+                    <value>4</value>
+                    <newvalue>opensent</newvalue>
+                </mapping>
+                <mapping>
+                    <value>5</value>
+                    <newvalue>openconfirm</newvalue>
+                </mapping>
+                <mapping>
+                    <value>6</value>
+                    <newvalue>established</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+        <value_map>
+            <name>SNMP interface status (ifAdminStatus)</name>
+            <mappings>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>up</newvalue>
+                </mapping>
+                <mapping>
+                    <value>2</value>
+                    <newvalue>down</newvalue>
+                </mapping>
+                <mapping>
+                    <value>3</value>
+                    <newvalue>testing</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+        <value_map>
+            <name>SNMP interface status (ifOperStatus)</name>
+            <mappings>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>up</newvalue>
+                </mapping>
+                <mapping>
+                    <value>2</value>
+                    <newvalue>down</newvalue>
+                </mapping>
+                <mapping>
+                    <value>3</value>
+                    <newvalue>testing</newvalue>
+                </mapping>
+                <mapping>
+                    <value>4</value>
+                    <newvalue>unknown</newvalue>
+                </mapping>
+                <mapping>
+                    <value>5</value>
+                    <newvalue>dormant</newvalue>
+                </mapping>
+                <mapping>
+                    <value>6</value>
+                    <newvalue>notPresent</newvalue>
+                </mapping>
+                <mapping>
+                    <value>7</value>
+                    <newvalue>lowerLayerDown</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+    </value_maps>
+</zabbix_export>
