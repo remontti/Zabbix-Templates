@@ -1,13 +1,15 @@
-###Crédito Python: Gabriel Vargas Padilha @gtkpad
-###Crédito Zabbix: Rudimar Remontti @remontti
-
-https://github.com/gtkpad
-
 # Monitoramento dos Peers no RouterOS (Script Python)
+<b>Crédito Python:</b> Gabriel Vargas Padilha <a href="https://github.com/gtkpad">@gtkpad</a> <br />
+<b>Crédito Zabbix:</b> Rudimar Remontti <a href="https://github.com/remontti">@remontti</a>
+
+<img src="https://raw.githubusercontent.com/remontti/Zabbix-Templates/main/Mikrotik/BGP_ROUTEROS/imgs/dados.png">
+<img src="https://github.com/remontti/Zabbix-Templates/blob/main/Mikrotik/BGP_ROUTEROS/imgs/graficos.png">
 
 
-## Zabbix Server 
+# Configuração
 
+## Zabbix Server 5.x
+<i>Debian distro</i>
 ```
 # Requisitos
 apt install python3-pip
@@ -15,6 +17,10 @@ pip3 install librouteros```
 
 # Acesse o diretório externalscripts e faça download
 cd /usr/lib/zabbix/externalscripts/
+
+# Faça download dos scripts 
+apt install wget 
+wget ....
 
 # De permissão para execução e altere o dono para o usuário zabbix
 chmo +x .....
@@ -42,5 +48,9 @@ Ou importe
 
 ## Grafana Modelo
 Uma idéia para modelo da sua dash:
-[img]
-Link Dash Modelo
+<img src="https://github.com/remontti/Zabbix-Templates/blob/main/Mikrotik/BGP_ROUTEROS/imgs/grafana.png">
+Importe a <a href="https://raw.githubusercontent.com/remontti/Zabbix-Templates/main/Mikrotik/BGP_ROUTEROS/Grafana_Modelo.json">Dash Modelo</a>
+
+
+## LICENÇA
+Se usar ou melhorar não seja cuzão de não compartilha!
