@@ -45,11 +45,13 @@ set 0 topics=info,!account
 Faça download do template <a href="https://raw.githubusercontent.com/remontti/Zabbix-Templates/main/Mikrotik/BGP_ROUTEROS/RR%20Mikrotik%20-%20BGP%20-%20Script%20Python.xml">RR Mikrotik - BGP - Script Python.xml</a> e importe para seu Zabbix.
 
 ## Crie seu Host
-De um nome para seu host
+<b>De um nome para seu host</b>
 <img src="https://github.com/remontti/Zabbix-Templates/blob/main/Mikrotik/BGP_ROUTEROS/imgs/host_1.png">
-Selecione o Template
+  
+<b>Selecione o Template</b>
 <img src="https://github.com/remontti/Zabbix-Templates/blob/main/Mikrotik/BGP_ROUTEROS/imgs/host_2.png">
-Herde os macros do template, e modifique para os seus dados e clique em salvar
+
+<b>Herde os macros do template, e modifique para os seus dados e clique em salvar</b>
 <img src="https://github.com/remontti/Zabbix-Templates/blob/main/Mikrotik/BGP_ROUTEROS/imgs/host_3.png">
 
 OBS: A descoberta esta ajustada para 6h, se desejar que seja mais rápido execute manualmente.
