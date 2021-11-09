@@ -1,6 +1,7 @@
 # Monitoramento dos Peers no RouterOS (API + Script Python)
-<b>Crédito Python:</b> <a href="https://github.com/gtkpad">Gabriel Vargas Padilha</a> <br />
-<b>Crédito Zabbix:</b> <a href="https://github.com/remontti">Rudimar Remontti</a>
+### Créditos 
+<b>Python:</b> <a href="https://github.com/gtkpad">Gabriel Vargas Padilha</a> <br />
+<b>Zabbix:</b> <a href="https://github.com/remontti">Rudimar Remontti</a>
 
 <img src="https://raw.githubusercontent.com/remontti/Zabbix-Templates/main/Mikrotik/BGP_ROUTEROS/imgs/dados.png">
 <img src="https://github.com/remontti/Zabbix-Templates/blob/main/Mikrotik/BGP_ROUTEROS/imgs/graficos.png">
@@ -10,35 +11,38 @@
 
 ## Zabbix Server 5.x
 <i>Debian distro</i>
+
+Requisitos
 ```
-# Requisitos
-apt install python3-pip
-pip3 install librouteros
-
-# Acesse o diretório externalscripts e faça download.
-cd /usr/lib/zabbix/externalscripts/
-
-# Faça download dos scripts 
-apt install wget 
-wget [URL]
-wget [URL]
-
-# De permissão para os arquivos para execução e altere o dono para o usuário zabbix.
-chmo +x [ARQUIVO]*
-chown zabbix. [ARQUIVO]*
+# apt install python3-pip
+# pip3 install librouteros
+```
+Acesse o diretório externalscripts e faça download.
+```
+# cd /usr/lib/zabbix/externalscripts/
+```
+Faça download dos scripts 
+```
+# apt install wget 
+# wget https://[URL]/mikrotikBgp.py
+# wget https://[URL]/Mikrotik.py
+```
+De permissão para os arquivos para execução e altere o dono para o usuário zabbix.
+```
+# chmo +x mikrotikBgp.py Mikrotik.py
+# chown zabbix. mikrotikBgp.py Mikrotik.py
 ```
 
 ## RouterOS:
 OBS: Não use espaço no nome dos Peer's nem caracter especial, e tenha um nomes diferentes para cada Peer.
-```# Crie um usuário com permissões somente de leitura bem como 
-# restringindo o acesso para somente o IP do Zabbix
-/user
-add group=read address=IP_ZABBIX name=SEU_USUARIO password=SUA_SENHA
 
-# Se desejar desativar as infomação de login.
-# Isso fará com que você não veja mais nenhum login feito no router.
-/system logging
-set 0 topics=info,!account
+Crie um usuário com permissões somente de leitura bem como restringindo o acesso para somente o IP do Zabbix
+```
+/user add group=read address=IP_ZABBIX name=SEU_USUARIO password=SUA_SENHA
+```
+Se desejar desativar as infomação de login. Isso fará com que você não veja mais nenhum login feito no router.
+```
+/system logging set 0 topics=info,!account
 ```
 
 ## Importe o Template
