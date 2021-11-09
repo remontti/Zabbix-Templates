@@ -1,6 +1,6 @@
 # Monitoramento dos Peers no RouterOS (Script Python)
-<b>Crédito Python:</b> Gabriel Vargas Padilha <a href="https://github.com/gtkpad">@gtkpad</a> <br />
-<b>Crédito Zabbix:</b> Rudimar Remontti <a href="https://github.com/remontti">@remontti</a>
+<b>Crédito Python:</b> <a href="https://github.com/gtkpad">Gabriel Vargas Padilha</a> <br />
+<b>Crédito Zabbix:</b> <a href="https://github.com/remontti">Rudimar Remontti</a>
 
 <img src="https://raw.githubusercontent.com/remontti/Zabbix-Templates/main/Mikrotik/BGP_ROUTEROS/imgs/dados.png">
 <img src="https://github.com/remontti/Zabbix-Templates/blob/main/Mikrotik/BGP_ROUTEROS/imgs/graficos.png">
@@ -13,21 +13,23 @@
 ```
 # Requisitos
 apt install python3-pip
-pip3 install librouteros```
+pip3 install librouteros
 
-# Acesse o diretório externalscripts e faça download
+# Acesse o diretório externalscripts e faça download.
 cd /usr/lib/zabbix/externalscripts/
 
 # Faça download dos scripts 
 apt install wget 
-wget ....
+wget [URL]
+wget [URL]
 
-# De permissão para execução e altere o dono para o usuário zabbix
-chmo +x .....
-chown zabbix.
+# De permissão para os arquivos para execução e altere o dono para o usuário zabbix.
+chmo +x [ARQUIVO]*
+chown zabbix. [ARQUIVO]*
 ```
 
 ## RouterOS:
+OBS: Não use espaço no nome dos Peer's nem caracter especial, e tenha um nomes diferentes para cada Peer.
 ```# Crie um usuário com permissões somente de leitura bem como 
 # restringindo o acesso para somente o IP do Zabbix
 /user
@@ -37,14 +39,20 @@ add group=read address=IP_ZABBIX name=SEU_USUARIO password=SUA_SENHA
 # Isso fará com que você não veja mais nenhum login feito no router.
 /system logging
 set 0 topics=info,!account
-
-OBS: Não use espaço no nome dos Peer's nem caracter especial, e tenha um nomes diferentes para cada Peer
 ```
 
 ## Importe o Template
+Faça download do template <a href="https://raw.githubusercontent.com/remontti/Zabbix-Templates/main/Mikrotik/BGP_ROUTEROS/RR%20Mikrotik%20-%20BGP%20-%20Script%20Python.xml">RR Mikrotik - BGP - Script Python.xml</a> e importe para seu Zabbix.
 
-## Crie seu Host 
-Ou importe
+## Crie seu Host
+De um nome para seu host
+<img src="https://github.com/remontti/Zabbix-Templates/blob/main/Mikrotik/BGP_ROUTEROS/imgs/host_1.png">
+Selecione o Template
+<img src="https://github.com/remontti/Zabbix-Templates/blob/main/Mikrotik/BGP_ROUTEROS/imgs/host_2.png">
+Herde os macros do template, e modifique para os seus dados e clique em salvar
+<img src="https://github.com/remontti/Zabbix-Templates/blob/main/Mikrotik/BGP_ROUTEROS/imgs/host_3.png">
+
+OBS: A descoberta esta ajustada para 6h, se desejar que seja mais rápido execute manualmente.
 
 ## Grafana Modelo
 Uma idéia para modelo da sua dash:
