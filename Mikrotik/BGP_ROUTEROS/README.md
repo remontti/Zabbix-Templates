@@ -1,4 +1,4 @@
-# Monitoramento dos Peers no RouterOS (Script Python)
+# Monitoramento dos Peers no RouterOS (API + Script Python)
 <b>Crédito Python:</b> <a href="https://github.com/gtkpad">Gabriel Vargas Padilha</a> <br />
 <b>Crédito Zabbix:</b> <a href="https://github.com/remontti">Rudimar Remontti</a>
 
