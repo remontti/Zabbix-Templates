@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2021-11-09T14:33:35Z</date>
+    <groups>
+        <group>
+            <name>Templates RR</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>RR Mikrotik - BGP - Script Python</template>
+            <name>RR Mikrotik - BGP - Script Python</name>
+            <description>Crédito Python: Gabriel Vargas Padilha&#13;
+https://github.com/gtkpad&#13;
+&#13;
+Crédito Zabbix: Rudimar Remontti&#13;
+https://github.com/remontti/Zabbix-Templates/tree/main/Mikrotik</description>
+            <groups>
+                <group>
+                    <name>Templates RR</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>BGP</name>
+                </application>
+            </applications>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>Desberta de Peer</name>
+                    <type>EXTERNAL</type>
+                    <key>mikrotikBgp.py[&quot;{$MK_BGP_IP}&quot;,&quot;{$MK_BGP_USER}&quot;,&quot;{$MK_BGP_PASS}&quot;,&quot;{$MK_BGP_API_PORT}&quot;,&quot;getPeers&quot;]</key>
+                    <delay>6h</delay>
+                    <lifetime>1h</lifetime>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>{#PEER_NAME} AS{#PEER_AS} {#PEER_ADDR} - Estado</name>
+                            <type>EXTERNAL</type>
+                            <key>mikrotikBgp.py[&quot;{$MK_BGP_IP}&quot;,&quot;{$MK_BGP_USER}&quot;,&quot;{$MK_BGP_PASS}&quot;,&quot;{$MK_BGP_API_PORT}&quot;,&quot;getPeerInfo&quot;,&quot;{#PEER_NAME}&quot;,&quot;established&quot;]</key>
+                            <delay>5m</delay>
+                            <history>7d</history>
+                            <trends>180d</trends>
+                            <applications>
+                                <application>
+                                    <name>BGP</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>Service state</name>
+                            </valuemap>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last()}=0</expression>
+                                    <name>Peer {#PEER_NAME} AS{#PEER_AS} {#PEER_ADDR}  está down</name>
+                                    <priority>DISASTER</priority>
+                                    <manual_close>YES</manual_close>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#PEER_NAME} AS{#PEER_AS} {#PEER_ADDR} - Prefixos</name>
+                            <type>EXTERNAL</type>
+                            <key>mikrotikBgp.py[&quot;{$MK_BGP_IP}&quot;,&quot;{$MK_BGP_USER}&quot;,&quot;{$MK_BGP_PASS}&quot;,&quot;{$MK_BGP_API_PORT}&quot;,&quot;getPeerInfo&quot;,&quot;{#PEER_NAME}&quot;,&quot;prefix-count&quot;]</key>
+                            <delay>30m</delay>
+                            <history>7d</history>
+                            <trends>180d</trends>
+                            <units>count</units>
+                            <applications>
+                                <application>
+                                    <name>BGP</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>Service state</name>
+                            </valuemap>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#PEER_NAME} AS{#PEER_AS} {#PEER_ADDR} - Uptime</name>
+                            <type>EXTERNAL</type>
+                            <key>mikrotikBgp.py[&quot;{$MK_BGP_IP}&quot;,&quot;{$MK_BGP_USER}&quot;,&quot;{$MK_BGP_PASS}&quot;,&quot;{$MK_BGP_API_PORT}&quot;,&quot;getPeerInfo&quot;,&quot;{#PEER_NAME}&quot;,&quot;uptime&quot;]</key>
+                            <delay>31m</delay>
+                            <history>7d</history>
+                            <trends>180d</trends>
+                            <units>uptime</units>
+                            <applications>
+                                <application>
+                                    <name>BGP</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                    </item_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <name>{#PEER_NAME} AS{#PEER_AS} {#PEER_ADDR} - Contagem de Prefixos</name>
+                            <graph_items>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>BFFF00</color>
+                                    <yaxisside>RIGHT</yaxisside>
+                                    <item>
+                                        <host>RR Mikrotik - BGP - Script Python</host>
+                                        <key>mikrotikBgp.py[&quot;{$MK_BGP_IP}&quot;,&quot;{$MK_BGP_USER}&quot;,&quot;{$MK_BGP_PASS}&quot;,&quot;{$MK_BGP_API_PORT}&quot;,&quot;getPeerInfo&quot;,&quot;{#PEER_NAME}&quot;,&quot;prefix-count&quot;]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                        <graph_prototype>
+                            <name>{#PEER_NAME} AS{#PEER_AS} {#PEER_ADDR} - Uptime</name>
+                            <graph_items>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>00BFFF</color>
+                                    <yaxisside>RIGHT</yaxisside>
+                                    <item>
+                                        <host>RR Mikrotik - BGP - Script Python</host>
+                                        <key>mikrotikBgp.py[&quot;{$MK_BGP_IP}&quot;,&quot;{$MK_BGP_USER}&quot;,&quot;{$MK_BGP_PASS}&quot;,&quot;{$MK_BGP_API_PORT}&quot;,&quot;getPeerInfo&quot;,&quot;{#PEER_NAME}&quot;,&quot;uptime&quot;]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+            <macros>
+                <macro>
+                    <macro>{$MK_BGP_API_PORT}</macro>
+                    <value>8728</value>
+                </macro>
+                <macro>
+                    <macro>{$MK_BGP_IP}</macro>
+                    <value>x.x.x.x</value>
+                </macro>
+                <macro>
+                    <macro>{$MK_BGP_PASS}</macro>
+                    <value>senha</value>
+                </macro>
+                <macro>
+                    <macro>{$MK_BGP_USER}</macro>
+                    <value>admin</value>
+                </macro>
+            </macros>
+        </template>
+    </templates>
+    <value_maps>
+        <value_map>
+            <name>Service state</name>
+            <mappings>
+                <mapping>
+                    <value>0</value>
+                    <newvalue>Down</newvalue>
+                </mapping>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>Up</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+    </value_maps>
+</zabbix_export>
