@@ -25,8 +25,8 @@ Acesse o diretório externalscripts e faça download.
 Faça download dos scripts 
 ```
 # apt install wget 
-# wget https://[URL]/mikrotikBgp.py
-# wget https://[URL]/Mikrotik.py
+# wget https://raw.githubusercontent.com/gtkpad/mikrotikBgpZabbixScript/main/main.py -O mikrotikBgp.py
+# wget https://raw.githubusercontent.com/gtkpad/mikrotikBgpZabbixScript/main/Mikrotik.py
 ```
 De permissão para os arquivos para execução e altere o dono para o usuário zabbix.
 ```
