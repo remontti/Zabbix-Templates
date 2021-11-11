@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>5.0</version>
-    <date>2021-11-11T13:37:24Z</date>
+    <date>2021-11-11T13:39:00Z</date>
     <groups>
         <group>
             <name>Templates RR</name>
@@ -100,7 +100,7 @@ https://github.com/remontti/Zabbix-Templates/tree/main/Mikrotik</description>
                     </item_prototypes>
                     <graph_prototypes>
                         <graph_prototype>
-                            <name>AS{#PEER_AS}  - {#PEER_NAME} {#PEER_ADDR} - Prefixos Recebidos</name>
+                            <name>AS{#PEER_AS} - {#PEER_NAME} {#PEER_ADDR} - Prefixos Recebidos</name>
                             <graph_items>
                                 <graph_item>
                                     <sortorder>1</sortorder>
@@ -115,7 +115,7 @@ https://github.com/remontti/Zabbix-Templates/tree/main/Mikrotik</description>
                             </graph_items>
                         </graph_prototype>
                         <graph_prototype>
-                            <name>AS{#PEER_AS}  - {#PEER_NAME} {#PEER_ADDR} - Uptime</name>
+                            <name>AS{#PEER_AS} - {#PEER_NAME} {#PEER_ADDR} - Uptime</name>
                             <graph_items>
                                 <graph_item>
                                     <sortorder>1</sortorder>
