@@ -1,3 +1,5 @@
+# Não use, ainda não terminei! 
+
 # Monitoramento dos Peers no RouterOS (API + Script Python)
 ### Créditos 
 <b>Python:</b> <a href="https://github.com/gtkpad">Gabriel Vargas Padilha</a> | <b><a href="https://github.com/gtkpad/mikrotikBgpZabbixScript">mikrotikBgpZabbixScript</b></a><br />
