@@ -4,7 +4,7 @@
 <b>Zabbix:</b> <a href="https://github.com/remontti">Rudimar Remontti</a>
 
 <img src="https://raw.githubusercontent.com/remontti/Zabbix-Templates/main/Mikrotik/BGP_ROUTEROS/imgs/dados.png">
-<img src="https://github.com/remontti/Zabbix-Templates/blob/main/Mikrotik/BGP_ROUTEROS/imgs/graficos.png">
+<img src="https://github.com/remontti/Zabbix-Templates/blob/main/Mikrotik/BGP_ROUTEROS/imgs/graficos_bgp.png">
 
 
 # Configuração
