@@ -1,11 +1,12 @@
 # Monitoramento dos Peers no RouterOS (API + Script Python)
 ### Créditos 
-<b>Python:</b> <a href="https://github.com/gtkpad">Gabriel Vargas Padilha</a> <br />
-<b>Zabbix:</b> <a href="https://github.com/remontti">Rudimar Remontti</a>
+<b>Python:</b> <a href="https://github.com/gtkpad">Gabriel Vargas Padilha</a> | <b><a href="https://github.com/gtkpad/mikrotikBgpZabbixScript">mikrotikBgpZabbixScript</b></a><br />
+<b>Zabbix:</b> <a href="https://github.com/remontti">Rudimar Remontti</a> | <b><a href="https://github.com/remontti/Zabbix-Templates/edit/main/Mikrotik/BGP_ROUTEROS/">Zabbix BGP RouterOS</b></a>
+
+<i>Espero que um dia a mikrotik inclua em seu snmp!</i> 🙌
 
 <img src="https://raw.githubusercontent.com/remontti/Zabbix-Templates/main/Mikrotik/BGP_ROUTEROS/imgs/dados.png">
 <img src="https://github.com/remontti/Zabbix-Templates/blob/main/Mikrotik/BGP_ROUTEROS/imgs/graficos_bgp.png">
-
 
 # Configuração
 
@@ -33,7 +34,7 @@ De permissão para os arquivos para execução e altere o dono para o usuário z
 # chown zabbix. mikrotikBgp.py Mikrotik.py
 ```
 
-## RouterOS:
+## RouterOS / Mikrotik
 OBS: Não use espaço no nome dos Peer's nem caracter especial, e tenha um nomes diferentes para cada Peer.
 
 Crie um usuário com permissões somente de leitura bem como restringindo o acesso para somente o IP do Zabbix
@@ -65,6 +66,8 @@ Uma idéia para modelo da sua dash:
 <img src="https://github.com/remontti/Zabbix-Templates/blob/main/Mikrotik/BGP_ROUTEROS/imgs/grafana.png">
 Importe a <a href="https://raw.githubusercontent.com/remontti/Zabbix-Templates/main/Mikrotik/BGP_ROUTEROS/Grafana_Modelo.json">Dash Modelo</a>
 
+## Tutorial de instalção do Zabbix
+<a href="https://blog.remontti.com.br/5517">Instalação do Zabbix 5 LTS + Grafana + NGINX + PostgreSQL + Telegram</a>
 
 ## LICENÇA
 Se usar ou melhorar não seja cuzão de não compartilha!
