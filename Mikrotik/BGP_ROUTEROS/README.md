@@ -35,7 +35,7 @@ De permissão para os arquivos para execução e altere o dono para o usuário z
 ```
 
 ## RouterOS / Mikrotik
-OBS: Não use espaço no nome dos Peer's nem caracter especial, e tenha um nomes diferentes para cada Peer.
+OBS: Não use espaço e caracter especial nos nomes dos Peer's e tenha nomes diferentes para cada Peer.
 
 Crie um usuário com permissões somente de leitura bem como restringindo o acesso para somente o IP do Zabbix
 ```
