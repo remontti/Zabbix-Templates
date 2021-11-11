@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>5.0</version>
-    <date>2021-11-09T14:33:35Z</date>
+    <date>2021-11-11T13:37:24Z</date>
     <groups>
         <group>
             <name>Templates RR</name>
@@ -12,7 +12,7 @@
             <template>RR Mikrotik - BGP - Script Python</template>
             <name>RR Mikrotik - BGP - Script Python</name>
             <description>Crédito Python: Gabriel Vargas Padilha&#13;
-https://github.com/gtkpad&#13;
+https://github.com/gtkpad/mikrotikBgpZabbixScript&#13;
 &#13;
 Crédito Zabbix: Rudimar Remontti&#13;
 https://github.com/remontti/Zabbix-Templates/tree/main/Mikrotik</description>
@@ -52,7 +52,7 @@ https://github.com/remontti/Zabbix-Templates/tree/main/Mikrotik</description>
                             <trigger_prototypes>
                                 <trigger_prototype>
                                     <expression>{last()}=0</expression>
-                                    <name>Peer {#PEER_NAME} AS{#PEER_AS} {#PEER_ADDR}  está down</name>
+                                    <name>{#PEER_NAME} - AS{#PEER_AS} está down</name>
                                     <priority>DISASTER</priority>
                                     <manual_close>YES</manual_close>
                                 </trigger_prototype>
@@ -79,7 +79,7 @@ https://github.com/remontti/Zabbix-Templates/tree/main/Mikrotik</description>
                             <name>{#PEER_NAME} AS{#PEER_AS} {#PEER_ADDR} - Uptime</name>
                             <type>EXTERNAL</type>
                             <key>mikrotikBgp.py[&quot;{$MK_BGP_IP}&quot;,&quot;{$MK_BGP_USER}&quot;,&quot;{$MK_BGP_PASS}&quot;,&quot;{$MK_BGP_API_PORT}&quot;,&quot;getPeerInfo&quot;,&quot;{#PEER_NAME}&quot;,&quot;uptime&quot;]</key>
-                            <delay>31m</delay>
+                            <delay>15m</delay>
                             <history>7d</history>
                             <trends>180d</trends>
                             <units>uptime</units>
@@ -88,11 +88,19 @@ https://github.com/remontti/Zabbix-Templates/tree/main/Mikrotik</description>
                                     <name>BGP</name>
                                 </application>
                             </applications>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{change(0)}&lt;0</expression>
+                                    <name>Uptime peer: {#PEER_NAME} AS{#PEER_AS}</name>
+                                    <priority>WARNING</priority>
+                                    <manual_close>YES</manual_close>
+                                </trigger_prototype>
+                            </trigger_prototypes>
                         </item_prototype>
                     </item_prototypes>
                     <graph_prototypes>
                         <graph_prototype>
-                            <name>{#PEER_NAME} AS{#PEER_AS} {#PEER_ADDR} - Contagem de Prefixos</name>
+                            <name>AS{#PEER_AS}  - {#PEER_NAME} {#PEER_ADDR} - Prefixos Recebidos</name>
                             <graph_items>
                                 <graph_item>
                                     <sortorder>1</sortorder>
@@ -107,7 +115,7 @@ https://github.com/remontti/Zabbix-Templates/tree/main/Mikrotik</description>
                             </graph_items>
                         </graph_prototype>
                         <graph_prototype>
-                            <name>{#PEER_NAME} AS{#PEER_AS} {#PEER_ADDR} - Uptime</name>
+                            <name>AS{#PEER_AS}  - {#PEER_NAME} {#PEER_ADDR} - Uptime</name>
                             <graph_items>
                                 <graph_item>
                                     <sortorder>1</sortorder>
