@@ -32,8 +32,9 @@ Faça download dos scripts
 ```
 De permissão para os arquivos para execução e altere o dono para o usuário zabbix.
 ```
-# chmo +x mikrotikBgp.py Mikrotik.py
+# chmod +x mikrotikBgp.py Mikrotik.py
 # chown zabbix. mikrotikBgp.py Mikrotik.py
+# systemctl  restart zabbix-server
 ```
 
 ## RouterOS / Mikrotik
