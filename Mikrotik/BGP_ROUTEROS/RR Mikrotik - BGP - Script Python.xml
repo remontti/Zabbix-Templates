@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>5.0</version>
-    <date>2021-11-11T13:39:00Z</date>
+    <date>2021-11-12T13:10:39Z</date>
     <groups>
         <group>
             <name>Templates RR</name>
@@ -32,7 +32,7 @@ https://github.com/remontti/Zabbix-Templates/tree/main/Mikrotik</description>
                     <type>EXTERNAL</type>
                     <key>mikrotikBgp.py[&quot;{$MK_BGP_IP}&quot;,&quot;{$MK_BGP_USER}&quot;,&quot;{$MK_BGP_PASS}&quot;,&quot;{$MK_BGP_API_PORT}&quot;,&quot;getPeers&quot;]</key>
                     <delay>6h</delay>
-                    <lifetime>1h</lifetime>
+                    <lifetime>0</lifetime>
                     <item_prototypes>
                         <item_prototype>
                             <name>{#PEER_NAME} AS{#PEER_AS} {#PEER_ADDR} - Estado</name>
@@ -79,7 +79,7 @@ https://github.com/remontti/Zabbix-Templates/tree/main/Mikrotik</description>
                             <name>{#PEER_NAME} AS{#PEER_AS} {#PEER_ADDR} - Uptime</name>
                             <type>EXTERNAL</type>
                             <key>mikrotikBgp.py[&quot;{$MK_BGP_IP}&quot;,&quot;{$MK_BGP_USER}&quot;,&quot;{$MK_BGP_PASS}&quot;,&quot;{$MK_BGP_API_PORT}&quot;,&quot;getPeerInfo&quot;,&quot;{#PEER_NAME}&quot;,&quot;uptime&quot;]</key>
-                            <delay>15m</delay>
+                            <delay>10m</delay>
                             <history>7d</history>
                             <trends>180d</trends>
                             <units>uptime</units>
