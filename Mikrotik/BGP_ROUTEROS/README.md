@@ -13,7 +13,7 @@
 # Configuração
 
 ## Zabbix Server 5.x
-<i>Debian distro</i>
+<i>Distribuição: Debian 10/11</i>
 
 Requisitos
 ```
