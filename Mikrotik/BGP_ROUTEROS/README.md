@@ -12,7 +12,9 @@
 
 
 ## Configuração
-Link tutorial blog.... 
+##### Monitorando sessão BGP do RouterOS/Mikrotik em seu Zabbix
+Link tutorial blog.... https://blog.remontti.com.br/????
+
 
 ### Tutorial de instalção do Zabbix
 <a href="https://blog.remontti.com.br/5517">Instalação do Zabbix 5 LTS + Grafana + NGINX + PostgreSQL + Telegram</a>
