@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>5.0</version>
-    <date>2021-12-04T18:36:04Z</date>
+    <date>2021-12-04T19:06:31Z</date>
     <groups>
         <group>
             <name>Templates RR</name>
@@ -118,8 +118,9 @@ Utilizando API: http://ip-api.com</description>
                     <type>DEPENDENT</type>
                     <key>geo.lat</key>
                     <delay>0</delay>
-                    <trends>0</trends>
-                    <value_type>TEXT</value_type>
+                    <trends>90d</trends>
+                    <value_type>FLOAT</value_type>
+                    <units>lat</units>
                     <applications>
                         <application>
                             <name>Geolocalização</name>
@@ -140,8 +141,9 @@ Utilizando API: http://ip-api.com</description>
                     <type>DEPENDENT</type>
                     <key>geo.lon</key>
                     <delay>0</delay>
-                    <trends>0</trends>
-                    <value_type>TEXT</value_type>
+                    <trends>90d</trends>
+                    <value_type>FLOAT</value_type>
+                    <units>lon</units>
                     <applications>
                         <application>
                             <name>Geolocalização</name>
@@ -205,7 +207,7 @@ Utilizando API: http://ip-api.com</description>
                     <name>Consulta dados de Geo</name>
                     <type>HTTP_AGENT</type>
                     <key>http.consulta</key>
-                    <delay>12h</delay>
+                    <delay>1h</delay>
                     <trends>0</trends>
                     <value_type>TEXT</value_type>
                     <applications>
@@ -213,7 +215,7 @@ Utilizando API: http://ip-api.com</description>
                             <name>Geolocalização</name>
                         </application>
                     </applications>
-                    <timeout>30s</timeout>
+                    <timeout>60s</timeout>
                     <url>http://ip-api.com/json/{HOST.IP}?lang=pt-BR&amp;fields=country,region,regionName,city,lat,lon,isp,as</url>
                 </item>
             </items>
