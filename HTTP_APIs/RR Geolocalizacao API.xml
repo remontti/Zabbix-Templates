@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>5.0</version>
-    <date>2021-12-04T19:06:31Z</date>
+    <date>2021-12-06T12:17:49Z</date>
     <groups>
         <group>
             <name>Templates RR</name>
@@ -13,7 +13,11 @@
             <name>RR Geolocalizacao API</name>
             <description>By Rudumar Remontti&#13;
 &#13;
-Utilizando API: http://ip-api.com</description>
+Utilizando API: http://ip-api.com&#13;
+Limite de 45 requisições por minuto.&#13;
+&#13;
+Se existir muita requisição adquira plano:&#13;
+https://members.ip-api.com/</description>
             <groups>
                 <group>
                     <name>Templates RR</name>
