@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2021-12-09T14:13:38Z</date>
+    <groups>
+        <group>
+            <name>Templates RR</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>RR - Fiberhome AN5516-01 - HSWA</template>
+            <name>RR - Fiberhome AN5516-01 - HSWA</name>
+            <groups>
+                <group>
+                    <name>Templates RR</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>HSWA Infos</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>CPU</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.5875.800.3.9.8.1.1.5.9</snmp_oid>
+                    <key>hswa.cpu</key>
+                    <delay>5m</delay>
+                    <history>15d</history>
+                    <trends>90d</trends>
+                    <value_type>FLOAT</value_type>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>HSWA Infos</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <params>0.01</params>
+                        </step>
+                    </preprocessing>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(5m)}&gt;60</expression>
+                            <name>CPU elevada</name>
+                            <priority>AVERAGE</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Versão do Hardware</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.4.1.5875.800.3.9.4.4.0</snmp_oid>
+                    <key>hswa.had.versao</key>
+                    <delay>1d</delay>
+                    <history>15d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>HSWA Infos</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{diff(0)}&gt;0</expression>
+                            <name>Versão de hardware modificado</name>
+                            <priority>AVERAGE</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Memoria</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.5875.800.3.9.8.1.1.6.9</snmp_oid>
+                    <key>hswa.mem</key>
+                    <delay>5m</delay>
+                    <history>15d</history>
+                    <trends>90d</trends>
+                    <value_type>FLOAT</value_type>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>HSWA Infos</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <params>0.01</params>
+                        </step>
+                    </preprocessing>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(5m)}&gt;75</expression>
+                            <name>Memoria elevada</name>
+                            <priority>AVERAGE</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Versao do Software</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.4.1.5875.800.3.9.4.3.0</snmp_oid>
+                    <key>hswa.soft.versao</key>
+                    <delay>1d</delay>
+                    <history>15d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>HSWA Infos</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{diff(0)}&gt;0</expression>
+                            <name>Versão de software modificado</name>
+                            <priority>AVERAGE</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Temperatura</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.4.1.5875.800.3.9.4.5.0</snmp_oid>
+                    <key>hswa.temperatura</key>
+                    <delay>5m</delay>
+                    <history>15d</history>
+                    <trends>90d</trends>
+                    <units>°C</units>
+                    <applications>
+                        <application>
+                            <name>HSWA Infos</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(5m)}&gt;55</expression>
+                            <name>Temperatura elevada</name>
+                            <priority>AVERAGE</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Uptime</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.2.1.1.3.0</snmp_oid>
+                    <key>hswa.uptime</key>
+                    <delay>30m</delay>
+                    <history>15d</history>
+                    <trends>90d</trends>
+                    <units>uptime</units>
+                    <applications>
+                        <application>
+                            <name>HSWA Infos</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <params>0.01</params>
+                        </step>
+                    </preprocessing>
+                    <triggers>
+                        <trigger>
+                            <expression>{change(0)}&lt;0</expression>
+                            <name>Reiniciou</name>
+                            <priority>AVERAGE</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+            </items>
+        </template>
+    </templates>
+    <graphs>
+        <graph>
+            <name>CPU / Memoria</name>
+            <graph_items>
+                <graph_item>
+                    <drawtype>BOLD_LINE</drawtype>
+                    <color>0040FF</color>
+                    <item>
+                        <host>RR - Fiberhome AN5516-01 - HSWA</host>
+                        <key>hswa.cpu</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>BOLD_LINE</drawtype>
+                    <color>8F2809</color>
+                    <yaxisside>RIGHT</yaxisside>
+                    <item>
+                        <host>RR - Fiberhome AN5516-01 - HSWA</host>
+                        <key>hswa.mem</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>Temperatura HSWA</name>
+            <graph_items>
+                <graph_item>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>039BE5</color>
+                    <yaxisside>RIGHT</yaxisside>
+                    <item>
+                        <host>RR - Fiberhome AN5516-01 - HSWA</host>
+                        <key>hswa.temperatura</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+    </graphs>
+</zabbix_export>

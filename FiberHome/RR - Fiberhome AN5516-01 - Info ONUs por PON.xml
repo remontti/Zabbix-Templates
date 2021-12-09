@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2021-12-09T14:14:02Z</date>
+    <groups>
+        <group>
+            <name>Templates RR</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>RR - Fiberhome AN5516-01 - Info ONUs por PON</template>
+            <name>RR - Fiberhome AN5516-01 - Info ONUs por PON</name>
+            <description>RP700 Firmware:&#13;
+Admin# cd device&#13;
+Admin\device# set mib performance switch enable&#13;
+Admin# cd gponlinecard&#13;
+Admin\gponlinecard# set pon_traffic_sts switch opt enable 5 0 rtt enable 5 0 traffic enable 5 0&#13;
+&#13;
+RP1000/1200 Firmware:&#13;
+Admin# cd maintenance&#13;
+Admin\maintenance# cd performance&#13;
+Admin\maintenance\performance# set mib performance switch enable&#13;
+Admin\maintenance\performance# show mib performance switch &#13;
+Mib performance switch is enable.&#13;
+Admin\maintenance\performance# set pon_traffic_sts switch opt enable 5 0 rtt enable 5 0 traffic enable 5 0&#13;
+# show pon_traffic_sts switch &#13;
+Pon_traffic_sort_swicth cfg:&#13;
+Traffic cfg: switch:enable, interval:5, report_delaytime:0 &#13;
+Onu_rttval cfg: switch:enable, interval:5, report_delaytime:0 &#13;
+Opt_pwr cfg: switch:enable, interval:5, report_delaytime:0</description>
+            <groups>
+                <group>
+                    <name>Templates RR</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>ONU PON</name>
+                </application>
+                <application>
+                    <name>Total de ONUs</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>Total Onus</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.4.1.5875.800.3.9.4.6.0</snmp_oid>
+                    <key>total.onu</key>
+                    <delay>10m</delay>
+                    <history>7d</history>
+                    <trends>180d</trends>
+                    <applications>
+                        <application>
+                            <name>Total de ONUs</name>
+                        </application>
+                    </applications>
+                </item>
+            </items>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>Tabela de ONUs por PON</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#SNMPVALUE},.1.3.6.1.4.1.5875.800.3.9.3.3.1.2]</snmp_oid>
+                    <key>tabela.onus.pon</key>
+                    <delay>1h;1m/1-7,12:00-12:01</delay>
+                    <lifetime>3d</lifetime>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>ONU RX Power {#SNMPVALUE}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.5875.800.3.9.3.3.1.6.{#SNMPINDEX}</snmp_oid>
+                            <key>pon.rx.onu[{#SNMPINDEX}]</key>
+                            <delay>1h</delay>
+                            <history>7d</history>
+                            <trends>30d</trends>
+                            <value_type>FLOAT</value_type>
+                            <units>dBm</units>
+                            <applications>
+                                <application>
+                                    <name>ONU PON</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>STR_REPLACE</type>
+                                    <params>-
+</params>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>0.01</params>
+                                </step>
+                            </preprocessing>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last(24h)}&gt;=27 and {last()}&lt;40</expression>
+                                    <name>ONU {#SNMPVALUE}  pouca potencia</name>
+                                    <priority>INFO</priority>
+                                    <manual_close>YES</manual_close>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>ONU TX Power {#SNMPVALUE}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.5875.800.3.9.3.3.1.7.{#SNMPINDEX}</snmp_oid>
+                            <key>pon.tx.onu[{#SNMPINDEX}]</key>
+                            <delay>1h</delay>
+                            <history>7d</history>
+                            <trends>30d</trends>
+                            <status>DISABLED</status>
+                            <discover>NO_DISCOVER</discover>
+                            <value_type>FLOAT</value_type>
+                            <units>dBm</units>
+                            <applications>
+                                <application>
+                                    <name>ONU PON</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>STR_REPLACE</type>
+                                    <params>-
+</params>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>0.01</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                    </item_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <name>Sinal ONU {#SNMPVALUE}</name>
+                            <graph_items>
+                                <graph_item>
+                                    <color>005500</color>
+                                    <item>
+                                        <host>RR - Fiberhome AN5516-01 - Info ONUs por PON</host>
+                                        <key>pon.tx.onu[{#SNMPINDEX}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <color>DD0000</color>
+                                    <item>
+                                        <host>RR - Fiberhome AN5516-01 - Info ONUs por PON</host>
+                                        <key>pon.rx.onu[{#SNMPINDEX}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+        </template>
+    </templates>
+    <graphs>
+        <graph>
+            <name>Total de ONUs</name>
+            <graph_items>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>FF8000</color>
+                    <item>
+                        <host>RR - Fiberhome AN5516-01 - Info ONUs por PON</host>
+                        <key>total.onu</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+    </graphs>
+</zabbix_export>
