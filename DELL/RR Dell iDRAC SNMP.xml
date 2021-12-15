@@ -1,0 +1,1587 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2021-12-15T19:59:26Z</date>
+    <groups>
+        <group>
+            <name>Templates RR</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>RR Dell iDRAC SNMP</template>
+            <name>RR Dell iDRAC SNMP</name>
+            <description>Lucas Afonso Kremer&#13;
+https://www.linkedin.com/in/lucasafonsokremer</description>
+            <groups>
+                <group>
+                    <name>Templates RR</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Fans</name>
+                </application>
+                <application>
+                    <name>Memory</name>
+                </application>
+                <application>
+                    <name>Network Cards</name>
+                </application>
+                <application>
+                    <name>Power</name>
+                </application>
+                <application>
+                    <name>Storage and disks</name>
+                </application>
+                <application>
+                    <name>System Info</name>
+                </application>
+                <application>
+                    <name>Temperatures</name>
+                </application>
+                <application>
+                    <name>Voltages</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>BIOS Date</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.674.10892.5.4.300.50.1.7.1.1</snmp_oid>
+                    <key>BiosDate</key>
+                    <delay>1d</delay>
+                    <history>30d</history>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <applications>
+                        <application>
+                            <name>System Info</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>BIOS Version</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.674.10892.5.4.300.50.1.8.1.1</snmp_oid>
+                    <key>BiosVersion</key>
+                    <delay>1d</delay>
+                    <history>30d</history>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <applications>
+                        <application>
+                            <name>System Info</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>CMOS Battery Status</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.674.10892.5.4.600.50.1.5.1.1</snmp_oid>
+                    <key>CMOSBatteryStatus</key>
+                    <delay>1h</delay>
+                    <history>30d</history>
+                    <applications>
+                        <application>
+                            <name>System Info</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>Dell Open Manage System Status</name>
+                    </valuemap>
+                    <triggers>
+                        <trigger>
+                            <expression>{last(0)}&lt;&gt;3</expression>
+                            <name>Problema com bateria CMOS</name>
+                            <priority>WARNING</priority>
+                            <manual_close>YES</manual_close>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Overall System LCD Status</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.674.10892.5.2.2.0</snmp_oid>
+                    <key>GlobalSystemLCDStatus</key>
+                    <delay>1h</delay>
+                    <history>30d</history>
+                    <applications>
+                        <application>
+                            <name>System Info</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>Dell Open Manage System Status</name>
+                    </valuemap>
+                </item>
+                <item>
+                    <name>Overall System Power State</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.674.10892.5.2.4.0</snmp_oid>
+                    <key>GlobalSystemPowerState</key>
+                    <delay>1h</delay>
+                    <history>30d</history>
+                    <applications>
+                        <application>
+                            <name>Power</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>DellPowerState</name>
+                    </valuemap>
+                    <triggers>
+                        <trigger>
+                            <expression>{last(0)}&lt;&gt;4 and {last(0)}&lt;&gt;0</expression>
+                            <name>O sistema não está online</name>
+                            <priority>HIGH</priority>
+                            <manual_close>YES</manual_close>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Overall System Status</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.4.1.674.10892.5.2.1.0</snmp_oid>
+                    <key>GlobalSystemStatus</key>
+                    <delay>5m</delay>
+                    <history>30d</history>
+                    <applications>
+                        <application>
+                            <name>System Info</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>Dell Open Manage System Status</name>
+                    </valuemap>
+                    <triggers>
+                        <trigger>
+                            <expression>({last()}&lt;&gt;3) and ({last()}&lt;5)</expression>
+                            <name>Erro geral de status do sistema</name>
+                            <priority>WARNING</priority>
+                            <manual_close>YES</manual_close>
+                        </trigger>
+                        <trigger>
+                            <expression>({last()}&gt;4)</expression>
+                            <name>Muitos erros de status do sistema</name>
+                            <priority>DISASTER</priority>
+                            <manual_close>YES</manual_close>
+                        </trigger>
+                        <trigger>
+                            <expression>{nodata(600)}</expression>
+                            <name>Sem dados iDrac por 10 minutos</name>
+                            <priority>HIGH</priority>
+                            <manual_close>YES</manual_close>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Overall System Storage Status</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.674.10892.5.2.3.0</snmp_oid>
+                    <key>GlobalSystemStorageStatus</key>
+                    <delay>1h</delay>
+                    <history>30d</history>
+                    <applications>
+                        <application>
+                            <name>Storage and disks</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>Dell Open Manage System Status</name>
+                    </valuemap>
+                    <triggers>
+                        <trigger>
+                            <expression>{last(0)}&lt;&gt;3</expression>
+                            <name>Erro de status do sistema de armazenamento</name>
+                            <priority>WARNING</priority>
+                            <manual_close>YES</manual_close>
+                            <dependencies>
+                                <dependency>
+                                    <name>Erro na controladora RAID</name>
+                                    <expression>({RR Dell iDRAC SNMP:RAIDControllerStatus.last(0)}&lt;&gt;3) and ({RR Dell iDRAC SNMP:SystemPowerState.last(0)}=4)</expression>
+                                </dependency>
+                            </dependencies>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>DRAC Access URL</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.674.10892.2.1.1.7.0</snmp_oid>
+                    <key>idrac_acessurl</key>
+                    <delay>1d</delay>
+                    <history>30d</history>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <applications>
+                        <application>
+                            <name>System Info</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>System Asset Tag</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.674.10892.2.1.1.11.0</snmp_oid>
+                    <key>idrac_assettag</key>
+                    <delay>1d</delay>
+                    <history>30d</history>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <inventory_link>ASSET_TAG</inventory_link>
+                    <applications>
+                        <application>
+                            <name>System Info</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>System Express Service Code</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.674.10892.5.1.3.3.0</snmp_oid>
+                    <key>idrac_esc</key>
+                    <delay>1d</delay>
+                    <history>30d</history>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <applications>
+                        <application>
+                            <name>System Info</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>DRAC Firmware version</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.674.10892.2.1.1.5.0</snmp_oid>
+                    <key>idrac_firmwareversion</key>
+                    <delay>1d</delay>
+                    <history>30d</history>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <applications>
+                        <application>
+                            <name>System Info</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>System Model</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.674.10892.5.1.3.12.0</snmp_oid>
+                    <key>idrac_SystemModel</key>
+                    <delay>1d</delay>
+                    <history>30d</history>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <applications>
+                        <application>
+                            <name>System Info</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>DRAC version</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.674.10892.2.1.1.2.0</snmp_oid>
+                    <key>idrac_version</key>
+                    <delay>1d</delay>
+                    <history>30d</history>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <applications>
+                        <application>
+                            <name>System Info</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Power Usage Minimum Idle Power</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.674.10892.5.4.600.60.1.15.1.1</snmp_oid>
+                    <key>PowerUsageMinIdle</key>
+                    <delay>1h</delay>
+                    <history>30d</history>
+                    <units>W</units>
+                    <applications>
+                        <application>
+                            <name>Power</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Power Usage Sensor Status</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.674.10892.5.4.600.60.1.5.1.1</snmp_oid>
+                    <key>PowerUsageSensorStatus</key>
+                    <delay>1h</delay>
+                    <history>30d</history>
+                    <applications>
+                        <application>
+                            <name>Power</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>Dell Open Manage System Status</name>
+                    </valuemap>
+                </item>
+                <item>
+                    <name>RAID Controller : Firmware Version</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.8.1</snmp_oid>
+                    <key>RAIDControllerFirmware</key>
+                    <delay>1d</delay>
+                    <history>30d</history>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <applications>
+                        <application>
+                            <name>Storage and disks</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>RAID Controller : Name</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.2.1</snmp_oid>
+                    <key>RAIDControllerName</key>
+                    <delay>1d</delay>
+                    <history>30d</history>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <applications>
+                        <application>
+                            <name>Storage and disks</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>RAID Controller : Status</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.674.10892.5.5.1.20.130.1.1.37.1</snmp_oid>
+                    <key>RAIDControllerStatus</key>
+                    <delay>10m</delay>
+                    <history>30d</history>
+                    <applications>
+                        <application>
+                            <name>Storage and disks</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>Dell Open Manage System Status</name>
+                    </valuemap>
+                </item>
+                <item>
+                    <name>System BIOS Status</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.674.10892.5.4.300.50.1.5.1.1</snmp_oid>
+                    <key>SystemBiosStatus</key>
+                    <delay>1h</delay>
+                    <history>30d</history>
+                    <applications>
+                        <application>
+                            <name>System Info</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>Dell Open Manage System Status</name>
+                    </valuemap>
+                </item>
+                <item>
+                    <name>System Power State</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.674.10892.5.2.4.0</snmp_oid>
+                    <key>SystemPowerState</key>
+                    <delay>5m</delay>
+                    <history>30d</history>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <description>4 server is on&#13;
+3 server is on stand-by</description>
+                    <applications>
+                        <application>
+                            <name>Power</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Voltage Status Combined</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.674.10892.5.4.200.10.1.12.1</snmp_oid>
+                    <key>VoltageStatusCombined</key>
+                    <delay>10m</delay>
+                    <history>30d</history>
+                    <applications>
+                        <application>
+                            <name>Voltages</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>Dell Open Manage System Status</name>
+                    </valuemap>
+                </item>
+            </items>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>Descoberta Discos</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#SNMPVALUE},1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.2]</snmp_oid>
+                    <key>DiskEnumeration</key>
+                    <delay>1d</delay>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Disco {#SNMPINDEX} : Dia da Fabricação</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.32.{#SNMPINDEX}</snmp_oid>
+                            <key>DiskManufactureDay.[{#SNMPINDEX}]</key>
+                            <delay>1d</delay>
+                            <history>1w</history>
+                            <trends>90d</trends>
+                            <applications>
+                                <application>
+                                    <name>Storage and disks</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Disco {#SNMPINDEX} : Fabricante</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.3.{#SNMPINDEX}</snmp_oid>
+                            <key>DiskManufacturer.[{#SNMPINDEX}]</key>
+                            <delay>1d</delay>
+                            <history>30d</history>
+                            <trends>0</trends>
+                            <value_type>CHAR</value_type>
+                            <applications>
+                                <application>
+                                    <name>Storage and disks</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Disco {#SNMPINDEX} : Semana de Fabricação</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.33.{#SNMPINDEX}</snmp_oid>
+                            <key>DiskManufactureWeek.[{#SNMPINDEX}]</key>
+                            <delay>1d</delay>
+                            <history>30d</history>
+                            <trends>90d</trends>
+                            <applications>
+                                <application>
+                                    <name>Storage and disks</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Disco {#SNMPINDEX} : Ano de Fabricação</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.34.{#SNMPINDEX}</snmp_oid>
+                            <key>DiskManufactureYear.[{#SNMPINDEX}]</key>
+                            <delay>1d</delay>
+                            <history>30d</history>
+                            <trends>90d</trends>
+                            <applications>
+                                <application>
+                                    <name>Storage and disks</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Disco {#SNMPINDEX} : Número do modelo</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.6.{#SNMPINDEX}</snmp_oid>
+                            <key>DiskModel.[{#SNMPINDEX}]</key>
+                            <delay>1d</delay>
+                            <trends>0</trends>
+                            <value_type>CHAR</value_type>
+                            <applications>
+                                <application>
+                                    <name>Storage and disks</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Disco {#SNMPINDEX} : Nome</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.55.{#SNMPINDEX}</snmp_oid>
+                            <key>DiskName.[{#SNMPINDEX}]</key>
+                            <delay>1d</delay>
+                            <trends>0</trends>
+                            <value_type>CHAR</value_type>
+                            <applications>
+                                <application>
+                                    <name>Storage and disks</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Disco {#SNMPINDEX} : Número de série</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.7.{#SNMPINDEX}</snmp_oid>
+                            <key>DiskSerialNo.[{#SNMPINDEX}]</key>
+                            <delay>1d</delay>
+                            <trends>0</trends>
+                            <value_type>CHAR</value_type>
+                            <applications>
+                                <application>
+                                    <name>Storage and disks</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Disco {#SNMPINDEX} : Tamanho</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.11.{#SNMPINDEX}</snmp_oid>
+                            <key>DiskSize.[{#SNMPINDEX}]</key>
+                            <delay>1d</delay>
+                            <history>1w</history>
+                            <trends>90d</trends>
+                            <units>B</units>
+                            <applications>
+                                <application>
+                                    <name>Storage and disks</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>1048576</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Disco {#SNMPINDEX} : Estado</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.4.{#SNMPINDEX}</snmp_oid>
+                            <key>DiskState.[{#SNMPINDEX}]</key>
+                            <delay>1h</delay>
+                            <history>1w</history>
+                            <trends>90d</trends>
+                            <applications>
+                                <application>
+                                    <name>Storage and disks</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>DellDracDiskState</name>
+                            </valuemap>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Disco {#SNMPINDEX} : Status</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.674.10892.5.5.1.20.130.4.1.24.{#SNMPINDEX}</snmp_oid>
+                            <key>DiskStatus.[{#SNMPINDEX}]</key>
+                            <delay>1h</delay>
+                            <history>1w</history>
+                            <trends>90d</trends>
+                            <applications>
+                                <application>
+                                    <name>Storage and disks</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>Dell Open Manage System Status</name>
+                            </valuemap>
+                        </item_prototype>
+                    </item_prototypes>
+                    <trigger_prototypes>
+                        <trigger_prototype>
+                            <expression>({RR Dell iDRAC SNMP:DiskStatus.[{#SNMPINDEX}].last(0)}&lt;&gt;3) and ({RR Dell iDRAC SNMP:SystemPowerState.last(0)}=4)</expression>
+                            <name>Problema com o disco {#SNMPINDEX}</name>
+                            <priority>DISASTER</priority>
+                        </trigger_prototype>
+                    </trigger_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Descoberta Fan</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#SNMPVALUE},1.3.6.1.4.1.674.10892.5.4.700.12.1.8.1]</snmp_oid>
+                    <key>FanEnumeration</key>
+                    <delay>1d</delay>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Fan {#SNMPVALUE} Speed</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.674.10892.5.4.700.12.1.6.1.{#SNMPINDEX}</snmp_oid>
+                            <key>FanSpeed.[{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
+                            <history>2d</history>
+                            <trends>90d</trends>
+                            <units>rpm</units>
+                            <applications>
+                                <application>
+                                    <name>Fans</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Fan {#SNMPVALUE} Status</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.674.10892.5.4.700.12.1.5.1.{#SNMPINDEX}</snmp_oid>
+                            <key>FanStatus.[{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
+                            <history>2d</history>
+                            <trends>90d</trends>
+                            <applications>
+                                <application>
+                                    <name>Fans</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>Dell Open Manage System Status</name>
+                            </valuemap>
+                        </item_prototype>
+                    </item_prototypes>
+                    <trigger_prototypes>
+                        <trigger_prototype>
+                            <expression>({RR Dell iDRAC SNMP:FanStatus.[{#SNMPINDEX}].last(0)}&lt;&gt;3) and ({RR Dell iDRAC SNMP:SystemPowerState.last(0)}=4)</expression>
+                            <name>Problema com FAN {#SNMPVALUE}</name>
+                            <priority>AVERAGE</priority>
+                        </trigger_prototype>
+                    </trigger_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <name>FAN {#SNMPVALUE}</name>
+                            <graph_items>
+                                <graph_item>
+                                    <color>C80000</color>
+                                    <item>
+                                        <host>RR Dell iDRAC SNMP</host>
+                                        <key>FanSpeed.[{#SNMPINDEX}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Descoberta Memoria</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#SNMPVALUE},1.3.6.1.4.1.674.10892.5.4.1100.50.1.8.1]</snmp_oid>
+                    <key>MemoryEnum</key>
+                    <delay>1d;50s/1-7,00:00-24:00</delay>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Slot de memória {#SNMPVALUE} Fabricante</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.674.10892.5.4.1100.50.1.21.1.{#SNMPINDEX}</snmp_oid>
+                            <key>MemManufacturer[{#SNMPINDEX}]</key>
+                            <delay>1d</delay>
+                            <trends>0</trends>
+                            <value_type>CHAR</value_type>
+                            <applications>
+                                <application>
+                                    <name>Memory</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Slot de memória {#SNMPVALUE} Part Number</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.674.10892.5.4.1100.50.1.22.1.{#SNMPINDEX}</snmp_oid>
+                            <key>MemPartlNo.[{#SNMPINDEX}]</key>
+                            <delay>1d</delay>
+                            <trends>0</trends>
+                            <value_type>CHAR</value_type>
+                            <applications>
+                                <application>
+                                    <name>Memory</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Slot de memória {#SNMPVALUE} Serial Number</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.674.10892.5.4.1100.50.1.23.1.{#SNMPINDEX}</snmp_oid>
+                            <key>MemSerialNo.[{#SNMPINDEX}]</key>
+                            <delay>1d</delay>
+                            <trends>0</trends>
+                            <value_type>CHAR</value_type>
+                            <applications>
+                                <application>
+                                    <name>Memory</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Slot de memória {#SNMPVALUE} Tamanho</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.674.10892.5.4.1100.50.1.14.1.{#SNMPINDEX}</snmp_oid>
+                            <key>MemSize.[{#SNMPINDEX}]</key>
+                            <delay>1d</delay>
+                            <trends>0</trends>
+                            <units>B</units>
+                            <applications>
+                                <application>
+                                    <name>Memory</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>1024</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Slot de memória {#SNMPVALUE} Speed</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.674.10892.5.4.1100.50.1.15.1.{#SNMPINDEX}</snmp_oid>
+                            <key>MemSpeed.[{#SNMPINDEX}]</key>
+                            <delay>1d</delay>
+                            <trends>0</trends>
+                            <units>ns</units>
+                            <applications>
+                                <application>
+                                    <name>Memory</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Slot de memória {#SNMPVALUE} Status</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.674.10892.5.4.1100.50.1.5.1.{#SNMPINDEX}</snmp_oid>
+                            <key>MemStatus.[{#SNMPINDEX}]</key>
+                            <delay>30m</delay>
+                            <history>1w</history>
+                            <trends>90d</trends>
+                            <applications>
+                                <application>
+                                    <name>Memory</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>Dell Open Manage System Status</name>
+                            </valuemap>
+                        </item_prototype>
+                    </item_prototypes>
+                    <trigger_prototypes>
+                        <trigger_prototype>
+                            <expression>({RR Dell iDRAC SNMP:MemStatus.[{#SNMPINDEX}].last(0)}&lt;&gt;3) and ({RR Dell iDRAC SNMP:SystemPowerState.last(0)}=4)</expression>
+                            <name>Problema com a memória no slot {#SNMPVALUE}</name>
+                            <priority>HIGH</priority>
+                        </trigger_prototype>
+                    </trigger_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Descoberta Rede</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#SNMPVALUE},1.3.6.1.4.1.674.10892.5.4.1100.90.1.2.1]</snmp_oid>
+                    <key>NetworkEnum</key>
+                    <delay>1d</delay>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>NIC {#SNMPINDEX} : Status da conexão</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.674.10892.5.4.1100.90.1.4.1.{#SNMPINDEX}</snmp_oid>
+                            <key>NetConnStatus.[{#SNMPINDEX}]</key>
+                            <delay>10m</delay>
+                            <history>2d</history>
+                            <trends>90d</trends>
+                            <applications>
+                                <application>
+                                    <name>Network Cards</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>Dell iDRAC Network Device Connection Status</name>
+                            </valuemap>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>NIC {#SNMPINDEX} : MAC Address</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.674.10892.5.4.1100.90.1.15.1.{#SNMPINDEX}</snmp_oid>
+                            <key>NetMAC.[{#SNMPINDEX}]</key>
+                            <delay>1d</delay>
+                            <trends>0</trends>
+                            <value_type>CHAR</value_type>
+                            <applications>
+                                <application>
+                                    <name>Network Cards</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>NIC {#SNMPINDEX} : Nome</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.674.10892.5.4.1100.90.1.6.1.{#SNMPINDEX}</snmp_oid>
+                            <key>NetName.[{#SNMPINDEX}]</key>
+                            <delay>1d</delay>
+                            <trends>0</trends>
+                            <value_type>CHAR</value_type>
+                            <applications>
+                                <application>
+                                    <name>Network Cards</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>NIC {#SNMPINDEX} : Slot</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.674.10892.5.4.1100.90.1.30.1.{#SNMPINDEX}</snmp_oid>
+                            <key>NetSlot.[{#SNMPINDEX}]</key>
+                            <delay>1d</delay>
+                            <trends>0</trends>
+                            <value_type>CHAR</value_type>
+                            <applications>
+                                <application>
+                                    <name>Network Cards</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>NIC {#SNMPINDEX} : Status</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.674.10892.5.4.1100.90.1.3.1.{#SNMPINDEX}</snmp_oid>
+                            <key>NetStatus.[{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
+                            <history>2d</history>
+                            <trends>90d</trends>
+                            <applications>
+                                <application>
+                                    <name>Network Cards</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>Dell Open Manage System Status</name>
+                            </valuemap>
+                        </item_prototype>
+                    </item_prototypes>
+                    <trigger_prototypes>
+                        <trigger_prototype>
+                            <expression>({RR Dell iDRAC SNMP:NetStatus.[{#SNMPINDEX}].last(0)}&lt;&gt;3) and ({RR Dell iDRAC SNMP:SystemPowerState.last(0)}=4)</expression>
+                            <name>Erro em NIC {#SNMPINDEX}</name>
+                            <priority>DISASTER</priority>
+                        </trigger_prototype>
+                    </trigger_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Descoberta Fonte de Energia</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#SNMPVALUE},1.3.6.1.4.1.674.10892.5.4.600.12.1.1.1]</snmp_oid>
+                    <key>PowerSupplies</key>
+                    <delay>1d</delay>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Fonte de energia {#SNMPINDEX} Tensão de entrada</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.674.10892.5.4.600.12.1.9.1.{#SNMPINDEX}</snmp_oid>
+                            <key>PowerSupplyInputVoltage.[{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
+                            <history>2d</history>
+                            <trends>90d</trends>
+                            <value_type>FLOAT</value_type>
+                            <units>V</units>
+                            <applications>
+                                <application>
+                                    <name>Power</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Fonte de energia {#SNMPINDEX} Potência máxima</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.674.10892.5.4.600.12.1.6.1.{#SNMPINDEX}</snmp_oid>
+                            <key>PowerSupplyMaxPower.[{#SNMPINDEX}]</key>
+                            <delay>1d</delay>
+                            <history>2d</history>
+                            <trends>90d</trends>
+                            <value_type>FLOAT</value_type>
+                            <units>W</units>
+                            <applications>
+                                <application>
+                                    <name>Power</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>.1</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Fonte de energia {#SNMPINDEX} Estado do Sensor</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.674.10892.5.4.600.12.1.11.1.{#SNMPINDEX}</snmp_oid>
+                            <key>PowerSupplySensorState.[{#SNMPINDEX}]</key>
+                            <delay>10m</delay>
+                            <history>2d</history>
+                            <trends>90d</trends>
+                            <applications>
+                                <application>
+                                    <name>Power</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>Dell_PSU_SensorState</name>
+                            </valuemap>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Fonte de energia {#SNMPINDEX} Configurações de estado</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.674.10892.5.4.600.12.1.4.1.{#SNMPINDEX}</snmp_oid>
+                            <key>PowerSupplyStateSettings.[{#SNMPINDEX}]</key>
+                            <delay>10m</delay>
+                            <history>2d</history>
+                            <trends>90d</trends>
+                            <applications>
+                                <application>
+                                    <name>Power</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>Dell PSU State Settings</name>
+                            </valuemap>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Fonte de energia {#SNMPINDEX} Status</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.674.10892.5.4.600.12.1.5.1.{#SNMPINDEX}</snmp_oid>
+                            <key>PowerSupplyStatus.[{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
+                            <history>2d</history>
+                            <trends>90d</trends>
+                            <applications>
+                                <application>
+                                    <name>Power</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>Dell Open Manage System Status</name>
+                            </valuemap>
+                        </item_prototype>
+                    </item_prototypes>
+                    <trigger_prototypes>
+                        <trigger_prototype>
+                            <expression>({RR Dell iDRAC SNMP:PowerSupplySensorState.[{#SNMPINDEX}].last(0)}&lt;&gt;1) and ({RR Dell iDRAC SNMP:SystemPowerState.last(0)}=4)</expression>
+                            <name>Erro no estado PSU {#SNMPINDEX}</name>
+                            <priority>HIGH</priority>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>({RR Dell iDRAC SNMP:PowerSupplyStatus.[{#SNMPINDEX}].last(0)}&lt;&gt;3) and ({RR Dell iDRAC SNMP:SystemPowerState.last(0)}=4)</expression>
+                            <name>Problema com PSU {#SNMPINDEX}</name>
+                            <priority>HIGH</priority>
+                        </trigger_prototype>
+                    </trigger_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Descoberta Processador</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#SNMPVALUE},1.3.6.1.4.1.674.10892.5.4.1100.32.1.7.1]</snmp_oid>
+                    <key>ProcEnum</key>
+                    <delay>1d</delay>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Processador {#SNMPINDEX} Status</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.674.10892.5.4.1100.32.1.5.1.{#SNMPINDEX}</snmp_oid>
+                            <key>ProcStatus.[{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
+                            <history>2d</history>
+                            <trends>90d</trends>
+                            <applications>
+                                <application>
+                                    <name>System Info</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>Dell Open Manage System Status</name>
+                            </valuemap>
+                        </item_prototype>
+                    </item_prototypes>
+                    <trigger_prototypes>
+                        <trigger_prototype>
+                            <expression>({RR Dell iDRAC SNMP:ProcStatus.[{#SNMPINDEX}].last(0)}&lt;&gt;3) and ({RR Dell iDRAC SNMP:ProcStatus.[{#SNMPINDEX}].last(0)}&lt;&gt;2) and ({RR Dell iDRAC SNMP:SystemPowerState.last(0)}=4)</expression>
+                            <name>Erro no processador {#SNMPINDEX}</name>
+                            <priority>DISASTER</priority>
+                            <manual_close>YES</manual_close>
+                        </trigger_prototype>
+                    </trigger_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Descoberta Temperatura</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#SNMPVALUE},1.3.6.1.4.1.674.10892.5.4.700.20.1.8.1]</snmp_oid>
+                    <key>TempEnum</key>
+                    <delay>1d</delay>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Sensor de temperatura {#SNMPVALUE} Limite Baixo Crítico</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.674.10892.5.4.700.20.1.13.1.{#SNMPINDEX}</snmp_oid>
+                            <key>TempCritLowLimit.[{#SNMPINDEX}]</key>
+                            <delay>1d</delay>
+                            <trends>0</trends>
+                            <value_type>FLOAT</value_type>
+                            <units>C</units>
+                            <applications>
+                                <application>
+                                    <name>Temperatures</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>0.1</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Sensor de temperatura {#SNMPVALUE} Limite Superior Crítico</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.674.10892.5.4.700.20.1.10.1.{#SNMPINDEX}</snmp_oid>
+                            <key>TempCritUpLimit.[{#SNMPINDEX}]</key>
+                            <delay>1d</delay>
+                            <trends>0</trends>
+                            <value_type>FLOAT</value_type>
+                            <units>C</units>
+                            <applications>
+                                <application>
+                                    <name>Temperatures</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>0.1</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Sensor de temperatura {#SNMPVALUE} Status</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.674.10892.5.4.700.20.1.5.1.{#SNMPINDEX}</snmp_oid>
+                            <key>TempStatus.[{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
+                            <history>2d</history>
+                            <trends>90d</trends>
+                            <applications>
+                                <application>
+                                    <name>Temperatures</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>Dell Open Manage System Status</name>
+                            </valuemap>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last(0)}&lt;&gt;3</expression>
+                                    <name>Problema com sensor de temperatura {#SNMPVALUE}</name>
+                                    <priority>WARNING</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Sensor de temperatura {#SNMPVALUE} Valor</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.674.10892.5.4.700.20.1.6.1.{#SNMPINDEX}</snmp_oid>
+                            <key>TempValue.[{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
+                            <history>2d</history>
+                            <trends>90d</trends>
+                            <value_type>FLOAT</value_type>
+                            <units>C</units>
+                            <applications>
+                                <application>
+                                    <name>Temperatures</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>Dell Open Manage System Status</name>
+                            </valuemap>
+                            <preprocessing>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>.1</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Sensor de temperatura {#SNMPVALUE} Limite baixo de aquecimento</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.674.10892.5.4.700.20.1.12.1.{#SNMPINDEX}</snmp_oid>
+                            <key>TempWarnLowLimit.[{#SNMPINDEX}]</key>
+                            <delay>1d</delay>
+                            <trends>0</trends>
+                            <value_type>FLOAT</value_type>
+                            <units>C</units>
+                            <applications>
+                                <application>
+                                    <name>Temperatures</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>0.1</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Sensor de temperatura {#SNMPVALUE} Limite de aquecimento</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.674.10892.5.4.700.20.1.11.1.{#SNMPINDEX}</snmp_oid>
+                            <key>TempWarnUpLimit.[{#SNMPINDEX}]</key>
+                            <delay>1d</delay>
+                            <trends>0</trends>
+                            <value_type>FLOAT</value_type>
+                            <units>C</units>
+                            <applications>
+                                <application>
+                                    <name>Temperatures</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>0.1</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                    </item_prototypes>
+                    <trigger_prototypes>
+                        <trigger_prototype>
+                            <expression>{RR Dell iDRAC SNMP:TempValue.[{#SNMPINDEX}].last()} &gt;= {RR Dell iDRAC SNMP:TempCritUpLimit.[{#SNMPINDEX}].last()}</expression>
+                            <name>Temperatura em {#SNMPVALUE} criticamente alta</name>
+                            <priority>HIGH</priority>
+                            <description>Temperature of the item is above Critical Level.</description>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{RR Dell iDRAC SNMP:TempValue.[{#SNMPINDEX}].last()} &lt;= {RR Dell iDRAC SNMP:TempCritLowLimit.[{#SNMPINDEX}].last()}</expression>
+                            <name>Temperatura em {#SNMPVALUE} criticamente baixa</name>
+                            <priority>HIGH</priority>
+                            <description>Temperature of the item is below Critical Level.</description>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{RR Dell iDRAC SNMP:TempValue.[{#SNMPINDEX}].last()} &gt; {RR Dell iDRAC SNMP:TempWarnUpLimit.[{#SNMPINDEX}].last()}&#13;
+&#13;
+and&#13;
+&#13;
+{RR Dell iDRAC SNMP:TempValue.[{#SNMPINDEX}].last()} &lt; {RR Dell iDRAC SNMP:TempCritUpLimit.[{#SNMPINDEX}].last()}</expression>
+                            <name>Temperatura em {#SNMPVALUE} está alta</name>
+                            <priority>WARNING</priority>
+                            <description>Temperature of the item is above Warning Level.</description>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{RR Dell iDRAC SNMP:TempValue.[{#SNMPINDEX}].last()} &lt; {RR Dell iDRAC SNMP:TempWarnLowLimit.[{#SNMPINDEX}].last()}&#13;
+&#13;
+and&#13;
+&#13;
+{RR Dell iDRAC SNMP:TempValue.[{#SNMPINDEX}].last()} &gt; {RR Dell iDRAC SNMP:TempCritLowLimit.[{#SNMPINDEX}].last()}</expression>
+                            <name>Temperatura em {#SNMPVALUE} está baixa</name>
+                            <priority>WARNING</priority>
+                            <description>Temperature of the item is below Warning Level.</description>
+                        </trigger_prototype>
+                    </trigger_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <name>Temperature on sensor {#SNMPVALUE}</name>
+                            <graph_items>
+                                <graph_item>
+                                    <color>C80000</color>
+                                    <calc_fnc>ALL</calc_fnc>
+                                    <item>
+                                        <host>RR Dell iDRAC SNMP</host>
+                                        <key>TempValue.[{#SNMPINDEX}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Descoberta Tab de Voltage</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#SNMPVALUE},1.3.6.1.4.1.674.10892.5.4.600.20.1.8.1]</snmp_oid>
+                    <key>VoltageTable</key>
+                    <delay>1d</delay>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Voltage : {#SNMPVALUE} Status</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.674.10892.5.4.600.20.1.5.1.{#SNMPINDEX}</snmp_oid>
+                            <key>VoltageStatus.[{#SNMPINDEX}]</key>
+                            <delay>10m</delay>
+                            <history>1w</history>
+                            <trends>90d</trends>
+                            <applications>
+                                <application>
+                                    <name>Voltages</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>Dell Open Manage System Status</name>
+                            </valuemap>
+                        </item_prototype>
+                    </item_prototypes>
+                    <trigger_prototypes>
+                        <trigger_prototype>
+                            <expression>({RR Dell iDRAC SNMP:VoltageStatus.[{#SNMPINDEX}].last(0)}&lt;&gt;3) and ({RR Dell iDRAC SNMP:SystemPowerState.last(0)}=4)</expression>
+                            <name>Erro no sensor de tensão {#SNMPVALUE}</name>
+                            <priority>AVERAGE</priority>
+                        </trigger_prototype>
+                    </trigger_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Descoberta Volumes Discos</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#SNMPVALUE},1.3.6.1.4.1.674.10892.5.5.1.20.140.1.1.1]</snmp_oid>
+                    <key>VolumeEnum</key>
+                    <delay>1d</delay>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Volume {#SNMPINDEX} : Virtual Disk State</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.674.10892.5.5.1.20.140.1.1.4.{#SNMPINDEX}</snmp_oid>
+                            <key>VolumeDiskState.[{#SNMPINDEX}]</key>
+                            <delay>1h</delay>
+                            <trends>0</trends>
+                            <applications>
+                                <application>
+                                    <name>Storage and disks</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>DellRaidVolumeState</name>
+                            </valuemap>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Volume {#SNMPINDEX} : Nome</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.674.10892.5.5.1.20.140.1.1.36.{#SNMPINDEX}</snmp_oid>
+                            <key>VolumeName.[{#SNMPINDEX}]</key>
+                            <delay>1d</delay>
+                            <trends>0</trends>
+                            <value_type>CHAR</value_type>
+                            <applications>
+                                <application>
+                                    <name>Storage and disks</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Volume {#SNMPINDEX} : Tamanho</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.674.10892.5.5.1.20.140.1.1.6.{#SNMPINDEX}</snmp_oid>
+                            <key>VolumeSize.[{#SNMPINDEX}]</key>
+                            <delay>1d</delay>
+                            <trends>0</trends>
+                            <units>B</units>
+                            <applications>
+                                <application>
+                                    <name>Storage and disks</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>1048576</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Volume {#SNMPINDEX} : Stado</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.674.10892.5.5.1.20.140.1.1.13.{#SNMPINDEX}</snmp_oid>
+                            <key>VolumeState.[{#SNMPINDEX}]</key>
+                            <delay>1h</delay>
+                            <trends>0</trends>
+                            <applications>
+                                <application>
+                                    <name>Storage and disks</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>DellRaidLevel</name>
+                            </valuemap>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Volume {#SNMPINDEX} : Status</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.674.10892.5.5.1.20.140.1.1.20.{#SNMPINDEX}</snmp_oid>
+                            <key>VolumeStatus.[{#SNMPINDEX}]</key>
+                            <delay>1h</delay>
+                            <trends>0</trends>
+                            <applications>
+                                <application>
+                                    <name>Storage and disks</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>Dell Open Manage System Status</name>
+                            </valuemap>
+                        </item_prototype>
+                    </item_prototypes>
+                    <trigger_prototypes>
+                        <trigger_prototype>
+                            <expression>({RR Dell iDRAC SNMP:VolumeDiskState.[{#SNMPINDEX}].last(0)}&lt;&gt;2) and ({RR Dell iDRAC SNMP:SystemPowerState.last(0)}=4)</expression>
+                            <name>Volume {#SNMPINDEX} Erro</name>
+                            <priority>HIGH</priority>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>({RR Dell iDRAC SNMP:VolumeStatus.[{#SNMPINDEX}].last(0)}&lt;&gt;3) and ({RR Dell iDRAC SNMP:SystemPowerState.last(0)}=4)</expression>
+                            <name>Volume {#SNMPINDEX} Status Error</name>
+                            <priority>HIGH</priority>
+                        </trigger_prototype>
+                    </trigger_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+        </template>
+    </templates>
+    <triggers>
+        <trigger>
+            <expression>({RR Dell iDRAC SNMP:VoltageStatusCombined.last(0)}&lt;&gt;3) and ({RR Dell iDRAC SNMP:SystemPowerState.last(0)}=4)</expression>
+            <name>Erro de status de tensão</name>
+            <priority>HIGH</priority>
+            <manual_close>YES</manual_close>
+        </trigger>
+        <trigger>
+            <expression>({RR Dell iDRAC SNMP:GlobalSystemStorageStatus.last(0)}&gt;4) and ({RR Dell iDRAC SNMP:SystemPowerState.last(0)}=4)</expression>
+            <name>Erro de status do sistema de armazenamento</name>
+            <priority>DISASTER</priority>
+            <manual_close>YES</manual_close>
+        </trigger>
+        <trigger>
+            <expression>({RR Dell iDRAC SNMP:RAIDControllerStatus.last(0)}&lt;&gt;3) and ({RR Dell iDRAC SNMP:SystemPowerState.last(0)}=4)</expression>
+            <name>Erro na controladora RAID</name>
+            <priority>HIGH</priority>
+            <manual_close>YES</manual_close>
+        </trigger>
+    </triggers>
+    <value_maps>
+        <value_map>
+            <name>DellDracDiskState</name>
+            <mappings>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>Desconhecido</newvalue>
+                </mapping>
+                <mapping>
+                    <value>2</value>
+                    <newvalue>Ready</newvalue>
+                </mapping>
+                <mapping>
+                    <value>3</value>
+                    <newvalue>Online</newvalue>
+                </mapping>
+                <mapping>
+                    <value>4</value>
+                    <newvalue>Foreign</newvalue>
+                </mapping>
+                <mapping>
+                    <value>5</value>
+                    <newvalue>Offline</newvalue>
+                </mapping>
+                <mapping>
+                    <value>6</value>
+                    <newvalue>Blocked</newvalue>
+                </mapping>
+                <mapping>
+                    <value>7</value>
+                    <newvalue>Failed</newvalue>
+                </mapping>
+                <mapping>
+                    <value>8</value>
+                    <newvalue>Non-RAID</newvalue>
+                </mapping>
+                <mapping>
+                    <value>9</value>
+                    <newvalue>Removed</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+        <value_map>
+            <name>Dell iDRAC Network Device Connection Status</name>
+            <mappings>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>Conectada</newvalue>
+                </mapping>
+                <mapping>
+                    <value>2</value>
+                    <newvalue>Desconectada</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+        <value_map>
+            <name>Dell Open Manage System Status</name>
+            <mappings>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>Outros</newvalue>
+                </mapping>
+                <mapping>
+                    <value>2</value>
+                    <newvalue>Desconhecido</newvalue>
+                </mapping>
+                <mapping>
+                    <value>3</value>
+                    <newvalue>OK</newvalue>
+                </mapping>
+                <mapping>
+                    <value>4</value>
+                    <newvalue>Não crítico</newvalue>
+                </mapping>
+                <mapping>
+                    <value>5</value>
+                    <newvalue>Crítica</newvalue>
+                </mapping>
+                <mapping>
+                    <value>6</value>
+                    <newvalue>Irrecuperável</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+        <value_map>
+            <name>DellPowerState</name>
+            <mappings>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>Outros</newvalue>
+                </mapping>
+                <mapping>
+                    <value>2</value>
+                    <newvalue>Desconhecido</newvalue>
+                </mapping>
+                <mapping>
+                    <value>3</value>
+                    <newvalue>Off</newvalue>
+                </mapping>
+                <mapping>
+                    <value>4</value>
+                    <newvalue>On</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+        <value_map>
+            <name>Dell PSU State Settings</name>
+            <mappings>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>Desconhecido</newvalue>
+                </mapping>
+                <mapping>
+                    <value>2</value>
+                    <newvalue>Online (estado desativado)</newvalue>
+                </mapping>
+                <mapping>
+                    <value>4</value>
+                    <newvalue>não está pronto</newvalue>
+                </mapping>
+                <mapping>
+                    <value>8</value>
+                    <newvalue>Falha na FAN</newvalue>
+                </mapping>
+                <mapping>
+                    <value>10</value>
+                    <newvalue>Online e Falha na FAN</newvalue>
+                </mapping>
+                <mapping>
+                    <value>16</value>
+                    <newvalue>On</newvalue>
+                </mapping>
+                <mapping>
+                    <value>242</value>
+                    <newvalue>Online e OK</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+        <value_map>
+            <name>DellRaidLevel</name>
+            <mappings>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>Desconhecido</newvalue>
+                </mapping>
+                <mapping>
+                    <value>2</value>
+                    <newvalue>RAID-0</newvalue>
+                </mapping>
+                <mapping>
+                    <value>3</value>
+                    <newvalue>RAID-1</newvalue>
+                </mapping>
+                <mapping>
+                    <value>4</value>
+                    <newvalue>RAID-5</newvalue>
+                </mapping>
+                <mapping>
+                    <value>5</value>
+                    <newvalue>RAID-6</newvalue>
+                </mapping>
+                <mapping>
+                    <value>6</value>
+                    <newvalue>RAID-10</newvalue>
+                </mapping>
+                <mapping>
+                    <value>7</value>
+                    <newvalue>RAID-50</newvalue>
+                </mapping>
+                <mapping>
+                    <value>8</value>
+                    <newvalue>RAID-60</newvalue>
+                </mapping>
+                <mapping>
+                    <value>9</value>
+                    <newvalue>Concatenado RAID 1</newvalue>
+                </mapping>
+                <mapping>
+                    <value>10</value>
+                    <newvalue>Concatenado RAID 5</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+        <value_map>
+            <name>DellRaidVolumeState</name>
+            <mappings>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>Desconhecido</newvalue>
+                </mapping>
+                <mapping>
+                    <value>2</value>
+                    <newvalue>Online</newvalue>
+                </mapping>
+                <mapping>
+                    <value>3</value>
+                    <newvalue>Falhou</newvalue>
+                </mapping>
+                <mapping>
+                    <value>4</value>
+                    <newvalue>Degradado</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+        <value_map>
+            <name>Dell_PSU_SensorState</name>
+            <mappings>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>Presença detectada</newvalue>
+                </mapping>
+                <mapping>
+                    <value>2</value>
+                    <newvalue>PS Falha</newvalue>
+                </mapping>
+                <mapping>
+                    <value>4</value>
+                    <newvalue>Falha previsível</newvalue>
+                </mapping>
+                <mapping>
+                    <value>8</value>
+                    <newvalue>PS AC perdido</newvalue>
+                </mapping>
+                <mapping>
+                    <value>16</value>
+                    <newvalue>AC perdido ou fora do alcance</newvalue>
+                </mapping>
+                <mapping>
+                    <value>32</value>
+                    <newvalue>AC fora de alcance, mas ainda presente</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+    </value_maps>
+</zabbix_export>
