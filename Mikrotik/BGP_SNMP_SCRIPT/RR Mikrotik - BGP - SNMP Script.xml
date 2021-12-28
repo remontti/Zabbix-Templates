@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2021-12-28T18:47:16Z</date>
+    <groups>
+        <group>
+            <name>Templates RR</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>RR Mikrotik - BGP - SNMP Script</template>
+            <name>RR Mikrotik - BGP - SNMP Script</name>
+            <description># SCRIPT&#13;
+&#13;
+:put &quot;{\&quot;peer\&quot;: [&quot;;&#13;
+:global lista [/routing bgp peer find];&#13;
+:global contador 0;&#13;
+:foreach i in=$lista do={&#13;
+  :global disabled [/routing bgp peer get value-name=disabled number=$i];&#13;
+  :global name [/routing bgp peer get value-name=name number=$i];&#13;
+  :global remoteaddress [/routing bgp peer get value-name=remote-address number=$i];&#13;
+  :global remoteas [/routing bgp peer get value-name=remote-as number=$i];&#13;
+  :global state [/routing bgp peer get value-name=state number=$i];&#13;
+    :if (state = &quot;idle&quot;) do={:set state 1;};&#13;
+    :if (state = &quot;connect&quot;) do={:set state 2;}&#13;
+    :if (state = &quot;active&quot;) do={:set state 3;}; &#13;
+    :if (state = &quot;opensent&quot;) do={:set state 4;}&#13;
+    :if (state = &quot;openconfirm&quot;) do={:set state 5;}; &#13;
+    :if (state = &quot;established&quot;) do={:set state 6;}&#13;
+    :if (disabled = true) do={:set state 1;}&#13;
+  :global prefix [/routing bgp peer get value-name=prefix number=$i];&#13;
+    :if (prefix &lt; 1) do={:set prefix 0;}  &#13;
+  :global uptime [/routing bgp peer get value-name=uptime number=$i];&#13;
+    :if (uptime &lt; 1) do={:set uptime 0;}&#13;
+    :global uptimeseconds 0; :global weekend 0; &#13;
+    :global dayend 0; :global weeks 0; :global days 0;&#13;
+    :if ([:find $uptime &quot;w&quot; -1] &gt; 0) do={&#13;
+      :set weekend [:find $uptime &quot;w&quot; -1];&#13;
+      :set weeks [:pick $uptime 0 $weekend];&#13;
+      :set weekend ($weekend+1);&#13;
+    };&#13;
+    :if ([:find $uptime &quot;d&quot; -1] &gt; 0) do={&#13;
+      :set dayend [:find $uptime &quot;d&quot; -1];&#13;
+      :set days [:pick $uptime $weekend $dayend];&#13;
+    };&#13;
+    :global time [:pick $uptime ([:len $uptime]-8) [:len $uptime]]; &#13;
+    :global hours [:pick $time 0 2];&#13;
+    :global minutes [:pick $time 3 5];&#13;
+    :global seconds [:pick $time 6 8]; &#13;
+    :set uptimeseconds [($weeks*86400*7+$days*86400+$hours*3600+$minutes*60+$seconds)];&#13;
+&#13;
+  :set contador ($contador + 1);&#13;
+  :if ( $contador &lt; [:len $lista]) do={&#13;
+    :put &quot;{\&quot;Id\&quot;: \&quot;$contador\&quot;,\&quot;Disabled\&quot;: \&quot;$disabled\&quot;,\&quot;Name\&quot;: \&quot;$name\&quot;,\&quot;Remote-Address\&quot;: \&quot;$remoteaddress\&quot;,\&quot;Remote-AS\&quot;: \&quot;$remoteas\&quot;,\&quot;State\&quot;: \&quot;$state\&quot;,\&quot;Prefix\&quot;: \&quot;$prefix\&quot;,\&quot;Uptime\&quot;: \&quot;$uptimeseconds\&quot;},&quot;&#13;
+  } else={&#13;
+    :put &quot;{\&quot;Id\&quot;: \&quot;$contador\&quot;,\&quot;Disabled\&quot;: \&quot;$disabled\&quot;,\&quot;Name\&quot;: \&quot;$name\&quot;,\&quot;Remote-Address\&quot;: \&quot;$remoteaddress\&quot;,\&quot;Remote-AS\&quot;: \&quot;$remoteas\&quot;,\&quot;State\&quot;: \&quot;$state\&quot;,\&quot;Prefix\&quot;: \&quot;$prefix\&quot;,\&quot;Uptime\&quot;: \&quot;$uptimeseconds\&quot;}&quot;&#13;
+  };&#13;
+  };&#13;
+:put &quot;]}&quot;;&#13;
+&#13;
+#  CONF SNMP&#13;
+/snmp community set [ find default=yes ] addresses=x.x.x.x.0/27 name=yyyyyyyyy write-access=yes&#13;
+/snmp set contact=NOME enabled=yes location=LOCAL trap-version=2</description>
+            <groups>
+                <group>
+                    <name>Templates RR</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>BGP</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>Retorno Json</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.14988.1.1.18.1.1.2.{$IDSCRIPT}</snmp_oid>
+                    <key>script.json</key>
+                    <delay>5m</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BGP</name>
+                        </application>
+                    </applications>
+                </item>
+            </items>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>Descoberta Peer</name>
+                    <type>DEPENDENT</type>
+                    <key>descoberta.peer</key>
+                    <delay>0</delay>
+                    <lifetime>0</lifetime>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Peer {#PEER_NAME} - AS{#PEER_AS} Disabled</name>
+                            <type>DEPENDENT</type>
+                            <key>peer.disabled.[{#PEER_ID}]</key>
+                            <delay>0</delay>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <applications>
+                                <application>
+                                    <name>BGP</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.peer.[?(@.Id == &quot;{#PEER_ID}&quot;)].Disabled.first()</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>script.json</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Peer {#PEER_NAME} - AS{#PEER_AS} Prefix</name>
+                            <type>DEPENDENT</type>
+                            <key>peer.prefix.[{#PEER_ID}]</key>
+                            <delay>0</delay>
+                            <value_type>FLOAT</value_type>
+                            <applications>
+                                <application>
+                                    <name>BGP</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.peer.[?(@.Id == &quot;{#PEER_ID}&quot;)].Prefix.first()</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>script.json</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Peer {#PEER_NAME} - AS{#PEER_AS} State</name>
+                            <type>DEPENDENT</type>
+                            <key>peer.state.[{#PEER_ID}]</key>
+                            <delay>0</delay>
+                            <value_type>FLOAT</value_type>
+                            <applications>
+                                <application>
+                                    <name>BGP</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>BgpPeerState</name>
+                            </valuemap>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.peer.[?(@.Id == &quot;{#PEER_ID}&quot;)].State.first()</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>script.json</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Peer {#PEER_NAME} - AS{#PEER_AS} Uptime</name>
+                            <type>DEPENDENT</type>
+                            <key>peer.uptime.[{#PEER_ID}]</key>
+                            <delay>0</delay>
+                            <units>uptime</units>
+                            <applications>
+                                <application>
+                                    <name>BGP</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.peer.[?(@.Id == &quot;{#PEER_ID}&quot;)].Uptime.first()</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>script.json</key>
+                            </master_item>
+                        </item_prototype>
+                    </item_prototypes>
+                    <trigger_prototypes>
+                        <trigger_prototype>
+                            <expression>{RR Mikrotik - BGP - SNMP Script:peer.state.[{#PEER_ID}].last()}&lt;6 and {RR Mikrotik - BGP - SNMP Script:peer.disabled.[{#PEER_ID}].last()}=&quot;false&quot;</expression>
+                            <name>Peer {#PEER_NAME} - AS{#PEER_AS}  - {#PEER_REMOTE}  está dow!</name>
+                            <priority>DISASTER</priority>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{RR Mikrotik - BGP - SNMP Script:peer.uptime.[{#PEER_ID}].change(0)}&lt;0 and {RR Mikrotik - BGP - SNMP Script:peer.disabled.[{#PEER_ID}].last()}=&quot;false&quot;</expression>
+                            <name>Peer {#PEER_NAME} - AS{#PEER_AS}  - {#PEER_REMOTE}  uptime</name>
+                            <priority>WARNING</priority>
+                        </trigger_prototype>
+                    </trigger_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <name>Prefixo Peer {#PEER_NAME} - AS{#PEER_AS}  - {#PEER_REMOTE}</name>
+                            <graph_items>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>26A69A</color>
+                                    <item>
+                                        <host>RR Mikrotik - BGP - SNMP Script</host>
+                                        <key>peer.prefix.[{#PEER_ID}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                    <master_item>
+                        <key>script.json</key>
+                    </master_item>
+                    <lld_macro_paths>
+                        <lld_macro_path>
+                            <lld_macro>{#PEER_ID}</lld_macro>
+                            <path>$.['Id']</path>
+                        </lld_macro_path>
+                        <lld_macro_path>
+                            <lld_macro>{#PEER_AS}</lld_macro>
+                            <path>$.['Remote-AS']</path>
+                        </lld_macro_path>
+                        <lld_macro_path>
+                            <lld_macro>{#PEER_REMOTE}</lld_macro>
+                            <path>$.['Remote-Address']</path>
+                        </lld_macro_path>
+                        <lld_macro_path>
+                            <lld_macro>{#PEER_NAME}</lld_macro>
+                            <path>$.['Name']</path>
+                        </lld_macro_path>
+                    </lld_macro_paths>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.peer</params>
+                        </step>
+                    </preprocessing>
+                </discovery_rule>
+            </discovery_rules>
+            <macros>
+                <macro>
+                    <macro>{$IDSCRIPT}</macro>
+                    <value>9999</value>
+                    <description>snmpwalk -v2c -c &lt;comm&gt; &lt;ip&gt; 1.3.6.1.4.1.14988.1.1.8.1.1.2</description>
+                </macro>
+            </macros>
+        </template>
+    </templates>
+    <value_maps>
+        <value_map>
+            <name>BgpPeerState</name>
+            <mappings>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>idle</newvalue>
+                </mapping>
+                <mapping>
+                    <value>2</value>
+                    <newvalue>connect</newvalue>
+                </mapping>
+                <mapping>
+                    <value>3</value>
+                    <newvalue>active</newvalue>
+                </mapping>
+                <mapping>
+                    <value>4</value>
+                    <newvalue>opensent</newvalue>
+                </mapping>
+                <mapping>
+                    <value>5</value>
+                    <newvalue>openconfirm</newvalue>
+                </mapping>
+                <mapping>
+                    <value>6</value>
+                    <newvalue>established</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+    </value_maps>
+</zabbix_export>
