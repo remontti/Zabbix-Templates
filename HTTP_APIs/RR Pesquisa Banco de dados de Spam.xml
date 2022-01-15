@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2022-01-15T14:14:04Z</date>
+    <groups>
+        <group>
+            <name>Templates RR</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>RR Pesquisa Banco de dados de Spam</template>
+            <name>RR Pesquisa Banco de dados de Spam</name>
+            <description>https://viewdns.info/api/#register&#13;
+Crie sua conta, você irá receber sua API Key em seu e-mail, anote a mesma. &#13;
+Ao adicionar o templatem ao um Host altere o macro {$APIKEY}</description>
+            <groups>
+                <group>
+                    <name>Templates RR</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Blacklist</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>Consulta</name>
+                    <type>HTTP_AGENT</type>
+                    <key>http.consulta.black</key>
+                    <delay>4h</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>Blacklist</name>
+                        </application>
+                    </applications>
+                    <timeout>1m</timeout>
+                    <url>https://api.viewdns.info/spamdblookup/?ip={HOST.IP}&amp;apikey={$APIKEY}&amp;output=json</url>
+                </item>
+            </items>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>Descobre Lista</name>
+                    <type>DEPENDENT</type>
+                    <key>black.list</key>
+                    <delay>0</delay>
+                    <lifetime>0</lifetime>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Blacklist: {#BL_NAME}</name>
+                            <type>DEPENDENT</type>
+                            <key>list[{#BL_NAME}]</key>
+                            <delay>0</delay>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <applications>
+                                <application>
+                                    <name>Blacklist</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.response.dbs.[?(@.name == &quot;{#BL_NAME}&quot;)].result.first()</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>http.consulta.black</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last()}=&quot;blocked&quot;</expression>
+                                    <name>Listado em {#BL_NAME}</name>
+                                    <priority>HIGH</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                    </item_prototypes>
+                    <master_item>
+                        <key>http.consulta.black</key>
+                    </master_item>
+                    <lld_macro_paths>
+                        <lld_macro_path>
+                            <lld_macro>{#BL_NAME}</lld_macro>
+                            <path>$.['name']</path>
+                        </lld_macro_path>
+                        <lld_macro_path>
+                            <lld_macro>{#BL_RESULT}</lld_macro>
+                            <path>$.['result']</path>
+                        </lld_macro_path>
+                    </lld_macro_paths>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.response.dbs</params>
+                        </step>
+                    </preprocessing>
+                </discovery_rule>
+            </discovery_rules>
+            <macros>
+                <macro>
+                    <macro>{$APIKEY}</macro>
+                    <value>123456789012345678901234567890</value>
+                </macro>
+            </macros>
+        </template>
+    </templates>
+</zabbix_export>
