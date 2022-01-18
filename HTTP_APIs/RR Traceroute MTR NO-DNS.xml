@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>5.0</version>
-    <date>2021-12-06T13:51:44Z</date>
+    <date>2022-01-18T14:48:21Z</date>
     <groups>
         <group>
             <name>Templates RR</name>
@@ -217,4 +217,20 @@ https://www.zabbix.com/documentation/4.2/en/manual/appendix/items/jsonpath</desc
             </discovery_rules>
         </template>
     </templates>
+    <graphs>
+        <graph>
+            <name>Total de saltos</name>
+            <graph_items>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>BOLD_LINE</drawtype>
+                    <color>FF8000</color>
+                    <item>
+                        <host>RR Traceroute MTR NO-DNS</host>
+                        <key>mtr.saltos.total</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+    </graphs>
 </zabbix_export>
