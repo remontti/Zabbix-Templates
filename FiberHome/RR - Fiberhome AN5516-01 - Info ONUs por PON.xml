@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>5.0</version>
-    <date>2021-12-09T14:14:02Z</date>
+    <date>2022-01-31T17:46:18Z</date>
     <groups>
         <group>
             <name>Templates RR</name>
@@ -137,15 +137,10 @@ Opt_pwr cfg: switch:enable, interval:5, report_delaytime:0</description>
                             <name>Sinal ONU {#SNMPVALUE}</name>
                             <graph_items>
                                 <graph_item>
-                                    <color>005500</color>
-                                    <item>
-                                        <host>RR - Fiberhome AN5516-01 - Info ONUs por PON</host>
-                                        <key>pon.tx.onu[{#SNMPINDEX}]</key>
-                                    </item>
-                                </graph_item>
-                                <graph_item>
                                     <sortorder>1</sortorder>
-                                    <color>DD0000</color>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>FF8000</color>
+                                    <calc_fnc>MAX</calc_fnc>
                                     <item>
                                         <host>RR - Fiberhome AN5516-01 - Info ONUs por PON</host>
                                         <key>pon.rx.onu[{#SNMPINDEX}]</key>
