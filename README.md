@@ -1,16 +1,24 @@
-# Repositório pessoal de templates Zabbix 5.x
+# Repositório pessoal de templates Zabbix 5.x > 6.x 
 Alguns dos templates foram copiado, alterado, mexido, bagunçado... rsrsrs
 
 Contribua também, se usar e fizer alguma melhoria, criar novos, não hesite em compartilhar criando um pull request com as suas modificações/arquivo! 
 
-### Instalação do Zabbix 5.0 LTS + notificações pelo Telegram nativo + Grafana 7/8 + Debian 10/11
+### Instalação do Zabbix 
+#### 6.0 LTS Debian 11
+https://blog.remontti.com.br/6350
+
+#### 5.0 LTS + Grafana - Debian 10/11
 Acesse: https://blog.remontti.com.br/4348 
 
-### Instalação MIBs :: (Requisito para os Templates)
+#### Grafana - Debian 11
+Acesse: https://blog.remontti.com.br/6370
+
+### Instalação MIBs :: (Requisito para alguns Templates)
 Instale o pacotes snmp-mibs-downloader e snmp, para isso sera necessário adicionar <b>contrib e non-free</b> ao repositório.
 ```
 # vim /etc/apt/sources.list
 ```
+<b>VERSÃO:</b> buster / bullseye
 <pre>
 deb http://ftp.br.debian.org/debian/ {VERSAO} main <b>contrib non-free</b>
 deb-src http://ftp.br.debian.org/debian/ {VERSAO} main <b>contrib non-free</b>
