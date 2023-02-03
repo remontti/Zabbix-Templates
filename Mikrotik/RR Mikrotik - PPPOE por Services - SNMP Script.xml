@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2023-02-03T03:10:25Z</date>
+    <groups>
+        <group>
+            <name>Templates RR</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>RR Mikrotik - PPPOE por Services - SNMP Script</template>
+            <name>RR Mikrotik - PPPOE por Services - SNMP Script</name>
+            <description># DESCOBRE ID SCRIP &#13;
+snmpwalk -v2c -c sUpErS3cret0 10.50.50.30 1.3.6.1.4.1.14988.1.1.8.1.1.2&#13;
+&#13;
+&#13;
+# SCRIPT&#13;
+:global lista [/interface pppoe-server server find]; &#13;
+:global total [len $lista];&#13;
+:global contador 0;&#13;
+:put &quot;{\&quot;data\&quot;:[&quot;; &#13;
+:foreach i in=$lista do={ &#13;
+ :local servidor [/interface pppoe-server server get value-name=service-name number=$i]; &#13;
+ :local clientes [/interface pppoe-server find where service=$servidor];&#13;
+ :local ativos [len $clientes];&#13;
+ :if ( $contador &lt; $total-1) do={;&#13;
+  :put &quot;{\&quot;Id\&quot;:\&quot;$i\&quot;,\&quot;Service\&quot;:\&quot;$servidor\&quot;,\&quot;Ativos\&quot;:\&quot;$ativos\&quot;},&quot;;} else={;&#13;
+  :put &quot;{\&quot;Id\&quot;:\&quot;$i\&quot;,\&quot;Service\&quot;:\&quot;$servidor\&quot;,\&quot;Ativos\&quot;:\&quot;$ativos\&quot;}&quot;;};&#13;
+ :set contador ($contador + 1);&#13;
+};&#13;
+:put &quot;]}&quot;;&#13;
+&#13;
+&#13;
+#  CONF SNMP&#13;
+/snmp community set [ find default=yes ] addresses=x.x.x.x.0/27 name=yyyyyyyyy write-access=yes&#13;
+/snmp set contact=NOME enabled=yes location=LOCAL trap-version=2</description>
+            <groups>
+                <group>
+                    <name>Templates RR</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>PPPOEs</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>Retorno Json</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.14988.1.1.18.1.1.2.{$IDSCRIPT_PPPOE}</snmp_oid>
+                    <key>script.pppoe.json</key>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>PPPOEs</name>
+                        </application>
+                    </applications>
+                </item>
+            </items>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>Descoberta PPPoE Services</name>
+                    <type>DEPENDENT</type>
+                    <key>descoberta.pppoe.service</key>
+                    <delay>0</delay>
+                    <lifetime>0</lifetime>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>PPPoEs ativos em {#PPPOE_SERVICE}</name>
+                            <type>DEPENDENT</type>
+                            <key>pppoe.service.[{#PPPOE_ID}]</key>
+                            <delay>0</delay>
+                            <value_type>FLOAT</value_type>
+                            <applications>
+                                <application>
+                                    <name>PPPOEs</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.data.[?(@.Id == &quot;{#PPPOE_ID}&quot;)].Ativos.first()</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>script.pppoe.json</key>
+                            </master_item>
+                        </item_prototype>
+                    </item_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <name>PPPoEs ativos em {#PPPOE_SERVICE}</name>
+                            <graph_items>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>26A69A</color>
+                                    <item>
+                                        <host>RR Mikrotik - PPPOE por Services - SNMP Script</host>
+                                        <key>pppoe.service.[{#PPPOE_ID}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                    <master_item>
+                        <key>script.pppoe.json</key>
+                    </master_item>
+                    <lld_macro_paths>
+                        <lld_macro_path>
+                            <lld_macro>{#PPPOE_SERVICE}</lld_macro>
+                            <path>$.['Service']</path>
+                        </lld_macro_path>
+                        <lld_macro_path>
+                            <lld_macro>{#PPPOE_ID}</lld_macro>
+                            <path>$.['Id']</path>
+                        </lld_macro_path>
+                        <lld_macro_path>
+                            <lld_macro>{#PPPOE_ATIVOS}</lld_macro>
+                            <path>$.['Ativos']</path>
+                        </lld_macro_path>
+                    </lld_macro_paths>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.data</params>
+                        </step>
+                    </preprocessing>
+                </discovery_rule>
+            </discovery_rules>
+            <macros>
+                <macro>
+                    <macro>{$IDSCRIPT_PPPOE}</macro>
+                    <value>8888</value>
+                    <description>snmpwalk -v2c -c &lt;comm&gt; &lt;ip&gt; 1.3.6.1.4.1.14988.1.1.8.1.1.2</description>
+                </macro>
+            </macros>
+        </template>
+    </templates>
+</zabbix_export>
