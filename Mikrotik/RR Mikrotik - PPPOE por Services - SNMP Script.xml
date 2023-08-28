@@ -1,67 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
-    <version>5.0</version>
-    <date>2023-02-03T03:10:25Z</date>
+    <version>6.0</version>
+    <date>2023-08-28T13:20:47Z</date>
     <groups>
         <group>
+            <uuid>a5243686dc8848cdac9c9175aa5f705e</uuid>
             <name>Templates RR</name>
         </group>
     </groups>
     <templates>
         <template>
+            <uuid>ca778208b1c74730b8e1765d97464fe1</uuid>
             <template>RR Mikrotik - PPPOE por Services - SNMP Script</template>
             <name>RR Mikrotik - PPPOE por Services - SNMP Script</name>
-            <description># DESCOBRE ID SCRIP &#13;
-snmpwalk -v2c -c sUpErS3cret0 10.50.50.30 1.3.6.1.4.1.14988.1.1.8.1.1.2&#13;
-&#13;
-&#13;
-# SCRIPT&#13;
-:global lista [/interface pppoe-server server find]; &#13;
-:global total [len $lista];&#13;
-:global contador 0;&#13;
-:put &quot;{\&quot;data\&quot;:[&quot;; &#13;
-:foreach i in=$lista do={ &#13;
- :local servidor [/interface pppoe-server server get value-name=service-name number=$i]; &#13;
- :local clientes [/interface pppoe-server find where service=$servidor];&#13;
- :local ativos [len $clientes];&#13;
- :if ( $contador &lt; $total-1) do={;&#13;
-  :put &quot;{\&quot;Id\&quot;:\&quot;$i\&quot;,\&quot;Service\&quot;:\&quot;$servidor\&quot;,\&quot;Ativos\&quot;:\&quot;$ativos\&quot;},&quot;;} else={;&#13;
-  :put &quot;{\&quot;Id\&quot;:\&quot;$i\&quot;,\&quot;Service\&quot;:\&quot;$servidor\&quot;,\&quot;Ativos\&quot;:\&quot;$ativos\&quot;}&quot;;};&#13;
- :set contador ($contador + 1);&#13;
-};&#13;
-:put &quot;]}&quot;;&#13;
-&#13;
-&#13;
-#  CONF SNMP&#13;
-/snmp community set [ find default=yes ] addresses=x.x.x.x.0/27 name=yyyyyyyyy write-access=yes&#13;
+            <description># DESCOBRE ID SCRIP 
+snmpwalk -v2c -c sUpErS3cret0 10.50.50.30 1.3.6.1.4.1.14988.1.1.8.1.1.2
+
+
+# SCRIPT
+:global lista [/interface pppoe-server server find]; 
+:global total [len $lista];
+:global contador 0;
+:put &quot;{\&quot;data\&quot;:[&quot;; 
+:foreach i in=$lista do={ 
+ :local servidor [/interface pppoe-server server get value-name=service-name number=$i]; 
+ :local clientes [/interface pppoe-server find where service=$servidor];
+ :local ativos [len $clientes];
+ :if ( $contador &lt; $total-1) do={;
+  :put &quot;{\&quot;Id\&quot;:\&quot;$i\&quot;,\&quot;Service\&quot;:\&quot;$servidor\&quot;,\&quot;Ativos\&quot;:\&quot;$ativos\&quot;},&quot;;} else={;
+  :put &quot;{\&quot;Id\&quot;:\&quot;$i\&quot;,\&quot;Service\&quot;:\&quot;$servidor\&quot;,\&quot;Ativos\&quot;:\&quot;$ativos\&quot;}&quot;;};
+ :set contador ($contador + 1);
+};
+:put &quot;]}&quot;;
+
+
+#  CONF SNMP
+/snmp community set [ find default=yes ] addresses=x.x.x.x.0/27 name=yyyyyyyyy write-access=yes
 /snmp set contact=NOME enabled=yes location=LOCAL trap-version=2</description>
             <groups>
                 <group>
                     <name>Templates RR</name>
                 </group>
             </groups>
-            <applications>
-                <application>
-                    <name>PPPOEs</name>
-                </application>
-            </applications>
             <items>
                 <item>
+                    <uuid>093a0d87110c4fb6ae9beb60f0a1becf</uuid>
                     <name>Retorno Json</name>
                     <type>SNMP_AGENT</type>
                     <snmp_oid>1.3.6.1.4.1.14988.1.1.18.1.1.2.{$IDSCRIPT_PPPOE}</snmp_oid>
                     <key>script.pppoe.json</key>
                     <trends>0</trends>
                     <value_type>TEXT</value_type>
-                    <applications>
-                        <application>
-                            <name>PPPOEs</name>
-                        </application>
-                    </applications>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>PPPOEs</value>
+                        </tag>
+                    </tags>
                 </item>
             </items>
             <discovery_rules>
                 <discovery_rule>
+                    <uuid>ad21f2ee79fd40dcb53a46abf9b029b8</uuid>
                     <name>Descoberta PPPoE Services</name>
                     <type>DEPENDENT</type>
                     <key>descoberta.pppoe.service</key>
@@ -69,29 +69,43 @@ snmpwalk -v2c -c sUpErS3cret0 10.50.50.30 1.3.6.1.4.1.14988.1.1.8.1.1.2&#13;
                     <lifetime>0</lifetime>
                     <item_prototypes>
                         <item_prototype>
+                            <uuid>caff423efd9a4c9494f9077390af98ed</uuid>
                             <name>PPPoEs ativos em {#PPPOE_SERVICE}</name>
                             <type>DEPENDENT</type>
                             <key>pppoe.service.[{#PPPOE_ID}]</key>
                             <delay>0</delay>
                             <value_type>FLOAT</value_type>
-                            <applications>
-                                <application>
-                                    <name>PPPOEs</name>
-                                </application>
-                            </applications>
                             <preprocessing>
                                 <step>
                                     <type>JSONPATH</type>
-                                    <params>$.data.[?(@.Id == &quot;{#PPPOE_ID}&quot;)].Ativos.first()</params>
+                                    <parameters>
+                                        <parameter>$.data.[?(@.Id == &quot;{#PPPOE_ID}&quot;)].Ativos.first()</parameter>
+                                    </parameters>
                                 </step>
                             </preprocessing>
                             <master_item>
                                 <key>script.pppoe.json</key>
                             </master_item>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>PPPOEs</value>
+                                </tag>
+                            </tags>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>cc73652b1da14a97a2d966c63d7119bd</uuid>
+                                    <expression>avg(/RR Mikrotik - PPPOE por Services - SNMP Script/pppoe.service.[{#PPPOE_ID}],1d) - avg(/RR Mikrotik - PPPOE por Services - SNMP Script/pppoe.service.[{#PPPOE_ID}],10) &gt; 20</expression>
+                                    <name>Conexoes PPPoEs abaixo da média Atual = {ITEM.LASTVALUE} conexoes</name>
+                                    <priority>HIGH</priority>
+                                    <manual_close>YES</manual_close>
+                                </trigger_prototype>
+                            </trigger_prototypes>
                         </item_prototype>
                     </item_prototypes>
                     <graph_prototypes>
                         <graph_prototype>
+                            <uuid>74f94bc5606c4e14948158fa4f2990b0</uuid>
                             <name>PPPoEs ativos em {#PPPOE_SERVICE}</name>
                             <graph_items>
                                 <graph_item>
@@ -126,7 +140,9 @@ snmpwalk -v2c -c sUpErS3cret0 10.50.50.30 1.3.6.1.4.1.14988.1.1.8.1.1.2&#13;
                     <preprocessing>
                         <step>
                             <type>JSONPATH</type>
-                            <params>$.data</params>
+                            <parameters>
+                                <parameter>$.data</parameter>
+                            </parameters>
                         </step>
                     </preprocessing>
                 </discovery_rule>
